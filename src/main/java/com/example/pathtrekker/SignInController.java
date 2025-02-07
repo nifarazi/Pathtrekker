@@ -42,6 +42,8 @@ public class SignInController {
         alert.setTitle(isValid ? "Login Successful" : "Login Failed");
         alert.setHeaderText(null);
         alert.setContentText(isValid ? "Welcome, " + username + "!" : "Invalid username or password.");
+        alert.setGraphic(new javafx.scene.shape.Circle(15, javafx.scene.paint.Color.GREEN));
+        alert.getDialogPane().setStyle("-fx-font-size: 14px; -fx-font-family: Arial; -fx-background-color: #f0f8ff;");
         alert.showAndWait();
 
         if (isValid) {

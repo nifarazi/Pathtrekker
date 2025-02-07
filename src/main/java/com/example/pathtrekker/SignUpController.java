@@ -58,6 +58,8 @@ public class SignUpController {
             alert.setTitle("Password Mismatch");
             alert.setHeaderText(null);
             alert.setContentText("Password does not match. Try again.");
+            alert.setGraphic(new javafx.scene.shape.Circle(15, javafx.scene.paint.Color.GREEN));
+            alert.getDialogPane().setStyle("-fx-font-size: 14px; -fx-font-family: Arial; -fx-background-color: #f0f8ff;");
             alert.showAndWait();
             return;
 
@@ -65,9 +67,11 @@ public class SignUpController {
 
         SignUpUserJDBC.signIn(firstName, lastName, username, email, password);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Sign Up Successful");
+        alert.setTitle("Welcome");
         alert.setHeaderText(null);
         alert.setContentText("Sign up successful!");
+        alert.setGraphic(new javafx.scene.shape.Circle(15, javafx.scene.paint.Color.GREEN));
+        alert.getDialogPane().setStyle("-fx-font-size: 14px; -fx-font-family: Arial; -fx-background-color: #f0f8ff;");
         alert.showAndWait();
 
         Stage stage=(Stage) SignUpJoinNow.getScene().getWindow();
