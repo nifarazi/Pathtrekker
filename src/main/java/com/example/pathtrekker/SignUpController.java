@@ -3,6 +3,8 @@ package com.example.pathtrekker;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -70,6 +72,13 @@ public class SignUpController {
         alert.setTitle("Welcome");
         alert.setHeaderText(null);
         alert.setContentText("Sign up successful!");
+
+        // Customize the alert button
+        ButtonType okButtonType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+        alert.getButtonTypes().setAll(okButtonType);
+        Button okButton = (Button) alert.getDialogPane().lookupButton(okButtonType);
+        okButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px;");
+
         alert.setGraphic(new javafx.scene.shape.Circle(15, javafx.scene.paint.Color.GREEN));
         alert.getDialogPane().setStyle("-fx-font-size: 14px; -fx-font-family: Arial; -fx-background-color: #f0f8ff;");
         alert.showAndWait();
