@@ -1,6 +1,7 @@
 package com.example.pathtrekker;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -32,8 +33,22 @@ public class SignInController {
 
     @FXML
     void SignInAction(MouseEvent event) throws IOException{
-        Stage stage= (Stage) SignIn.getScene().getWindow();
-        change.changeScene(stage,"OpeningPage.fxml");
+        String username = SignInUsername.getText();
+        String password = SignInPassword.getText();
+
+        boolean isValid = SignInUserJDBC.validateLogin(username, password);
+
+        Alert alert = new Alert(isValid ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR);
+        alert.setTitle(isValid ? "Login Successful" : "Login Failed");
+        alert.setHeaderText(null);
+        alert.setContentText(isValid ? "Welcome, " + username + "!" : "Invalid username or password.");
+        alert.showAndWait();
+
+        if (isValid) {
+            Stage stage = (Stage) SignIn.getScene().getWindow();
+            change.changeScene(stage, "OpeningPage.fxml");
+        }
+
     }
 
 }
