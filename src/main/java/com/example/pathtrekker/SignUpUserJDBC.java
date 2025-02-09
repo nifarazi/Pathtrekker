@@ -1,8 +1,6 @@
 package com.example.pathtrekker;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import java.sql.*;
 
 public class SignUpUserJDBC {
     private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/register";
@@ -10,6 +8,23 @@ public class SignUpUserJDBC {
     private static final String DB_PASSWORD = "nanjiba@282002";
 
     public static void main(String[] args) { }
+
+    public static boolean usernameExists(String username) {
+        String query = "SELECT COUNT(*) FROM user WHERE username = ?";
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, username);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
 
     public static void signIn(String firstName, String lastName, String username, String email, String password) {
         String insertQuery = "INSERT INTO user (first_name, last_name, username, email, password) VALUES (?, ?, ?, ?, ?)";

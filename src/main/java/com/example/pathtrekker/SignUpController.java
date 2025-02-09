@@ -67,6 +67,18 @@ public class SignUpController {
 
         }
 
+        if (SignUpUserJDBC.usernameExists(username)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Username Taken");
+            alert.setHeaderText(null);
+            alert.setContentText("Username already taken. Try again.");
+            alert.setGraphic(new javafx.scene.shape.Circle(15, javafx.scene.paint.Color.RED));
+            alert.getDialogPane().setStyle("-fx-font-size: 14px; -fx-font-family: Arial; -fx-background-color: #f0f8ff;");
+            alert.showAndWait();
+            return;
+        }
+
+
         SignUpUserJDBC.signIn(firstName, lastName, username, email, password);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Welcome");
