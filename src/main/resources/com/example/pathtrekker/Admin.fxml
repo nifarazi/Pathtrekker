@@ -2,17 +2,62 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pathtrekker.Scene4Controller">
+<AnchorPane prefHeight="600.0" prefWidth="755.0" style="-fx-background-color: #013853;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pathtrekker.AdminLoginController">
    <children>
-      <Label layoutX="225.0" layoutY="105.0" text="Scene 4">
+      <AnchorPane layoutX="164.0" layoutY="141.0" prefHeight="394.0" prefWidth="434.0" style="-fx-background-color: rgba(255,255,255,0.5); -fx-background-radius: 20px;">
+         <children>
+            <Button fx:id="AdminCancel" layoutX="95.0" layoutY="302.0" mnemonicParsing="false" onMouseClicked="#AdminCancelAction" prefHeight="30.0" prefWidth="280.0" text="Cancel" />
+            <ImageView fitHeight="102.0" fitWidth="115.0" layoutX="164.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../Images/admin.png" />
+               </image>
+            </ImageView>
+            <TextField fx:id="AdminUsername" layoutX="95.0" layoutY="154.0" prefHeight="30.0" prefWidth="280.0" promptText="Enter Admin Username" />
+            <PasswordField fx:id="AdminPassword" layoutX="95.0" layoutY="197.0" prefHeight="30.0" prefWidth="280.0" promptText="Enter Password" />
+            <ImageView fitHeight="30.0" fitWidth="41.0" layoutX="51.0" layoutY="154.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../Images/user.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="41.0" layoutX="51.0" layoutY="197.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../Images/padlock.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="AdminLogin" layoutX="95.0" layoutY="254.0" mnemonicParsing="false" onMouseClicked="#AdminLoginAction" prefHeight="30.0" prefWidth="280.0" text="Login" />
+         </children>
+      </AnchorPane>
+      <Label layoutX="227.0" layoutY="74.0" text="PATH TREKKER ADMIN" textFill="#fffbfb">
          <font>
-            <Font size="44.0" />
+            <Font name="ArtifaktElement-Black" size="29.0" />
          </font>
       </Label>
-      <Button fx:id="Back" layoutX="274.0" layoutY="175.0" mnemonicParsing="false" onMouseClicked="#BackAction" text="Back" />
+      <ImageView fitHeight="206.0" fitWidth="208.0" layoutX="-73.0" layoutY="-51.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Images/settings.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="81.0" fitWidth="73.0" layoutX="668.0" layoutY="513.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Images/settings.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="51.0" fitWidth="44.0" layoutX="668.0" layoutY="461.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Images/settings.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="44.0" fitWidth="36.0" layoutX="622.0" layoutY="505.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Images/settings.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
