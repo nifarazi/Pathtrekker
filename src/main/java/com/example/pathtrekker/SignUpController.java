@@ -8,6 +8,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -60,7 +61,7 @@ public class SignUpController {
             alert.setTitle("Password Mismatch");
             alert.setHeaderText(null);
             alert.setContentText("Password does not match. Try again.");
-            alert.setGraphic(new javafx.scene.shape.Circle(15, javafx.scene.paint.Color.GREEN));
+            alert.setGraphic(new javafx.scene.shape.Circle(15, Color.RED));
             alert.getDialogPane().setStyle("-fx-font-size: 14px; -fx-font-family: Arial; -fx-background-color: #f0f8ff;");
             alert.showAndWait();
             return;
@@ -85,7 +86,7 @@ public class SignUpController {
         alert.setHeaderText(null);
         alert.setContentText("Sign up successful!");
 
-        // Customize the alert button
+
         ButtonType okButtonType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
         alert.getButtonTypes().setAll(okButtonType);
         Button okButton = (Button) alert.getDialogPane().lookupButton(okButtonType);
