@@ -36,7 +36,7 @@ public class OpenController {
     @FXML
     void Scene4Clicked(MouseEvent event) throws IOException {
         Stage stage=(Stage) OpenAdminButton.getScene().getWindow();
-        change.changeScene(stage,"Admin.fxml");
+        change.changeScene(stage,"AdminLogin.fxml");
     }
 
 }

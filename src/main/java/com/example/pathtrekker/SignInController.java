@@ -48,7 +48,7 @@ public class SignInController {
 
         if (isValid) {
             Stage stage = (Stage) SignIn.getScene().getWindow();
-            change.changeScene(stage, "OpeningPage.fxml");
+            change.changeScene(stage, "Home.fxml");
         }
 
     }
