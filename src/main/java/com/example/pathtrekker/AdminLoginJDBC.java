@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 public class AdminLoginJDBC {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/register";
     private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "RafidZawad@02";
+    private static final String DB_PASSWORD = "nanjiba@282002";
 
     public static boolean validateAdminLogin(String username, String password) {
         String query = "SELECT * FROM admin_schema WHERE admin_id = ? AND password = ?";
