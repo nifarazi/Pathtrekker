@@ -1,76 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="950.0" style="-fx-background-color: #DDEC;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pathtrekker.OpenController">
+<AnchorPane prefHeight="756.0" prefWidth="1071.0" style="-fx-background-color: #DDEC;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pathtrekker.OpenController">
    <children>
-      <ImageView fitHeight="700.0" fitWidth="950.0" opacity="0.58" pickOnBounds="true">
+      <ImageView fitHeight="756.0" fitWidth="1080.0" pickOnBounds="true" style="-fx-background-color: #01AAF8;">
          <image>
-            <Image url="@../../../Images/Background.png" />
+            <Image url="@../../../Images/OpeningPage.png" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" layoutX="36.0" layoutY="14.0" prefHeight="50.0" prefWidth="126.0" text="PATH TREKKER">
+      <Button fx:id="OpenSignInButton" alignment="CENTER" ellipsisString="" graphicTextGap="10.0" layoutX="105.0" layoutY="524.0" mnemonicParsing="false" onMouseClicked="#Scene2Clicked" prefHeight="30.0" prefWidth="290.0" style="-fx-background-color: white; -fx-background-radius: 15;" text="GET STARTED" textAlignment="CENTER">
          <font>
-            <Font name="Arial Rounded MT Bold" size="15.0" />
+            <Font name="Arial Black" size="13.0" />
          </font>
-      </Label>
-      <Button fx:id="OpenSignInButton" layoutX="685.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#Scene2Clicked" prefHeight="25.0" prefWidth="75.0" style="-fx-background-color: #D1EDF9;" text="Sign In" />
-      <Button fx:id="OpenSignUpButton" layoutX="774.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#Scene3Clicked" prefHeight="25.0" prefWidth="75.0" style="-fx-background-color: #D1EDF9;" text="Sign Up" />
-      <Button fx:id="OpenAdminButton" layoutX="863.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#Scene4Clicked" prefHeight="25.0" prefWidth="75.0" style="-fx-background-color: #D1EDF9;" text="Admin" />
-      <Label alignment="CENTER" layoutX="-3.0" layoutY="338.0" prefHeight="26.0" prefWidth="950.0" text="Your Next Destination is Our Inspiration">
+         <graphic>
+            <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../Images/shuttle.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <effect>
+            <Lighting diffuseConstant="1.5" specularConstant="0.0" specularExponent="13.4" surfaceScale="1.8">
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect></Button>
+      <Button fx:id="OpenSignUpButton" alignment="CENTER" graphicTextGap="10.0" layoutX="105.0" layoutY="577.0" mnemonicParsing="false" onMouseClicked="#Scene3Clicked" prefHeight="30.0" prefWidth="290.0" style="-fx-background-color: white; -fx-background-radius: 15;" text="SIGN UP">
          <font>
-            <Font size="16.0" />
+            <Font name="Arial Black" size="12.0" />
          </font>
-      </Label>
-      <ImageView fitHeight="75.0" fitWidth="85.0" layoutX="229.0" layoutY="395.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../Images/Cultural.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="75.0" fitWidth="85.0" layoutX="379.0" layoutY="397.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../Images/Iteneraries.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="65.0" fitWidth="85.0" layoutX="530.0" layoutY="402.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../Images/Maps.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="75.0" fitWidth="85.0" layoutX="662.0" layoutY="401.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../Images/saveImage.png" />
-         </image>
-      </ImageView>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="194.0" layoutY="191.0" prefHeight="136.0" prefWidth="578.0" text="Personalize Your Travel Planning With Us" textAlignment="CENTER" wrapText="true">
+         <graphic>
+            <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../Images/add-user.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <effect>
+            <Lighting diffuseConstant="1.5" specularConstant="0.0" specularExponent="13.4" surfaceScale="1.8">
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect></Button>
+      <Button fx:id="OpenAdminButton" alignment="CENTER" graphicTextGap="10.0" layoutX="105.0" layoutY="628.0" mnemonicParsing="false" onMouseClicked="#Scene4Clicked" prefHeight="30.0" prefWidth="290.0" style="-fx-background-color: white; -fx-background-radius: 15;" text="ADMIN">
          <font>
-            <Font name="Arial Rounded MT Bold" size="50.0" />
+            <Font name="Arial Black" size="12.0" />
          </font>
-      </Label>
-      <Label layoutX="228.0" layoutY="487.0" prefHeight="56.0" prefWidth="102.0" text="Explore local cuisine, markets, and traditions" textAlignment="CENTER" wrapText="true">
-         <font>
-            <Font name="Arial Black" size="10.0" />
-         </font>
-      </Label>
-      <Label layoutX="370.0" layoutY="480.0" prefHeight="56.0" prefWidth="102.0" text="Save personalized itineraries" textAlignment="CENTER" wrapText="true">
-         <font>
-            <Font name="Arial Black" size="10.0" />
-         </font>
-      </Label>
-      <Label layoutX="519.0" layoutY="488.0" prefHeight="39.0" prefWidth="102.0" text="Get optimized routes" textAlignment="CENTER" wrapText="true">
-         <font>
-            <Font name="Arial Black" size="10.0" />
-         </font>
-      </Label>
-      <Label layoutX="655.0" layoutY="484.0" prefHeight="56.0" prefWidth="102.0" text="Save hotels, restaurants, and more" textAlignment="CENTER" wrapText="true">
-         <font>
-            <Font name="Arial Black" size="10.0" />
-         </font>
-      </Label>
+         <graphic>
+            <ImageView fitHeight="21.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../Images/admin-with-cogwheels.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <effect>
+            <Lighting diffuseConstant="1.5" specularConstant="0.0" specularExponent="13.4" surfaceScale="1.8">
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect></Button>
    </children>
 </AnchorPane>
