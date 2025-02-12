@@ -5,7 +5,7 @@ import java.sql.*;
 public class SignUpUserJDBC {
     private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/register";
     private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "nanjiba@282002";
+    private static final String DB_PASSWORD = "RafidZawad@02";
 
     public static void main(String[] args) { }
 
