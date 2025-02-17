@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pathtrekker.DestinationSearchController">
+    <children>
+        <!-- Background Image -->
+        <ImageView fx:id="backgroundImage" fitWidth="1080" fitHeight="756">
+            <image>
+                <Image url="@../../../Images/DestinationFinal.png" />
+            </image>
+        </ImageView>
+
+        <!-- Division Buttons -->
+        <Button fx:id="divisionButton1" layoutX="75" layoutY="399" text="Dhaka" styleClass="division-button" />
+        <Button fx:id="divisionButton2" layoutX="331" layoutY="399" text="Chittagong" styleClass="division-button" />
+        <Button fx:id="divisionButton3" layoutX="610" layoutY="399" text="Barishal" styleClass="division-button" />
+        <Button fx:id="divisionButton4" layoutX="890" layoutY="399" text="Khulna" styleClass="division-button" />
+        <Button fx:id="divisionButton5" layoutX="63" layoutY="662" text="Rajshahi" styleClass="division-button" />
+        <Button fx:id="divisionButton6" layoutX="331" layoutY="662" text="Rangpur" styleClass="division-button" />
+        <Button fx:id="divisionButton7" layoutX="610" layoutY="662" text="Mymensingh" styleClass="division-button" />
+        <Button fx:id="divisionButton8" layoutX="890" layoutY="662" text="Sylhet" styleClass="division-button" />
+
+        <!-- Home Button -->
+        <Button fx:id="homeButton" layoutX="980" layoutY="20" text="Home" styleClass="home-button" />
+    </children>
+</Pane>
