@@ -1,4 +1,4 @@
-CREATE DATABASE register;
+HCREATE DATABASE register;
 USE register;
 
 CREATE TABLE user (
