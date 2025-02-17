@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+        <?import javafx.geometry.Insets?>
+        <?import javafx.geometry.Pos?>
+        <?import javafx.scene.control.Button?>
+        <?import javafx.scene.control.CheckBox?>
+        <?import javafx.scene.control.Label?>
+        <?import javafx.scene.control.RadioButton?>
+        <?import javafx.scene.control.TextField?>
+        <?import javafx.scene.control.ToggleGroup?>
+        <?import javafx.scene.image.Image?>
+        <?import javafx.scene.image.ImageView?>
+        <?import javafx.scene.layout.AnchorPane?>
+        <?import javafx.scene.layout.HBox?>
+        <?import javafx.scene.layout.Pane?>
+        <?import javafx.scene.layout.StackPane?>
+        <?import javafx.scene.layout.VBox?>
+        <?import javafx.scene.paint.Color?>
+        <?import javafx.scene.text.Font?>
+        <?import javafx.scene.text.FontWeight?>
+
+<StackPane fx:id="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pathtrekker.ItineraryController">
+    <!-- Background Image -->
+    <Pane>
+        <ImageView fitWidth="1080" fitHeight="756">
+            <Image url="@../../../Images/ItinerariesFinal.png" />
+        </ImageView>
+    </Pane>
+
+    <!-- Main Layout -->
+    <AnchorPane prefWidth="1080" prefHeight="756">
+        <!-- Black Blurred Box -->
+        <Pane fx:id="blackBlurredBox" style="-fx-background-color: rgba(0, 0, 0, 0.6); -fx-background-radius: 15;" prefWidth="600" prefHeight="650" AnchorPane.topAnchor="100.0" AnchorPane.leftAnchor="240.0">
+        </Pane>
+
+        <!-- Form Elements -->
+        <VBox spacing="15" AnchorPane.topAnchor="110.0" AnchorPane.leftAnchor="260.0">
+            <!-- Number of People and Number of Days -->
+            <HBox spacing="15">
+                <VBox>
+                    <Label text="Number of People:" textFill="WHITE"  style="-fx-font-weight: bold;">
+                        <font>
+                            <Font name="Roboto Bold" size="18"/>
+                        </font>
+                    </Label>
+                    <TextField fx:id="numberOfPeopleField" promptText="Enter number" style="-fx-font-family: 'Roboto'; -fx-font-weight: bold; -fx-text-fill: white; -fx-font-size: 18;" prefWidth="200"/>
+                </VBox>
+                <VBox>
+                    <Label text="Number of Days:" textFill="WHITE"  style="-fx-font-weight: bold;">
+                        <font>
+                            <Font name="Roboto Bold" size="18"/>
+                        </font>
+                    </Label>
+                    <TextField fx:id="numberOfDaysField" promptText="Enter number" style="-fx-font-family: 'Roboto'; -fx-font-weight: bold; -fx-text-fill: white; -fx-font-size: 18;" prefWidth="200"/>
+                </VBox>
+            </HBox>
+
+            <!-- District and Division -->
+            <HBox spacing="15">
+                <VBox>
+                    <Label text="District:" textFill="WHITE"  style="-fx-font-weight: bold;">
+                        <font>
+                            <Font name="Roboto Bold" size="18"/>
+                        </font>
+                    </Label>
+                    <TextField fx:id="districtField" promptText="Enter district" style="-fx-font-family: 'Roboto'; -fx-font-weight: bold; -fx-text-fill: white; -fx-font-size: 18;" prefWidth="200"/>
+                </VBox>
+                <VBox>
+                    <Label text="Division:" textFill="WHITE"  style="-fx-font-weight: bold;">
+                        <font>
+                            <Font name="Roboto Bold" size="18"/>
+                        </font>
+                    </Label>
+                    <TextField fx:id="divisionField" promptText="Enter division" style="-fx-font-family: 'Roboto'; -fx-font-weight: bold; -fx-text-fill: white; -fx-font-size: 18;" prefWidth="200"/>
+                </VBox>
+            </HBox>
+
+            <!-- Budget -->
+            <Label text="Budget:" textFill="WHITE"  style="-fx-font-weight: bold;">
+                <font>
+                    <Font name="Roboto Bold" size="18"/>
+                </font>
+            </Label>
+            <HBox spacing="15">
+                <CheckBox fx:id="lowBudget" text="Low" textFill="WHITE" style="-fx-font-family: 'Roboto'; -fx-font-weight: bold; -fx-font-size: 18;"/>
+                <CheckBox fx:id="mediumBudget" text="Medium" textFill="WHITE" style="-fx-font-family: 'Roboto'; -fx-font-weight: bold; -fx-font-size: 18;"/>
+                <CheckBox fx:id="highBudget" text="High" textFill="WHITE" style="-fx-font-family: 'Roboto'; -fx-font-weight: bold; -fx-font-size: 18;"/>
+            </HBox>
+
+            <!-- Mountain or Beach -->
+            <Label text="Are you a Mountain or Beach person?" textFill="WHITE"  style="-fx-font-weight: bold;">
+                <font>
+                    <Font name="Roboto Bold" size="18"/>
+                </font>
+            </Label>
+            <HBox spacing="15">
+                <CheckBox fx:id="mountainPerson" text="Mountain" textFill="WHITE" style="-fx-font-family: 'Roboto'; -fx-font-weight: bold; -fx-font-size: 18;"/>
+                <CheckBox fx:id="beachPerson" text="Beach" textFill="WHITE" style="-fx-font-family: 'Roboto'; -fx-font-weight: bold; -fx-font-size: 18;"/>
+            </HBox>
+
+            <!-- City or Country -->
+            <Label text="Are you a City or Country person?" textFill="WHITE"  style="-fx-font-weight: bold;">
+                <font>
+                    <Font name="Roboto Bold" size="18"/>
+                </font>
+            </Label>
+            <HBox spacing="15">
+                <CheckBox fx:id="cityPerson" text="City" textFill="WHITE" style="-fx-font-family: 'Roboto'; -fx-font-weight: bold; -fx-font-size: 18;"/>
+                <CheckBox fx:id="countryPerson" text="Country" textFill="WHITE" style="-fx-font-family: 'Roboto'; -fx-font-weight: bold; -fx-font-size: 18;"/>
+            </HBox>
+
+            <!-- Activity Preferences -->
+            <Label text="Activity Preferences:" textFill="WHITE"  style="-fx-font-weight: bold;">
+                <font>
+                    <Font name="Roboto Bold" size="18"/>
+                </font>
+            </Label>
+            <VBox spacing="15">
+                <HBox spacing="15">
+                    <CheckBox fx:id="historicalSites" text="Historical Sites" textFill="WHITE" style="-fx-font-family: 'Roboto'; -fx-font-weight: bold; -fx-font-size: 18;"/>
+                    <CheckBox fx:id="adventureSports" text="Adventure Sports" textFill="WHITE" style="-fx-font-family: 'Roboto'; -fx-font-weight: bold; -fx-font-size: 18;"/>
+                </HBox>
+                <HBox spacing="15">
+                    <CheckBox fx:id="foodCulture" text="Food and Culture" textFill="WHITE" style="-fx-font-family: 'Roboto'; -fx-font-weight: bold; -fx-font-size: 18;"/>
+                    <CheckBox fx:id="wildlifeNature" text="Wildlife and Nature" textFill="WHITE" style="-fx-font-family: 'Roboto'; -fx-font-weight: bold; -fx-font-size: 18;"/>
+                </HBox>
+            </VBox>
+
+            <!-- Generate Itinerary Button -->
+            <Button fx:id="generateButton" text="Generate Itinerary" style="-fx-background-color: #4CAF50; -fx-font-family: 'Roboto'; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 20;" onAction="#handleGenerateButton"/>
+        </VBox>
+    </AnchorPane>
+</StackPane>
