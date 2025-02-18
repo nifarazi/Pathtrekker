@@ -114,6 +114,12 @@ public class HomeController {
 
     @FXML
     void UsernameAction(MouseEvent event) {
+        Stage staage = (Stage) UsernameSpace.getScene().getWindow();
+        try {
+            cs.changeScene(staage, "Profile.fxml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

@@ -9,8 +9,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -57,6 +59,8 @@ public class ProfilePageController {
 
     @FXML
     private Button logOutButton;
+
+    ChangeScene cs=new ChangeScene();
 
     @FXML
     public void initialize() {
@@ -206,13 +210,28 @@ public class ProfilePageController {
     }
 
     @FXML
-    private void handleHome() {
-        // Implement the logic to navigate to the home page
+    private void handleHome() throws IOException {
+        Stage stage = (Stage) homeButton.getScene().getWindow();
+        cs.changeScene(stage, "Home.fxml");
+
     }
 
     @FXML
     private void handleLogOut() {
-        // Implement the logic to log out the user
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Log Out");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to log out?");
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                Stage stage = (Stage) logOutButton.getScene().getWindow();
+                try {
+                    cs.changeScene(stage, "OpeningPage.fxml");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
     }
 
     public static class BucketListItem {
