@@ -13,9 +13,16 @@ public class TransportationSystem extends Application {
     private TextField fromField, toField;
     private DatePicker datePicker;
     private ComboBox<Integer> seatsComboBox;
+    private ChangeScene cs = new ChangeScene();
 
     @Override
     public void start(Stage primaryStage) {
+        primaryStage.setTitle("Transportation System");
+        primaryStage.setScene(createTransportScene(primaryStage));
+        primaryStage.show();
+    }
+
+    public Scene createTransportScene(Stage stage) {
         BorderPane root = new BorderPane();
         try {
             Image bgImage = new Image(getClass().getResourceAsStream("/TRANSPORTATION.png"));
@@ -31,24 +38,22 @@ public class TransportationSystem extends Application {
             System.err.println("Error loading background: " + e.getMessage());
         }
 
-        // Back Button (Top-Left)
         Button backBtn = new Button("Back");
         backBtn.setStyle("-fx-font-weight: bold; -fx-background-color: #2c3e50; -fx-text-fill: white;");
-        backBtn.setOnAction(e -> handleBack());
+        backBtn.setOnAction(e -> handleBack(stage));
         root.setTop(backBtn);
         BorderPane.setAlignment(backBtn, Pos.TOP_LEFT);
 
-        // Main Form Grid
         GridPane grid = createFormGrid();
-        VBox centerBox = new VBox(30, grid, createShowTripsButton()); // Increased spacing for button position
+        Button showTripsBtn = createShowTripsButton();
+        Button backToHomeBtn = createBackButton(stage);
+
+        VBox centerBox = new VBox(30, grid, showTripsBtn, backToHomeBtn);
         centerBox.setAlignment(Pos.TOP_CENTER);
         centerBox.setPadding(new Insets(204, 0, 10, 0));
         root.setCenter(centerBox);
 
-        Scene scene = new Scene(root, 1024, 768);
-        primaryStage.setTitle("Transportation System");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        return new Scene(root, 1024, 768);
     }
 
     private GridPane createFormGrid() {
@@ -58,11 +63,8 @@ public class TransportationSystem extends Application {
         grid.setVgap(8);
         grid.setPadding(new Insets(35, 15, 15, 15));
 
-        // FROM Section (Left Column)
         addCompactFormItem(grid, "FROM:", 0, 0, fromField = new TextField());
         addCompactFormItem(grid, "DEPARTURE DATE:", 0, 2, datePicker = new DatePicker());
-
-        // TO Section (Right Column)
         addCompactFormItem(grid, "TO:", 1, 0, toField = new TextField());
         addCompactFormItem(grid, "SEATS:", 1, 2, seatsComboBox = new ComboBox<>());
 
@@ -76,7 +78,6 @@ public class TransportationSystem extends Application {
         label.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 0 0 2 0;");
         grid.add(label, col, row);
         grid.add(input, col, row + 1);
-
         input.setPrefWidth(180);
     }
 
@@ -87,25 +88,22 @@ public class TransportationSystem extends Application {
         return btn;
     }
 
+    private Button createBackButton(Stage stage) {
+        Button btn = new Button("Back to Home");
+        btn.setStyle("-fx-font-weight: bold; -fx-background-color: #e74c3c; -fx-text-fill: white; -fx-padding: 8 20;");
+        btn.setOnAction(e -> handleBack(stage));
+        return btn;
+    }
+
     private void handleShowTrips() {
-        String from = fromField.getText();
-        String to = toField.getText();
-        String date = datePicker.getValue() != null ? datePicker.getValue().toString() : "";
-        int seats = seatsComboBox.getValue() != null ? seatsComboBox.getValue() : 1;
-
-        System.out.println("Searching trips:\n" +
-                "From: " + from + "\n" +
-                "To: " + to + "\n" +
-                "Date: " + date + "\n" +
-                "Seats: " + seats);
+        System.out.println("Searching trips...");
     }
 
-    private void handleBack() {
-        System.out.println("Navigating back...");
-    }
-
-    public static void main(String[] args) {
-        launch(args);
+    private void handleBack(Stage stage) {
+        try {
+            cs.changeScene(stage, "Home.fxml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
-

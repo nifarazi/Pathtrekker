@@ -3,7 +3,6 @@ package com.example.pathtrekker;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -56,25 +55,20 @@ public class HomeController {
 
     Calendar now = Calendar.getInstance();
     int y = now.get(Calendar.YEAR);
-    int month = now.get(Calendar.MONTH)+1;
+    int month = now.get(Calendar.MONTH) + 1;
     int d = now.get(Calendar.DATE);
 
     ChangeScene cs = new ChangeScene();
 
-
-
     @FXML
     void DestinationAction(MouseEvent event) {
-        Stage stage=(Stage) Destination.getScene().getWindow();
+        Stage stage = (Stage) Destination.getScene().getWindow();
         try {
-            cs.changeScene(stage,"DestinationSearch.fxml");
+            cs.changeScene(stage, "DestinationSearch.fxml");
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
-
-
 
     @FXML
     void HotelsAction(MouseEvent event) {
@@ -89,52 +83,49 @@ public class HomeController {
 
     @FXML
     void ItineraryAction(MouseEvent event) {
-        Stage stage=(Stage) Itinerary.getScene().getWindow();
+        Stage stage = (Stage) Itinerary.getScene().getWindow();
         try {
-            cs.changeScene(stage,"itineraryUI.fxml");
+            cs.changeScene(stage, "itineraryUI.fxml");
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @FXML
     void TransportAction(MouseEvent event) {
-
-
+        Stage stage = new Stage();
+        try {
+            TransportationSystem transportApp = new TransportationSystem();
+            transportApp.start(stage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void EmAction(MouseEvent event) {
-        Stage stage=(Stage) Em.getScene().getWindow();
+        Stage stage = (Stage) Em.getScene().getWindow();
         try {
-            cs.changeScene(stage,"EmergencyServices.fxml");
+            cs.changeScene(stage, "EmergencyServices.fxml");
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @FXML
     void UsernameAction(MouseEvent event) {
-
     }
 
     @FXML
     void initialize() {
-
         An1.getStyleClass().add("anchor-pane-hover");
         An2.getStyleClass().add("anchor-pane-hover");
         An3.getStyleClass().add("anchor-pane-hover");
         An4.getStyleClass().add("anchor-pane-hover");
         An5.getStyleClass().add("anchor-pane-hover");
-        // Set the username
         UsernameSpace.setText("Username");
-        // Set the date
         Day.setText(String.valueOf(d));
         Month.setText(String.valueOf(month));
         Year.setText(String.valueOf(y));
-
     }
-
 }
