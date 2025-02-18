@@ -26,7 +26,7 @@
         <!-- Black Blurred Box -->
         <Pane fx:id="blackBlurredBox" prefHeight="650" prefWidth="600" style="-fx-background-color: rgba(0, 0, 0, 0.6); -fx-background-radius: 15;" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="100.0">
          <children>
-            <Button fx:id="ItineraryBack" layoutX="20.0" layoutY="611.0" mnemonicParsing="false" onMouseClicked="#ItineraryBackAction" prefHeight="27.0" prefWidth="198.0" style="-fx-background-color: #4CAF50; -fx-font-family: 'Roboto'; -fx-text-fill: white; -fx-font-weight: bold;" text="Button">
+            <Button fx:id="ItineraryBack" layoutX="20.0" layoutY="611.0" mnemonicParsing="false" onMouseClicked="#ItineraryBackAction" prefHeight="27.0" prefWidth="198.0" style="-fx-background-color: #4CAF50; -fx-font-family: 'Roboto'; -fx-text-fill: white; -fx-font-weight: bold;" text="Home">
                <font>
                   <Font size="15.0" />
                </font>
