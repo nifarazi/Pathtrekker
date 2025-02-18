@@ -1,8 +1,14 @@
 package com.example.pathtrekker;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class DestinationSearchController {
 
@@ -38,7 +44,6 @@ public class DestinationSearchController {
 
     @FXML
     public void initialize() {
-        // Style division buttons
         styleButton(divisionButton1, "#008CBA", "#005f73");
         styleButton(divisionButton2, "#008CBA", "#005f73");
         styleButton(divisionButton3, "#008CBA", "#005f73");
@@ -53,8 +58,14 @@ public class DestinationSearchController {
 
         // Set action for home button
         homeButton.setOnAction(event -> {
-            // Add code to navigate to homepage
-            System.out.println("Home button clicked");
+            try {
+                Stage stage = (Stage) homeButton.getScene().getWindow();
+                Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
     }
 

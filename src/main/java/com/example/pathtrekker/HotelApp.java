@@ -1,8 +1,10 @@
 package com.example.pathtrekker;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -11,12 +13,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class HotelApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Find the Perfect Stay for Your Journey");
-
         // Create a GridPane for the form elements
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(20, 20, 20, 20));
@@ -137,10 +139,25 @@ public class HotelApp extends Application {
             System.out.println("Budget: " + budgetComboBox.getValue());
         });
 
+        // Home Button
+        Button homeButton = new Button("Home");
+        homeButton.setPrefSize(200, 40); // Bigger button
+        homeButton.setFont(font); // Apply the font
+        GridPane.setConstraints(homeButton, 1, 9);
+        homeButton.setOnAction(e -> {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
+                primaryStage.setScene(new Scene(root));
+                primaryStage.show();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+
         // Add all elements to the GridPane
         grid.getChildren().addAll(divisionLabel, divisionInput, districtLabel, districtInput, checkInLabel, checkInDate,
                 checkOutLabel, checkOutDate, adultsLabel, adultsSpinner, childrenLabel, childrenSpinner,
-                roomsLabel, roomsSpinner, budgetLabel, budgetComboBox, submitButton);
+                roomsLabel, roomsSpinner, budgetLabel, budgetComboBox, submitButton, homeButton);
 
         // Create the scene with the StackPane as the root
         Scene scene = new Scene(stackPane, 1000, 700); // Larger initial window size

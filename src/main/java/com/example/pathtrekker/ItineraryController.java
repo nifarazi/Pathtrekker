@@ -3,9 +3,16 @@ package com.example.pathtrekker;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class ItineraryController {
+
+    @FXML
+    private Button ItineraryBack;
 
     @FXML
     private TextField numberOfPeopleField;
@@ -58,6 +65,8 @@ public class ItineraryController {
     @FXML
     private Pane blackBlurredBox;
 
+    ChangeScene change=new ChangeScene();
+
     @FXML
     public void initialize() {
         // Set padding programmatically
@@ -94,5 +103,12 @@ public class ItineraryController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @FXML
+    void ItineraryBackAction(MouseEvent event) throws IOException {
+        Stage stage=(Stage) ItineraryBack.getScene().getWindow();
+        change.changeScene(stage,"Home.fxml");
+
     }
 }

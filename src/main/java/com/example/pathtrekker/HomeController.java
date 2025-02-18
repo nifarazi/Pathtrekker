@@ -2,20 +2,138 @@ package com.example.pathtrekker;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.util.Calendar;
 
 public class HomeController {
-    ChangeScene change=new ChangeScene();
-    @FXML
-    private Button HomeBack;
 
     @FXML
-    void HomeBAckAction(MouseEvent event) throws IOException {
-        Stage stage= (Stage) HomeBack.getScene().getWindow();
-        change.changeScene(stage,"OpeningPage.fxml");
+    private AnchorPane An1;
+
+    @FXML
+    private AnchorPane An2;
+
+    @FXML
+    private AnchorPane An3;
+
+    @FXML
+    private AnchorPane An4;
+
+    @FXML
+    private AnchorPane An5;
+
+    @FXML
+    private Label Day;
+
+    @FXML
+    private Label Month;
+
+    @FXML
+    private Label Year;
+
+    @FXML
+    private Button Destination;
+
+    @FXML
+    private Button Hotel;
+
+    @FXML
+    private Button Itinerary;
+
+    @FXML
+    private Button Em;
+
+    @FXML
+    private Button Transport;
+
+    @FXML
+    private Label UsernameSpace;
+
+    Calendar now = Calendar.getInstance();
+    int y = now.get(Calendar.YEAR);
+    int month = now.get(Calendar.MONTH)+1;
+    int d = now.get(Calendar.DATE);
+
+    ChangeScene cs = new ChangeScene();
+
+
+
+    @FXML
+    void DestinationAction(MouseEvent event) {
+        Stage stage=(Stage) Destination.getScene().getWindow();
+        try {
+            cs.changeScene(stage,"DestinationSearch.fxml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
+    @FXML
+    void HotelsAction(MouseEvent event) {
+        Stage stage = (Stage) Hotel.getScene().getWindow();
+        try {
+            HotelApp hotelApp = new HotelApp();
+            hotelApp.start(stage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void ItineraryAction(MouseEvent event) {
+        Stage stage=(Stage) Itinerary.getScene().getWindow();
+        try {
+            cs.changeScene(stage,"itineraryUI.fxml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @FXML
+    void TransportAction(MouseEvent event) {
+
+
+    }
+
+    @FXML
+    void EmAction(MouseEvent event) {
+        Stage stage=(Stage) Em.getScene().getWindow();
+        try {
+            cs.changeScene(stage,"EmergencyServices.fxml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @FXML
+    void UsernameAction(MouseEvent event) {
+
+    }
+
+    @FXML
+    void initialize() {
+
+        An1.getStyleClass().add("anchor-pane-hover");
+        An2.getStyleClass().add("anchor-pane-hover");
+        An3.getStyleClass().add("anchor-pane-hover");
+        An4.getStyleClass().add("anchor-pane-hover");
+        An5.getStyleClass().add("anchor-pane-hover");
+        // Set the username
+        UsernameSpace.setText("Username");
+        // Set the date
+        Day.setText(String.valueOf(d));
+        Month.setText(String.valueOf(month));
+        Year.setText(String.valueOf(y));
 
     }
 

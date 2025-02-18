@@ -1,3 +1,8 @@
 #SignInUsername,#SignInPassword{
     -fx-prompt-text-fill:  #0B5638;
 }
+.anchor-pane-hover:hover {
+    -fx-border-color: #09291C;
+    -fx-border-width: 3px;
+    -fx-border-radius: 30;
+}
