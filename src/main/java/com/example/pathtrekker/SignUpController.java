@@ -97,7 +97,7 @@ public class SignUpController {
         alert.showAndWait();
 
         Stage stage=(Stage) SignUpJoinNow.getScene().getWindow();
-        change.changeScene(stage,"OpeningPage.fxml");
+        change.changeScene(stage,"Home.fxml");
     }
 
 }

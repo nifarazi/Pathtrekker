@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class SignInUserJDBC {
     private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/register";
     private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "mirpurdohs832";
+    private static final String DB_PASSWORD = "nanjiba@282002";
 
     public static void main(String[] args) {
     }
@@ -21,7 +21,12 @@ public class SignInUserJDBC {
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
             ResultSet resultSet = preparedStatement.executeQuery();
-            return resultSet.next();
+            if (resultSet.next()) {
+                ProfileUserJDBC.setCurrentUsername(username);
+                return true;
+            } else {
+                return false;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return false;

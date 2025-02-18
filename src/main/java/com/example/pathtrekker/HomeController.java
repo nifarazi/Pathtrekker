@@ -54,6 +54,12 @@ public class HomeController {
     @FXML
     private Label UsernameSpace;
 
+
+    private void loadUsername() {
+        String username = ProfileUserJDBC.getCurrentUsername();
+        UsernameSpace.setText(username);
+    }
+
     Calendar now = Calendar.getInstance();
     int y = now.get(Calendar.YEAR);
     int month = now.get(Calendar.MONTH) + 1;
@@ -124,14 +130,16 @@ public class HomeController {
 
     @FXML
     void initialize() {
+
         An1.getStyleClass().add("anchor-pane-hover");
         An2.getStyleClass().add("anchor-pane-hover");
         An3.getStyleClass().add("anchor-pane-hover");
         An4.getStyleClass().add("anchor-pane-hover");
         An5.getStyleClass().add("anchor-pane-hover");
-        UsernameSpace.setText("Username");
+        loadUsername();
         Day.setText(String.valueOf(d));
         Month.setText(String.valueOf(month));
         Year.setText(String.valueOf(y));
     }
+
 }

@@ -5,7 +5,7 @@ import java.sql.*;
 public class SignUpUserJDBC {
     private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/register";
     private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "mirpurdohs832";
+    private static final String DB_PASSWORD = "nanjiba@282002";
 
     public static void main(String[] args) { }
 
@@ -29,8 +29,6 @@ public class SignUpUserJDBC {
     public static void signIn(String firstName, String lastName, String username, String email, String password) {
         String insertQuery = "INSERT INTO user (first_name, last_name, username, email, password) VALUES (?, ?, ?, ?, ?)";
 
-
-
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement pstmt = conn.prepareStatement(insertQuery)) {
 
@@ -40,10 +38,10 @@ public class SignUpUserJDBC {
             pstmt.setString(4, email);
             pstmt.setString(5, password);
 
-
             int rowsInserted = pstmt.executeUpdate();
 
             if (rowsInserted > 0) {
+                ProfileUserJDBC.setCurrentUsername(username);
                 System.out.println("User signed in successfully!");
             }
 
