@@ -30,11 +30,7 @@ public class TransportationSystem {
             System.err.println("Error loading background: " + e.getMessage());
         }
 
-        Button backBtn = new Button("Back");
-        backBtn.setStyle("-fx-font-weight: bold; -fx-background-color: #2c3e50; -fx-text-fill: white;");
-        backBtn.setOnAction(e -> handleBack(stage));
-        root.setTop(backBtn);
-        BorderPane.setAlignment(backBtn, Pos.TOP_LEFT);
+        // Removed the back button code
 
         GridPane grid = createFormGrid();
         Button showTripsBtn = createShowTripsButton();
@@ -42,8 +38,9 @@ public class TransportationSystem {
 
         VBox centerBox = new VBox(20, grid, showTripsBtn, homeBtn);
         centerBox.setAlignment(Pos.TOP_CENTER);
-        centerBox.setPadding(new Insets(204, 0, 10, 0));
+        centerBox.setPadding(new Insets(225, 0, 10, 0));  // Decrease the top padding by 19.2 pixels (0.2 inch)
         root.setCenter(centerBox);
+
 
         return new Scene(root, 1024, 768);
     }
@@ -99,3 +96,5 @@ public class TransportationSystem {
         }
     }
 }
+
+
