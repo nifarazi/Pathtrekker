@@ -1,6 +1,5 @@
 package com.example.pathtrekker;
 
-import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -9,18 +8,11 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-public class TransportationSystem extends Application {
+public class TransportationSystem {
     private TextField fromField, toField;
     private DatePicker datePicker;
     private ComboBox<Integer> seatsComboBox;
     private ChangeScene cs = new ChangeScene();
-
-    @Override
-    public void start(Stage primaryStage) {
-        primaryStage.setTitle("Transportation System");
-        primaryStage.setScene(createTransportScene(primaryStage));
-        primaryStage.show();
-    }
 
     public Scene createTransportScene(Stage stage) {
         BorderPane root = new BorderPane();
@@ -46,9 +38,9 @@ public class TransportationSystem extends Application {
 
         GridPane grid = createFormGrid();
         Button showTripsBtn = createShowTripsButton();
-        Button backToHomeBtn = createBackButton(stage);
+        Button homeBtn = createHomeButton(stage);
 
-        VBox centerBox = new VBox(30, grid, showTripsBtn, backToHomeBtn);
+        VBox centerBox = new VBox(20, grid, showTripsBtn, homeBtn);
         centerBox.setAlignment(Pos.TOP_CENTER);
         centerBox.setPadding(new Insets(204, 0, 10, 0));
         root.setCenter(centerBox);
@@ -88,11 +80,11 @@ public class TransportationSystem extends Application {
         return btn;
     }
 
-    private Button createBackButton(Stage stage) {
-        Button btn = new Button("Back to Home");
-        btn.setStyle("-fx-font-weight: bold; -fx-background-color: #e74c3c; -fx-text-fill: white; -fx-padding: 8 20;");
-        btn.setOnAction(e -> handleBack(stage));
-        return btn;
+    private Button createHomeButton(Stage stage) {
+        Button homeBtn = new Button("Home");
+        homeBtn.setStyle("-fx-font-weight: bold; -fx-background-color: #27ae60; -fx-text-fill: white; -fx-padding: 8 20;");
+        homeBtn.setOnAction(e -> handleBack(stage));
+        return homeBtn;
     }
 
     private void handleShowTrips() {

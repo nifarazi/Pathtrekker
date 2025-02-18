@@ -3,6 +3,7 @@ package com.example.pathtrekker;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -93,14 +94,13 @@ public class HomeController {
 
     @FXML
     void TransportAction(MouseEvent event) {
-        Stage stage = new Stage();
-        try {
-            TransportationSystem transportApp = new TransportationSystem();
-            transportApp.start(stage);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Stage stage = (Stage) Transport.getScene().getWindow();
+        TransportationSystem ts = new TransportationSystem();
+        Scene transportScene = ts.createTransportScene(stage);
+        stage.setScene(transportScene);
     }
+
+
 
     @FXML
     void EmAction(MouseEvent event) {
