@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import java.util.List;
+
 public class ProfilePageController {
 
     @FXML
@@ -191,7 +193,6 @@ public class ProfilePageController {
                         "-fx-cursor: hand;" /* Pointer cursor on hover */
         ));
 
-        // Set custom cell factory for bucket list items
         bucketListView.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(BucketListItem item, boolean empty) {
@@ -202,13 +203,26 @@ public class ProfilePageController {
                 } else {
                     CheckBox checkBox = new CheckBox(item.getPlace());
                     checkBox.setSelected(item.isVisited());
-                    checkBox.selectedProperty().addListener((obs, wasSelected, isSelected) -> item.setVisited(isSelected));
+                    checkBox.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
+                        item.setVisited(isSelected);
+                        String username = ProfileUserJDBC.getCurrentUsername();
+                        MyProfileJDBC.updateBucketListItemVisited(username, item.getPlace(), isSelected);
+                    });
+                    updateVisitedStyle(checkBox, item.isVisited());
                     setGraphic(checkBox);
+                }
+            }
+            private void updateVisitedStyle(CheckBox checkBox, boolean isVisited) {
+                if (isVisited) {
+                    checkBox.setStyle("-fx-text-fill: gray; -fx-strikethrough: true;");
+                } else {
+                    checkBox.setStyle("-fx-text-fill: black; -fx-strikethrough: false;");
                 }
             }
         });
         loadUserDetails();
         setLabelStyles();
+        loadBucketList();
     }
 
     private void setLabelStyles() {
@@ -244,10 +258,21 @@ public class ProfilePageController {
         }
     }
 
+    private void loadBucketList() {
+        String username = ProfileUserJDBC.getCurrentUsername();
+        List<MyProfileJDBC.BucketListItem> bucketListItems = MyProfileJDBC.getBucketListItems(username);
+        bucketListView.getItems().clear();
+        for (MyProfileJDBC.BucketListItem item : bucketListItems) {
+            bucketListView.getItems().add(new BucketListItem(item.getPlace(), item.isVisited()));
+        }
+    }
+
     @FXML
     private void handleAddToList() {
         String place = bucketListInput.getText().trim();
         if (!place.isEmpty()) {
+            String username = ProfileUserJDBC.getCurrentUsername();
+            MyProfileJDBC.addBucketListItem(username, place);
             bucketListView.getItems().add(new BucketListItem(place, false));
             bucketListInput.clear();
         }

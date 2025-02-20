@@ -75,4 +75,11 @@ SELECT * FROM transport
 WHERE from_division = 'Dhaka' 
 AND to_division = 'Chattogram' 
 AND departure_date = '2025-03-10';
-	
+
+CREATE TABLE bucket_list (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    place VARCHAR(255) NOT NULL,
+    visited BOOLEAN NOT NULL DEFAULT FALSE,
+    FOREIGN KEY (username) REFERENCES user(username)
+);
