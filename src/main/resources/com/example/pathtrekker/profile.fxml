@@ -12,6 +12,7 @@
             <Image url="@../../../Images/ProfileFinal.png" />
         </image>
     </ImageView>
+
     <Label fx:id="dateTimeLabel" layoutX="900" layoutY="20" style="-fx-font-size: 16px; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-family: 'Roboto';" />
 
     <!-- Main Container -->
@@ -27,7 +28,7 @@
         <!-- Bucket List Section -->
         <VBox fx:id="bucketListSection" spacing="10" prefWidth="300"
               style="-fx-background-color: rgba(150,180,160,0.5); -fx-padding: 20px; -fx-border-radius: 100px; -fx-background-radius: 100px; -fx-background-insets: 0; -fx-border-insets: 0;">
-            <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Bucket List" />
+            <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" />
             <ListView fx:id="bucketListView" prefHeight="350" />
             <TextField fx:id="bucketListInput" promptText="Enter place to visit" />
             <Button fx:id="addToListButton" text="Add to List" onAction="#handleAddToList" />
@@ -41,9 +42,12 @@
                 <ImageView fitWidth="40" fitHeight="40" />
                 <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" />
             </HBox>
-            <Label fx:id="fullNameLabel" text="Full Name: " />
-            <Label fx:id="usernameLabel" text="Username: " />
-            <Label fx:id="emailLabel" text="Email: " />
+            <Label fx:id="nameKeyLabel" text="Name:" style="-fx-font-family: 'Roboto'; -fx-font-weight: bold; -fx-text-fill: white;-fx-font-size: 20px;" />
+            <Label fx:id="fullNameLabel" text="Full Name: "  style="-fx-font-family: 'Roboto'; -fx-text-fill: white;-fx-font-size: 20px;"  />
+            <Label fx:id="usernameKeyLabel" text="Username:" style="-fx-font-family: 'Roboto'; -fx-font-weight: bold; -fx-text-fill: white;-fx-font-size: 20px;" />
+            <Label fx:id="usernameLabel" text="Username: "  style="-fx-font-family: 'Roboto'; -fx-text-fill: white;-fx-font-size: 20px;" />
+            <Label fx:id="emailKeyLabel" text="Email:" style="-fx-font-family: 'Roboto'; -fx-font-weight: bold; -fx-text-fill: white;-fx-font-size: 20px;" />
+            <Label fx:id="emailLabel" text="Email: "  style="-fx-font-family: 'Roboto'; -fx-text-fill: white;-fx-font-size: 20px;" />
         </VBox>
 
     </HBox>

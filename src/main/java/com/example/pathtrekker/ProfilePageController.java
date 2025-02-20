@@ -31,6 +31,15 @@ public class ProfilePageController {
     private Label emailLabel;
 
     @FXML
+    private Label nameKeyLabel;
+
+    @FXML
+    private Label usernameKeyLabel;
+
+    @FXML
+    private Label emailKeyLabel;
+
+    @FXML
     private ListView<BucketListItem> bucketListView;
 
     @FXML
@@ -198,6 +207,41 @@ public class ProfilePageController {
                 }
             }
         });
+        loadUserDetails();
+        setLabelStyles();
+    }
+
+    private void setLabelStyles() {
+        Font robotoBold = Font.font("Roboto Bold", 14);
+
+        fullNameLabel.setFont(robotoBold);
+        fullNameLabel.setTextFill(Color.WHITE);
+
+        usernameLabel.setFont(robotoBold);
+        usernameLabel.setTextFill(Color.WHITE);
+
+        emailLabel.setFont(robotoBold);
+        emailLabel.setTextFill(Color.WHITE);
+
+        nameKeyLabel.setFont(robotoBold);
+        nameKeyLabel.setTextFill(Color.WHITE);
+
+        usernameKeyLabel.setFont(robotoBold);
+        usernameKeyLabel.setTextFill(Color.WHITE);
+
+        emailKeyLabel.setFont(robotoBold);
+        emailKeyLabel.setTextFill(Color.WHITE);
+    }
+
+
+    private void loadUserDetails() {
+        String username = ProfileUserJDBC.getCurrentUsername();
+        MyProfileJDBC.User user = MyProfileJDBC.getUserDetails(username);
+        if (user != null) {
+            fullNameLabel.setText(user.getFirstName() + " " + user.getLastName());
+            usernameLabel.setText(user.getUsername());
+            emailLabel.setText(user.getEmail());
+        }
     }
 
     @FXML
