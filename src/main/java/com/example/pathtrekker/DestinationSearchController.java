@@ -122,6 +122,17 @@ public class DestinationSearchController {
             }
         });
 
+        divisionButton3.setOnAction(event -> {
+            try {
+                Stage stage = (Stage) divisionButton3.getScene().getWindow();
+                Parent root = FXMLLoader.load(getClass().getResource("DestinationBarishal.fxml"));
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
     }
 
     private void styleButton(Button button, String baseColor, String hoverColor) {
