@@ -67,6 +67,17 @@ public class DestinationSearchController {
                 e.printStackTrace();
             }
         });
+        divisionButton1.setOnAction(event -> {
+            try {
+                Stage stage = (Stage) divisionButton1.getScene().getWindow();
+                Parent root = FXMLLoader.load(getClass().getResource("DestinationDhaka.fxml"));
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
     }
 
     private void styleButton(Button button, String baseColor, String hoverColor) {

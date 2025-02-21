@@ -160,7 +160,7 @@ VALUES
 ('Dhaka', 'Ramna Park', 'A large park in Dhaka, offering green spaces, walking paths, and a serene environment. It is a popular spot for relaxation and recreation.', 'Ramna Park, Suhrawardy Udyan', 'Best visited in winter', 'Biriyani, Bhuna Khichuri', 'Accessible by bus, train, and car'),
 ('Dhaka', 'Suhrawardy Udyan', 'A national memorial in Dhaka, commemorating the country\'s struggle for independence. It is a significant historical and cultural site.', 'Suhrawardy Udyan, Ramna Park', 'Best visited in winter', 'Biriyani, Bhuna Khichuri', 'Accessible by bus, train, and car'),
 ('Dhaka', 'Baldha Garden', 'A botanical garden in Dhaka, known for its diverse collection of plants and serene environment. It is a popular spot for nature lovers.', 'Baldha Garden, Wari', 'Best visited in winter', 'Biriyani, Bhuna Khichuri', 'Accessible by bus, train, and car'),
-('Dhaka', 'Shishu Park', 'An amusement park in Dhaka, offering various rides and attractions for children. It is a popular destination for families.', 'Shishu Park, Shahbagh', 'Best visited in winter', 'Biriyani, Bhuna Khichuri', 'Accessible by bus, train, and car'),
+('Dhaka', 'Sonargaon', 'Once the capital of Bengal, is rich in history and culture. Showcases traditional crafts.', 'Panam Nagar, Ancient Trading Center, Goaldi Mosque', 'Best visited in winter', 'Panta Bhat, Bhuna Khichuri', 'Accessible by bus, train, and car'),
 
 -- Chattogram Division
 ('Chattogram', 'Patenga Beach', 'A popular beach in Chattogram, known for its scenic beauty and vibrant atmosphere. It is a favorite spot for locals and tourists.', 'Patenga Beach, Foy\'s Lake', 'Best visited in winter', 'Seafood, Mezban', 'Accessible by bus, train, and car'),
