@@ -100,6 +100,17 @@ public class DestinationSearchController {
             }
         });
 
+        divisionButton5.setOnAction(event -> {
+            try {
+                Stage stage = (Stage) divisionButton5.getScene().getWindow();
+                Parent root = FXMLLoader.load(getClass().getResource("DestinationRajshahi.fxml"));
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
     }
 
     private void styleButton(Button button, String baseColor, String hoverColor) {
