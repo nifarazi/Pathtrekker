@@ -108,26 +108,284 @@ VALUES
 ('Mymensingh Hotel & Resort', 'Mymensingh', 'mid', 13, 'WiFi, Gym, Pool', 5200.00, 'info@mymensinghresort.com', '+88092151160'),
 ('Hotel Rivera', 'Mymensingh', 'low', 19, 'WiFi, Free Breakfast', 2900.00, 'support@rivera.com', '+88092156321');
 
-SELECT * FROM hotel;
-CREATE TABLE IF NOT EXISTS transport (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    from_division VARCHAR(50) NOT NULL,
-    to_division VARCHAR(50) NOT NULL,
-    transport_type ENUM('Bus', 'Train', 'Flight') NOT NULL,
-    departure_date DATE NOT NULL,
-    return_date DATE,
-    fare DECIMAL(10,2) NOT NULL
-);
-INSERT INTO transport (from_division, to_division, transport_type, departure_date, return_date, fare)
-VALUES 
-('Dhaka', 'Chattogram', 'Bus', '2025-03-10', '2025-03-15', 25.00),
-('Dhaka', 'Sylhet', 'Train', '2025-03-12', '2025-03-16', 15.00),
-('Dhaka', 'Cox’s Bazar', 'Flight', '2025-03-08', '2025-03-12', 120.00);
-SELECT * FROM transport 
-WHERE from_division = 'Dhaka' 
-AND to_division = 'Chattogram' 
-AND departure_date = '2025-03-10';
 
+
+SELECT * FROM hotel;
+
+CREATE TABLE transport_system (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    from_division VARCHAR(50),
+    to_division VARCHAR(50),
+    transport_type VARCHAR(20),
+    departure_date DATE,
+    return_date DATE,
+    fare DECIMAL(10,2),
+    service_name VARCHAR(100),
+    email VARCHAR(100),
+    phone_number VARCHAR(20),
+    service_location VARCHAR(150)
+);
+
+INSERT INTO transport_system (from_division, to_division, transport_type, departure_date, return_date, fare, service_name, email, phone_number, service_location)
+VALUES 
+    -- Dhaka to Chattogram
+    ('Dhaka', 'Chattogram', 'Bus', '2025-03-01', '2025-03-05', 1200.00, 'Green Line Paribahan', 'info@greenline.com', '+8801712345678', 'Dhaka Bus Terminal'),
+    ('Dhaka', 'Chattogram', 'Train', '2025-03-02', '2025-03-06', 1000.00, 'Bangladesh Railway', 'info@railway.com', '+8801712345679', 'Dhaka Railway Station'),
+    ('Dhaka', 'Chattogram', 'Plane', '2025-03-03', '2025-03-07', 4500.00, 'Biman Bangladesh', 'info@biman.com', '+8801712345680', 'Dhaka Airport'),
+    ('Dhaka', 'Chattogram', 'Ferry', '2025-03-04', '2025-03-08', 1800.00, 'Sundarban Navigation', 'info@sundarban.com', '+8801712345681', 'Sadarghat Terminal'),
+
+    -- Dhaka to Rajshahi
+    ('Dhaka', 'Rajshahi', 'Bus', '2025-03-01', '2025-03-05', 900.00, 'Hanif Paribahan', 'info@hanif.com', '+8801712345682', 'Dhaka Bus Terminal'),
+    ('Dhaka', 'Rajshahi', 'Train', '2025-03-02', '2025-03-06', 800.00, 'Bangladesh Railway', 'info@railway.com', '+8801712345683', 'Dhaka Railway Station'),
+    ('Dhaka', 'Rajshahi', 'Plane', '2025-03-03', '2025-03-07', 5000.00, 'US-Bangla Airlines', 'info@usbangla.com', '+8801712345684', 'Dhaka Airport'),
+
+    -- Dhaka to Khulna
+    ('Dhaka', 'Khulna', 'Bus', '2025-03-01', '2025-03-05', 1000.00, 'Shyamoli Paribahan', 'info@shyamoli.com', '+8801712345685', 'Dhaka Bus Terminal'),
+    ('Dhaka', 'Khulna', 'Train', '2025-03-02', '2025-03-06', 950.00, 'Bangladesh Railway', 'info@railway.com', '+8801712345686', 'Dhaka Railway Station'),
+    ('Dhaka', 'Khulna', 'Ferry', '2025-03-03', '2025-03-07', 2000.00, 'Rocket Steamer', 'info@rocketsteamer.com', '+8801712345687', 'Sadarghat Terminal'),
+    ('Dhaka', 'Khulna', 'Plane', '2025-03-04', '2025-03-08', 5500.00, 'NovoAir', 'info@novoair.com', '+8801712345688', 'Dhaka Airport'),
+
+    -- Dhaka to Barishal
+    ('Dhaka', 'Barishal', 'Bus', '2025-03-01', '2025-03-05', 850.00, 'Hanif Paribahan', 'info@hanif.com', '+8801712345689', 'Dhaka Bus Terminal'),
+    ('Dhaka', 'Barishal', 'Ferry', '2025-03-02', '2025-03-06', 1000.00, 'Sundarban Navigation', 'info@sundarban.com', '+8801712345690', 'Sadarghat Terminal'),
+    ('Dhaka', 'Barishal', 'Plane', '2025-03-03', '2025-03-07', 4800.00, 'Biman Bangladesh', 'info@biman.com', '+8801712345691', 'Dhaka Airport'),
+
+    -- Dhaka to Sylhet
+    ('Dhaka', 'Sylhet', 'Bus', '2025-03-01', '2025-03-05', 1300.00, 'Shyamoli Paribahan', 'info@shyamoli.com', '+8801712345692', 'Dhaka Bus Terminal'),
+    ('Dhaka', 'Sylhet', 'Train', '2025-03-02', '2025-03-06', 1200.00, 'Bangladesh Railway', 'info@railway.com', '+8801712345693', 'Dhaka Railway Station'),
+    ('Dhaka', 'Sylhet', 'Plane', '2025-03-03', '2025-03-07', 4600.00, 'US-Bangla Airlines', 'info@usbangla.com', '+8801712345694', 'Dhaka Airport'),
+
+    -- Dhaka to Rangpur
+    ('Dhaka', 'Rangpur', 'Bus', '2025-03-01', '2025-03-05', 1100.00, 'Hanif Paribahan', 'info@hanif.com', '+8801712345695', 'Dhaka Bus Terminal'),
+    ('Dhaka', 'Rangpur', 'Train', '2025-03-02', '2025-03-06', 900.00, 'Bangladesh Railway', 'info@railway.com', '+8801712345696', 'Dhaka Railway Station'),
+
+    -- Dhaka to Mymensingh
+    ('Dhaka', 'Mymensingh', 'Bus', '2025-03-01', '2025-03-05', 600.00, 'Ena Transport', 'info@ena.com', '+8801712345697', 'Dhaka Bus Terminal'),
+    ('Dhaka', 'Mymensingh', 'Train', '2025-03-02', '2025-03-06', 500.00, 'Bangladesh Railway', 'info@railway.com', '+8801712345698', 'Dhaka Railway Station');
+
+
+INSERT INTO transport_system (from_division, to_division, transport_type, departure_date, return_date, fare, service_name, email, phone_number, service_location)
+VALUES 
+    -- Chattogram to Dhaka
+    ('Chattogram', 'Dhaka', 'Bus', '2025-03-01', '2025-03-05', 1200.00, 'Green Line Paribahan', 'info@greenline.com', '+8801812345678', 'Chattogram Bus Terminal'),
+    ('Chattogram', 'Dhaka', 'Train', '2025-03-02', '2025-03-06', 1000.00, 'Bangladesh Railway', 'info@railway.com', '+8801812345679', 'Chattogram Railway Station'),
+    ('Chattogram', 'Dhaka', 'Plane', '2025-03-03', '2025-03-07', 4500.00, 'Biman Bangladesh', 'info@biman.com', '+8801812345680', 'Shah Amanat Intl. Airport'),
+    ('Chattogram', 'Dhaka', 'Ferry', '2025-03-04', '2025-03-08', 1800.00, 'Sundarban Navigation', 'info@sundarban.com', '+8801812345681', 'Chattogram Terminal'),
+
+    -- Chattogram to Rajshahi
+    ('Chattogram', 'Rajshahi', 'Bus', '2025-03-01', '2025-03-05', 1400.00, 'Hanif Paribahan', 'info@hanif.com', '+8801812345682', 'Chattogram Bus Terminal'),
+    ('Chattogram', 'Rajshahi', 'Train', '2025-03-02', '2025-03-06', 1300.00, 'Bangladesh Railway', 'info@railway.com', '+8801812345683', 'Chattogram Railway Station'),
+    ('Chattogram', 'Rajshahi', 'Plane', '2025-03-03', '2025-03-07', 5200.00, 'NovoAir', 'info@novoair.com', '+8801812345684', 'Shah Amanat Intl. Airport'),
+
+    -- Chattogram to Khulna
+    ('Chattogram', 'Khulna', 'Bus', '2025-03-01', '2025-03-05', 1600.00, 'Shyamoli Paribahan', 'info@shyamoli.com', '+8801812345685', 'Chattogram Bus Terminal'),
+    ('Chattogram', 'Khulna', 'Train', '2025-03-02', '2025-03-06', 1500.00, 'Bangladesh Railway', 'info@railway.com', '+8801812345686', 'Chattogram Railway Station'),
+    ('Chattogram', 'Khulna', 'Ferry', '2025-03-03', '2025-03-07', 2200.00, 'Rocket Steamer', 'info@rocketsteamer.com', '+8801812345687', 'Chattogram Terminal'),
+    ('Chattogram', 'Khulna', 'Plane', '2025-03-04', '2025-03-08', 5700.00, 'Biman Bangladesh', 'info@biman.com', '+8801812345688', 'Shah Amanat Intl. Airport'),
+
+    -- Chattogram to Barishal
+    ('Chattogram', 'Barishal', 'Bus', '2025-03-01', '2025-03-05', 1400.00, 'Ena Transport', 'info@ena.com', '+8801812345689', 'Chattogram Bus Terminal'),
+    ('Chattogram', 'Barishal', 'Ferry', '2025-03-02', '2025-03-06', 1900.00, 'Sundarban Navigation', 'info@sundarban.com', '+8801812345690', 'Chattogram Terminal'),
+    ('Chattogram', 'Barishal', 'Plane', '2025-03-03', '2025-03-07', 5000.00, 'NovoAir', 'info@novoair.com', '+8801812345691', 'Shah Amanat Intl. Airport'),
+
+    -- Chattogram to Sylhet
+    ('Chattogram', 'Sylhet', 'Bus', '2025-03-01', '2025-03-05', 1500.00, 'Shyamoli Paribahan', 'info@shyamoli.com', '+8801812345692', 'Chattogram Bus Terminal'),
+    ('Chattogram', 'Sylhet', 'Train', '2025-03-02', '2025-03-06', 1400.00, 'Bangladesh Railway', 'info@railway.com', '+8801812345693', 'Chattogram Railway Station'),
+    ('Chattogram', 'Sylhet', 'Plane', '2025-03-03', '2025-03-07', 5300.00, 'US-Bangla Airlines', 'info@usbangla.com', '+8801812345694', 'Shah Amanat Intl. Airport'),
+
+    -- Chattogram to Rangpur
+    ('Chattogram', 'Rangpur', 'Bus', '2025-03-01', '2025-03-05', 1600.00, 'Hanif Paribahan', 'info@hanif.com', '+8801812345695', 'Chattogram Bus Terminal'),
+    ('Chattogram', 'Rangpur', 'Train', '2025-03-02', '2025-03-06', 1450.00, 'Bangladesh Railway', 'info@railway.com', '+8801812345696', 'Chattogram Railway Station'),
+
+    -- Chattogram to Mymensingh
+    ('Chattogram', 'Mymensingh', 'Bus', '2025-03-01', '2025-03-05', 1300.00, 'Ena Transport', 'info@ena.com', '+8801812345697', 'Chattogram Bus Terminal'),
+    ('Chattogram', 'Mymensingh', 'Train', '2025-03-02', '2025-03-06', 1100.00, 'Bangladesh Railway', 'info@railway.com', '+8801812345698', 'Chattogram Railway Station');
+INSERT INTO transport_system (from_division, to_division, transport_type, departure_date, return_date, fare, service_name, email, phone_number, service_location)
+VALUES 
+    -- Rajshahi to Dhaka
+    ('Rajshahi', 'Dhaka', 'Bus', '2025-03-01', '2025-03-05', 900.00, 'Hanif Paribahan', 'info@hanif.com', '+8801912345678', 'Rajshahi Bus Terminal'),
+    ('Rajshahi', 'Dhaka', 'Train', '2025-03-02', '2025-03-06', 800.00, 'Bangladesh Railway', 'info@railway.com', '+8801912345679', 'Rajshahi Railway Station'),
+    ('Rajshahi', 'Dhaka', 'Plane', '2025-03-03', '2025-03-07', 5000.00, 'US-Bangla Airlines', 'info@usbangla.com', '+8801912345680', 'Rajshahi Airport'),
+
+    -- Rajshahi to Chattogram
+    ('Rajshahi', 'Chattogram', 'Bus', '2025-03-01', '2025-03-05', 1400.00, 'Shyamoli Paribahan', 'info@shyamoli.com', '+8801912345681', 'Rajshahi Bus Terminal'),
+    ('Rajshahi', 'Chattogram', 'Train', '2025-03-02', '2025-03-06', 1300.00, 'Bangladesh Railway', 'info@railway.com', '+8801912345682', 'Rajshahi Railway Station'),
+    ('Rajshahi', 'Chattogram', 'Plane', '2025-03-03', '2025-03-07', 5200.00, 'NovoAir', 'info@novoair.com', '+8801912345683', 'Rajshahi Airport'),
+
+    -- Rajshahi to Khulna
+    ('Rajshahi', 'Khulna', 'Bus', '2025-03-01', '2025-03-05', 1100.00, 'Hanif Paribahan', 'info@hanif.com', '+8801912345684', 'Rajshahi Bus Terminal'),
+    ('Rajshahi', 'Khulna', 'Train', '2025-03-02', '2025-03-06', 1050.00, 'Bangladesh Railway', 'info@railway.com', '+8801912345685', 'Rajshahi Railway Station'),
+
+    -- Rajshahi to Barishal
+    ('Rajshahi', 'Barishal', 'Bus', '2025-03-01', '2025-03-05', 1600.00, 'Shyamoli Paribahan', 'info@shyamoli.com', '+8801912345686', 'Rajshahi Bus Terminal'),
+    ('Rajshahi', 'Barishal', 'Plane', '2025-03-02', '2025-03-06', 5300.00, 'Biman Bangladesh', 'info@biman.com', '+8801912345687', 'Rajshahi Airport'),
+
+    -- Rajshahi to Sylhet
+    ('Rajshahi', 'Sylhet', 'Bus', '2025-03-01', '2025-03-05', 1500.00, 'Ena Transport', 'info@ena.com', '+8801912345688', 'Rajshahi Bus Terminal'),
+    ('Rajshahi', 'Sylhet', 'Train', '2025-03-02', '2025-03-06', 1400.00, 'Bangladesh Railway', 'info@railway.com', '+8801912345689', 'Rajshahi Railway Station'),
+    ('Rajshahi', 'Sylhet', 'Plane', '2025-03-03', '2025-03-07', 5500.00, 'NovoAir', 'info@novoair.com', '+8801912345690', 'Rajshahi Airport'),
+
+    -- Rajshahi to Rangpur
+    ('Rajshahi', 'Rangpur', 'Bus', '2025-03-01', '2025-03-05', 700.00, 'Hanif Paribahan', 'info@hanif.com', '+8801912345691', 'Rajshahi Bus Terminal'),
+    ('Rajshahi', 'Rangpur', 'Train', '2025-03-02', '2025-03-06', 650.00, 'Bangladesh Railway', 'info@railway.com', '+8801912345692', 'Rajshahi Railway Station'),
+
+    -- Rajshahi to Mymensingh
+    ('Rajshahi', 'Mymensingh', 'Bus', '2025-03-01', '2025-03-05', 1200.00, 'Ena Transport', 'info@ena.com', '+8801912345693', 'Rajshahi Bus Terminal'),
+    ('Rajshahi', 'Mymensingh', 'Train', '2025-03-02', '2025-03-06', 1000.00, 'Bangladesh Railway', 'info@railway.com', '+8801912345694', 'Rajshahi Railway Station');
+INSERT INTO transport_system (from_division, to_division, transport_type, departure_date, return_date, fare, service_name, email, phone_number, service_location)
+VALUES 
+    -- Khulna to Dhaka
+    ('Khulna', 'Dhaka', 'Bus', '2025-03-01', '2025-03-05', 1000.00, 'Shyamoli Paribahan', 'info@shyamoli.com', '+8801711111111', 'Khulna Bus Terminal'),
+    ('Khulna', 'Dhaka', 'Train', '2025-03-02', '2025-03-06', 950.00, 'Bangladesh Railway', 'info@railway.com', '+8801711111112', 'Khulna Railway Station'),
+    ('Khulna', 'Dhaka', 'Ferry', '2025-03-03', '2025-03-07', 2000.00, 'Rocket Steamer', 'info@rocketsteamer.com', '+8801711111113', 'Khulna River Terminal'),
+    ('Khulna', 'Dhaka', 'Plane', '2025-03-04', '2025-03-08', 5500.00, 'NovoAir', 'info@novoair.com', '+8801711111114', 'Jessore Airport'),
+
+    -- Khulna to Chattogram
+    ('Khulna', 'Chattogram', 'Bus', '2025-03-01', '2025-03-05', 1600.00, 'Hanif Paribahan', 'info@hanif.com', '+8801711111115', 'Khulna Bus Terminal'),
+    ('Khulna', 'Chattogram', 'Train', '2025-03-02', '2025-03-06', 1500.00, 'Bangladesh Railway', 'info@railway.com', '+8801711111116', 'Khulna Railway Station'),
+    ('Khulna', 'Chattogram', 'Plane', '2025-03-03', '2025-03-07', 5700.00, 'Biman Bangladesh', 'info@biman.com', '+8801711111117', 'Jessore Airport'),
+
+    -- Khulna to Rajshahi
+    ('Khulna', 'Rajshahi', 'Bus', '2025-03-01', '2025-03-05', 1100.00, 'Ena Transport', 'info@ena.com', '+8801711111118', 'Khulna Bus Terminal'),
+    ('Khulna', 'Rajshahi', 'Train', '2025-03-02', '2025-03-06', 1050.00, 'Bangladesh Railway', 'info@railway.com', '+8801711111119', 'Khulna Railway Station'),
+
+    -- Khulna to Barishal
+    ('Khulna', 'Barishal', 'Bus', '2025-03-01', '2025-03-05', 1000.00, 'Shyamoli Paribahan', 'info@shyamoli.com', '+8801711111120', 'Khulna Bus Terminal'),
+    ('Khulna', 'Barishal', 'Ferry', '2025-03-02', '2025-03-06', 1500.00, 'Sundarban Navigation', 'info@sundarban.com', '+8801711111121', 'Khulna River Terminal'),
+
+    -- Khulna to Sylhet
+    ('Khulna', 'Sylhet', 'Bus', '2025-03-01', '2025-03-05', 1700.00, 'Hanif Paribahan', 'info@hanif.com', '+8801711111122', 'Khulna Bus Terminal'),
+    ('Khulna', 'Sylhet', 'Train', '2025-03-02', '2025-03-06', 1600.00, 'Bangladesh Railway', 'info@railway.com', '+8801711111123', 'Khulna Railway Station'),
+    ('Khulna', 'Sylhet', 'Plane', '2025-03-03', '2025-03-07', 6000.00, 'NovoAir', 'info@novoair.com', '+8801711111124', 'Jessore Airport'),
+
+    -- Khulna to Rangpur
+    ('Khulna', 'Rangpur', 'Bus', '2025-03-01', '2025-03-05', 1800.00, 'Shyamoli Paribahan', 'info@shyamoli.com', '+8801711111125', 'Khulna Bus Terminal'),
+    ('Khulna', 'Rangpur', 'Train', '2025-03-02', '2025-03-06', 1700.00, 'Bangladesh Railway', 'info@railway.com', '+8801711111126', 'Khulna Railway Station'),
+
+    -- Khulna to Mymensingh
+    ('Khulna', 'Mymensingh', 'Bus', '2025-03-01', '2025-03-05', 1300.00, 'Ena Transport', 'info@ena.com', '+8801711111127', 'Khulna Bus Terminal'),
+    ('Khulna', 'Mymensingh', 'Train', '2025-03-02', '2025-03-06', 1200.00, 'Bangladesh Railway', 'info@railway.com', '+8801711111128', 'Khulna Railway Station');
+INSERT INTO transport_system (from_division, to_division, transport_type, departure_date, return_date, fare, service_name, email, phone_number, service_location)
+VALUES 
+    -- Barishal to Dhaka
+    ('Barishal', 'Dhaka', 'Bus', '2025-03-01', '2025-03-05', 850.00, 'Hanif Paribahan', 'info@hanif.com', '+8801812222221', 'Barishal Bus Terminal'),
+    ('Barishal', 'Dhaka', 'Ferry', '2025-03-02', '2025-03-06', 1000.00, 'Sundarban Navigation', 'info@sundarban.com', '+8801812222222', 'Barishal River Terminal'),
+    ('Barishal', 'Dhaka', 'Plane', '2025-03-03', '2025-03-07', 4800.00, 'Biman Bangladesh', 'info@biman.com', '+8801812222223', 'Barishal Airport'),
+
+    -- Barishal to Chattogram
+    ('Barishal', 'Chattogram', 'Bus', '2025-03-01', '2025-03-05', 1400.00, 'Ena Transport', 'info@ena.com', '+8801812222224', 'Barishal Bus Terminal'),
+    ('Barishal', 'Chattogram', 'Ferry', '2025-03-02', '2025-03-06', 1900.00, 'Sundarban Navigation', 'info@sundarban.com', '+8801812222225', 'Barishal River Terminal'),
+    ('Barishal', 'Chattogram', 'Plane', '2025-03-03', '2025-03-07', 5000.00, 'NovoAir', 'info@novoair.com', '+8801812222226', 'Barishal Airport'),
+
+    -- Barishal to Rajshahi
+    ('Barishal', 'Rajshahi', 'Bus', '2025-03-01', '2025-03-05', 1600.00, 'Shyamoli Paribahan', 'info@shyamoli.com', '+8801812222227', 'Barishal Bus Terminal'),
+    ('Barishal', 'Rajshahi', 'Plane', '2025-03-02', '2025-03-06', 5300.00, 'Biman Bangladesh', 'info@biman.com', '+8801812222228', 'Barishal Airport'),
+
+    -- Barishal to Khulna
+    ('Barishal', 'Khulna', 'Bus', '2025-03-01', '2025-03-05', 1000.00, 'Shyamoli Paribahan', 'info@shyamoli.com', '+8801812222229', 'Barishal Bus Terminal'),
+    ('Barishal', 'Khulna', 'Ferry', '2025-03-02', '2025-03-06', 1500.00, 'Sundarban Navigation', 'info@sundarban.com', '+8801812222230', 'Barishal River Terminal'),
+
+    -- Barishal to Sylhet
+    ('Barishal', 'Sylhet', 'Bus', '2025-03-01', '2025-03-05', 1700.00, 'Hanif Paribahan', 'info@hanif.com', '+8801812222231', 'Barishal Bus Terminal'),
+    ('Barishal', 'Sylhet', 'Plane', '2025-03-02', '2025-03-06', 5500.00, 'NovoAir', 'info@novoair.com', '+8801812222232', 'Barishal Airport'),
+
+    -- Barishal to Rangpur
+    ('Barishal', 'Rangpur', 'Bus', '2025-03-01', '2025-03-05', 1800.00, 'Shyamoli Paribahan', 'info@shyamoli.com', '+8801812222233', 'Barishal Bus Terminal'),
+
+    -- Barishal to Mymensingh
+    ('Barishal', 'Mymensingh', 'Bus', '2025-03-01', '2025-03-05', 1300.00, 'Ena Transport', 'info@ena.com', '+8801812222234', 'Barishal Bus Terminal');
+
+INSERT INTO transport_system (from_division, to_division, transport_type, departure_date, return_date, fare, service_name, email, phone_number, service_location)
+VALUES 
+    -- Sylhet to Dhaka
+    ('Sylhet', 'Dhaka', 'Bus', '2025-03-01', '2025-03-05', 1300.00, 'Shyamoli Paribahan', 'info@shyamoli.com', '+8801913333331', 'Sylhet Bus Terminal'),
+    ('Sylhet', 'Dhaka', 'Train', '2025-03-02', '2025-03-06', 1200.00, 'Bangladesh Railway', 'info@railway.com', '+8801913333332', 'Sylhet Railway Station'),
+    ('Sylhet', 'Dhaka', 'Plane', '2025-03-03', '2025-03-07', 4600.00, 'Biman Bangladesh', 'info@biman.com', '+8801913333333', 'Osmani International Airport'),
+
+    -- Sylhet to Chattogram
+    ('Sylhet', 'Chattogram', 'Bus', '2025-03-01', '2025-03-05', 1500.00, 'Ena Transport', 'info@ena.com', '+8801913333334', 'Sylhet Bus Terminal'),
+    ('Sylhet', 'Chattogram', 'Train', '2025-03-02', '2025-03-06', 1400.00, 'Bangladesh Railway', 'info@railway.com', '+8801913333335', 'Sylhet Railway Station'),
+    ('Sylhet', 'Chattogram', 'Plane', '2025-03-03', '2025-03-07', 5300.00, 'US-Bangla Airlines', 'info@usbangla.com', '+8801913333336', 'Osmani International Airport'),
+
+    -- Sylhet to Rajshahi
+    ('Sylhet', 'Rajshahi', 'Bus', '2025-03-01', '2025-03-05', 1500.00, 'Shyamoli Paribahan', 'info@shyamoli.com', '+8801913333337', 'Sylhet Bus Terminal'),
+    ('Sylhet', 'Rajshahi', 'Train', '2025-03-02', '2025-03-06', 1400.00, 'Bangladesh Railway', 'info@railway.com', '+8801913333338', 'Sylhet Railway Station'),
+    ('Sylhet', 'Rajshahi', 'Plane', '2025-03-03', '2025-03-07', 5500.00, 'NovoAir', 'info@novoair.com', '+8801913333339', 'Osmani International Airport'),
+
+    -- Sylhet to Khulna
+    ('Sylhet', 'Khulna', 'Bus', '2025-03-01', '2025-03-05', 1700.00, 'Hanif Paribahan', 'info@hanif.com', '+8801913333340', 'Sylhet Bus Terminal'),
+    ('Sylhet', 'Khulna', 'Train', '2025-03-02', '2025-03-06', 1600.00, 'Bangladesh Railway', 'info@railway.com', '+8801913333341', 'Sylhet Railway Station'),
+    ('Sylhet', 'Khulna', 'Plane', '2025-03-03', '2025-03-07', 6000.00, 'NovoAir', 'info@novoair.com', '+8801913333342', 'Osmani International Airport'),
+
+    -- Sylhet to Barishal
+    ('Sylhet', 'Barishal', 'Bus', '2025-03-01', '2025-03-05', 1700.00, 'Hanif Paribahan', 'info@hanif.com', '+8801913333343', 'Sylhet Bus Terminal'),
+    ('Sylhet', 'Barishal', 'Plane', '2025-03-02', '2025-03-06', 5500.00, 'NovoAir', 'info@novoair.com', '+8801913333344', 'Osmani International Airport'),
+
+    -- Sylhet to Rangpur
+    ('Sylhet', 'Rangpur', 'Bus', '2025-03-01', '2025-03-05', 1800.00, 'Shyamoli Paribahan', 'info@shyamoli.com', '+8801913333345', 'Sylhet Bus Terminal'),
+    ('Sylhet', 'Rangpur', 'Train', '2025-03-02', '2025-03-06', 1700.00, 'Bangladesh Railway', 'info@railway.com', '+8801913333346', 'Sylhet Railway Station'),
+
+    -- Sylhet to Mymensingh
+    ('Sylhet', 'Mymensingh', 'Bus', '2025-03-01', '2025-03-05', 1300.00, 'Ena Transport', 'info@ena.com', '+8801913333347', 'Sylhet Bus Terminal'),
+    ('Sylhet', 'Mymensingh', 'Train', '2025-03-02', '2025-03-06', 1200.00, 'Bangladesh Railway', 'info@railway.com', '+8801913333348', 'Sylhet Railway Station');
+INSERT INTO transport_system (from_division, to_division, transport_type, departure_date, return_date, fare, service_name, email, phone_number, service_location)
+VALUES 
+    -- Rangpur to Dhaka
+    ('Rangpur', 'Dhaka', 'Bus', '2025-03-01', '2025-03-05', 1100.00, 'Hanif Paribahan', 'info@hanif.com', '+8801924444441', 'Rangpur Bus Terminal'),
+    ('Rangpur', 'Dhaka', 'Train', '2025-03-02', '2025-03-06', 900.00, 'Bangladesh Railway', 'info@railway.com', '+8801924444442', 'Rangpur Railway Station'),
+
+    -- Rangpur to Chattogram
+    ('Rangpur', 'Chattogram', 'Bus', '2025-03-01', '2025-03-05', 1600.00, 'Shyamoli Paribahan', 'info@shyamoli.com', '+8801924444443', 'Rangpur Bus Terminal'),
+    ('Rangpur', 'Chattogram', 'Train', '2025-03-02', '2025-03-06', 1450.00, 'Bangladesh Railway', 'info@railway.com', '+8801924444444', 'Rangpur Railway Station'),
+
+    -- Rangpur to Rajshahi
+    ('Rangpur', 'Rajshahi', 'Bus', '2025-03-01', '2025-03-05', 700.00, 'Ena Transport', 'info@ena.com', '+8801924444445', 'Rangpur Bus Terminal'),
+    ('Rangpur', 'Rajshahi', 'Train', '2025-03-02', '2025-03-06', 650.00, 'Bangladesh Railway', 'info@railway.com', '+8801924444446', 'Rangpur Railway Station'),
+
+    -- Rangpur to Khulna
+    ('Rangpur', 'Khulna', 'Bus', '2025-03-01', '2025-03-05', 1800.00, 'Hanif Paribahan', 'info@hanif.com', '+8801924444447', 'Rangpur Bus Terminal'),
+    ('Rangpur', 'Khulna', 'Train', '2025-03-02', '2025-03-06', 1700.00, 'Bangladesh Railway', 'info@railway.com', '+8801924444448', 'Rangpur Railway Station'),
+
+    -- Rangpur to Barishal
+    ('Rangpur', 'Barishal', 'Bus', '2025-03-01', '2025-03-05', 1800.00, 'Shyamoli Paribahan', 'info@shyamoli.com', '+8801924444449', 'Rangpur Bus Terminal'),
+
+    -- Rangpur to Sylhet
+    ('Rangpur', 'Sylhet', 'Bus', '2025-03-01', '2025-03-05', 1800.00, 'Shyamoli Paribahan', 'info@shyamoli.com', '+8801924444450', 'Rangpur Bus Terminal'),
+    ('Rangpur', 'Sylhet', 'Train', '2025-03-02', '2025-03-06', 1700.00, 'Bangladesh Railway', 'info@railway.com', '+8801924444451', 'Rangpur Railway Station'),
+
+    -- Rangpur to Mymensingh
+    ('Rangpur', 'Mymensingh', 'Bus', '2025-03-01', '2025-03-05', 1400.00, 'Ena Transport', 'info@ena.com', '+8801924444452', 'Rangpur Bus Terminal'),
+    ('Rangpur', 'Mymensingh', 'Train', '2025-03-02', '2025-03-06', 1300.00, 'Bangladesh Railway', 'info@railway.com', '+8801924444453', 'Rangpur Railway Station');
+INSERT INTO transport_system (from_division, to_division, transport_type, departure_date, return_date, fare, service_name, email, phone_number, service_location)
+VALUES 
+    -- Mymensingh to Dhaka
+    ('Mymensingh', 'Dhaka', 'Bus', '2025-03-01', '2025-03-05', 600.00, 'Ena Transport', 'info@ena.com', '+8801935555551', 'Mymensingh Bus Terminal'),
+    ('Mymensingh', 'Dhaka', 'Train', '2025-03-02', '2025-03-06', 500.00, 'Bangladesh Railway', 'info@railway.com', '+8801935555552', 'Mymensingh Railway Station'),
+
+    -- Mymensingh to Chattogram
+    ('Mymensingh', 'Chattogram', 'Bus', '2025-03-01', '2025-03-05', 1300.00, 'Shyamoli Paribahan', 'info@shyamoli.com', '+8801935555553', 'Mymensingh Bus Terminal'),
+    ('Mymensingh', 'Chattogram', 'Train', '2025-03-02', '2025-03-06', 1200.00, 'Bangladesh Railway', 'info@railway.com', '+8801935555554', 'Mymensingh Railway Station'),
+
+    -- Mymensingh to Rajshahi
+    ('Mymensingh', 'Rajshahi', 'Bus', '2025-03-01', '2025-03-05', 1200.00, 'Hanif Paribahan', 'info@hanif.com', '+8801935555555', 'Mymensingh Bus Terminal'),
+    ('Mymensingh', 'Rajshahi', 'Train', '2025-03-02', '2025-03-06', 1000.00, 'Bangladesh Railway', 'info@railway.com', '+8801935555556', 'Mymensingh Railway Station'),
+
+    -- Mymensingh to Khulna
+    ('Mymensingh', 'Khulna', 'Bus', '2025-03-01', '2025-03-05', 1300.00, 'Ena Transport', 'info@ena.com', '+8801935555557', 'Mymensingh Bus Terminal'),
+    ('Mymensingh', 'Khulna', 'Train', '2025-03-02', '2025-03-06', 1200.00, 'Bangladesh Railway', 'info@railway.com', '+8801935555558', 'Mymensingh Railway Station'),
+
+    -- Mymensingh to Barishal
+    ('Mymensingh', 'Barishal', 'Bus', '2025-03-01', '2025-03-05', 1300.00, 'Shyamoli Paribahan', 'info@shyamoli.com', '+8801935555559', 'Mymensingh Bus Terminal'),
+
+    -- Mymensingh to Sylhet
+    ('Mymensingh', 'Sylhet', 'Bus', '2025-03-01', '2025-03-05', 1300.00, 'Ena Transport', 'info@ena.com', '+8801935555560', 'Mymensingh Bus Terminal'),
+    ('Mymensingh', 'Sylhet', 'Train', '2025-03-02', '2025-03-06', 1200.00, 'Bangladesh Railway', 'info@railway.com', '+8801935555561', 'Mymensingh Railway Station'),
+
+    -- Mymensingh to Rangpur
+    ('Mymensingh', 'Rangpur', 'Bus', '2025-03-01', '2025-03-05', 1400.00, 'Shyamoli Paribahan', 'info@shyamoli.com', '+8801935555562', 'Mymensingh Bus Terminal'),
+    ('Mymensingh', 'Rangpur', 'Train', '2025-03-02', '2025-03-06', 1300.00, 'Bangladesh Railway', 'info@railway.com', '+8801935555563', 'Mymensingh Railway Station');
+
+SELECT * FROM transport_system;
 CREATE TABLE bucket_list (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
@@ -135,6 +393,7 @@ CREATE TABLE bucket_list (
     visited BOOLEAN NOT NULL DEFAULT FALSE,
     FOREIGN KEY (username) REFERENCES user(username)
 );
+
 
 CREATE TABLE IF NOT EXISTS destinations (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -246,5 +505,5 @@ VALUES
 ('Mymensingh', 'Garo Hills', 'A hill range in Mymensingh, offering beautiful views and a peaceful environment.', 'Garo Hills, Shoshi Lodge', 'Best visited in winter', 'Monda, Pithas', 'Accessible by bus, train, and car'),
 ('Mymensingh', 'Bijoypur', 'A town in Mymensingh, known for its natural beauty and cultural significance.', 'Bijoypur, Shoshi Lodge', 'Best visited in winter', 'Monda, Pithas', 'Accessible by bus, train, and car');
 
-SELECT * FROM destinations;
 
+SELECT * FROM destinations;
