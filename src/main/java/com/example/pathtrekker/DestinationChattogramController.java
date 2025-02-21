@@ -23,7 +23,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class DestinationDhakaController implements Initializable {
+public class DestinationChattogramController implements Initializable {
 
     @FXML
     private VBox destinationContainer;
@@ -61,7 +61,7 @@ public class DestinationDhakaController implements Initializable {
 
         try {
             // Fetch destinations from the database
-            rs = DestinationDhakaJDBC.getDhakaDestinations(perPage, 0);
+            rs = DestinationChattogramJDBC.getDhakaDestinations(perPage, 0);
             boolean hasResults = false;
 
             while (rs.next()) {

@@ -78,6 +78,17 @@ public class DestinationSearchController {
             }
         });
 
+        divisionButton2.setOnAction(event -> {
+            try {
+                Stage stage = (Stage) divisionButton2.getScene().getWindow();
+                Parent root = FXMLLoader.load(getClass().getResource("DestinationChattogram.fxml"));
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
     }
 
     private void styleButton(Button button, String baseColor, String hoverColor) {
