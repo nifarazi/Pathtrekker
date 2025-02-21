@@ -42,10 +42,26 @@ public class ItineraryController {
     private CheckBox beachPerson;
 
     @FXML
+    private CheckBox summerSeason;
+
+    @FXML
+    private CheckBox autumnSeason;
+
+    @FXML
+    private CheckBox springSeason;
+
+
+    @FXML
+    private CheckBox winterSeason;
+
+    @FXML
     private CheckBox cityPerson;
 
     @FXML
     private CheckBox countryPerson;
+
+    @FXML
+    private ComboBox<String> seasonComboBox;
 
     @FXML
     private CheckBox historicalSites;
@@ -79,7 +95,8 @@ public class ItineraryController {
                 districtField.getText().isEmpty() || divisionField.getText().isEmpty() ||
                 (!lowBudget.isSelected() && !mediumBudget.isSelected() && !highBudget.isSelected()) ||
                 (!mountainPerson.isSelected() && !beachPerson.isSelected()) ||
-                (!cityPerson.isSelected() && !countryPerson.isSelected())) {
+                (!cityPerson.isSelected() && !countryPerson.isSelected()) ||
+                (!springSeason.isSelected() && !summerSeason.isSelected() && !autumnSeason.isSelected() && !winterSeason.isSelected())) {
             showAlert(Alert.AlertType.WARNING, "Unfulfilled Boxes", "Please fill all the boxes before generating the itinerary.");
         } else {
             // Simulate itinerary creation

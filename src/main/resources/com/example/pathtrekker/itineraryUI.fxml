@@ -24,13 +24,9 @@
     <!-- Main Layout -->
     <AnchorPane prefHeight="756" prefWidth="1080">
         <!-- Black Blurred Box -->
-        <Pane fx:id="blackBlurredBox" prefHeight="650" prefWidth="600" style="-fx-background-color: rgba(0, 0, 0, 0.6); -fx-background-radius: 15;" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="100.0">
+        <Pane fx:id="blackBlurredBox" prefHeight="650" prefWidth="600" style="-fx-background-color: rgba(0, 0, 0, 0.7); -fx-background-radius: 15;" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="100.0">
          <children>
-            <Button fx:id="ItineraryBack" layoutX="20.0" layoutY="611.0" mnemonicParsing="false" onMouseClicked="#ItineraryBackAction" prefHeight="27.0" prefWidth="198.0" style="-fx-background-color: #4CAF50; -fx-font-family: 'Roboto'; -fx-text-fill: white; -fx-font-weight: bold;" text="Home">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Button>
+
          </children></Pane>
 
         <!-- Form Elements -->
@@ -98,6 +94,20 @@
                 <CheckBox fx:id="beachPerson" style="-fx-font-family: 'Roboto'; -fx-font-weight: bold; -fx-font-size: 18;" text="Beach" textFill="WHITE" />
             </HBox>
 
+
+            <!-- Visit Time Preference -->
+            <Label style="-fx-font-weight: bold;" text="Visit Time Preference:" textFill="WHITE">
+                <font>
+                    <Font name="Roboto Bold" size="18" />
+                </font>
+            </Label>
+            <HBox spacing="15">
+                <CheckBox fx:id="springSeason" style="-fx-font-family: 'Roboto'; -fx-font-weight: bold; -fx-font-size: 18;" text="Spring" textFill="WHITE" />
+                <CheckBox fx:id="summerSeason" style="-fx-font-family: 'Roboto'; -fx-font-weight: bold; -fx-font-size: 18;" text="Summer" textFill="WHITE" />
+                <CheckBox fx:id="autumnSeason" style="-fx-font-family: 'Roboto'; -fx-font-weight: bold; -fx-font-size: 18;" text="Autumn" textFill="WHITE" />
+                <CheckBox fx:id="winterSeason" style="-fx-font-family: 'Roboto'; -fx-font-weight: bold; -fx-font-size: 18;" text="Winter" textFill="WHITE" />
+            </HBox>
+
             <!-- City or Country -->
             <Label style="-fx-font-weight: bold;" text="Are you a City or Country person?" textFill="WHITE">
                 <font>
@@ -126,8 +136,16 @@
                 </HBox>
             </VBox>
 
-            <!-- Generate Itinerary Button -->
-            <Button fx:id="generateButton" onAction="#handleGenerateButton" prefHeight="26.0" prefWidth="198.0" style="-fx-background-color: #4CAF50; -fx-font-family: 'Roboto'; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 20;" text="Generate Itinerary" />
+        </VBox>
+
+        <!-- Buttons -->
+        <VBox spacing="15" AnchorPane.rightAnchor="46.0" AnchorPane.bottomAnchor="50.0">
+            <Button fx:id="generateButton" onAction="#handleGenerateButton" prefHeight="22.0" prefWidth="152.0" style="-fx-background-color: #3ba545; -fx-font-family: 'Roboto'; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 15;" text="Generate Itinerary" />
+            <Button fx:id="ItineraryBack" mnemonicParsing="false" onMouseClicked="#ItineraryBackAction" prefHeight="24.0" prefWidth="90.0" style="-fx-background-color: #3ba545; -fx-font-family: 'Roboto'; -fx-text-fill: white; -fx-font-weight: bold;" text="Home">
+                <font>
+                    <Font size="11.0" />
+                </font>
+            </Button>
         </VBox>
     </AnchorPane>
 </StackPane>
