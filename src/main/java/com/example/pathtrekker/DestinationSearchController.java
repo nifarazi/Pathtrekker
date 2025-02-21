@@ -89,6 +89,17 @@ public class DestinationSearchController {
             }
         });
 
+        divisionButton8.setOnAction(event -> {
+            try {
+                Stage stage = (Stage) divisionButton8.getScene().getWindow();
+                Parent root = FXMLLoader.load(getClass().getResource("DestinationSylhet.fxml"));
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
     }
 
     private void styleButton(Button button, String baseColor, String hoverColor) {
