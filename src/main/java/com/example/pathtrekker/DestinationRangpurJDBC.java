@@ -6,13 +6,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DestinationChattogramJDBC {
+public class DestinationRangpurJDBC {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/register";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "nanjiba@282002";
 
     public static ResultSet getDhakaDestinations(int limit, int offset) throws SQLException {
-        String query = "SELECT * FROM final_destinations WHERE division='Chattogram' LIMIT ? OFFSET ?";
+        String query = "SELECT * FROM destinations WHERE division='Rangpur' LIMIT ? OFFSET ?";
         Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
 
         // Create a scrollable and updatable ResultSet
