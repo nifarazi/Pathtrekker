@@ -111,6 +111,17 @@ public class DestinationSearchController {
             }
         });
 
+        divisionButton6.setOnAction(event -> {
+            try {
+                Stage stage = (Stage) divisionButton6.getScene().getWindow();
+                Parent root = FXMLLoader.load(getClass().getResource("DestinationRangpur.fxml"));
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
         divisionButton4.setOnAction(event -> {
             try {
                 Stage stage = (Stage) divisionButton4.getScene().getWindow();
