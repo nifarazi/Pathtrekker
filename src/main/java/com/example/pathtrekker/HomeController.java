@@ -1,40 +1,17 @@
 package com.example.pathtrekker;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.util.Calendar;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class HomeController {
-
-    @FXML
-    private AnchorPane An1;
-
-    @FXML
-    private AnchorPane An2;
-
-    @FXML
-    private AnchorPane An3;
-
-    @FXML
-    private AnchorPane An4;
-
-    @FXML
-    private AnchorPane An5;
-
-    @FXML
-    private Label Day;
-
-    @FXML
-    private Label Month;
-
-    @FXML
-    private Label Year;
+public class HomeController implements Initializable {
 
     @FXML
     private Button Destination;
@@ -54,16 +31,15 @@ public class HomeController {
     @FXML
     private Label UsernameSpace;
 
+    @FXML
+    private Button LocalAttraction;
 
-    private void loadUsername() {
-        String username = ProfileUserJDBC.getCurrentUsername();
-        UsernameSpace.setText(username);
-    }
+    @FXML
+    private Button Map;
 
-    Calendar now = Calendar.getInstance();
-    int y = now.get(Calendar.YEAR);
-    int month = now.get(Calendar.MONTH) + 1;
-    int d = now.get(Calendar.DATE);
+    @FXML
+    private Button TravelMoments;
+
 
     ChangeScene cs = new ChangeScene();
 
@@ -120,26 +96,29 @@ public class HomeController {
 
     @FXML
     void UsernameAction(MouseEvent event) {
-        Stage staage = (Stage) UsernameSpace.getScene().getWindow();
+        Stage stage = (Stage) UsernameSpace.getScene().getWindow();
         try {
-            cs.changeScene(staage, "Profile.fxml");
+            cs.changeScene(stage, "Profile.fxml");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    void initialize() {
-
-        An1.getStyleClass().add("anchor-pane-hover");
-        An2.getStyleClass().add("anchor-pane-hover");
-        An3.getStyleClass().add("anchor-pane-hover");
-        An4.getStyleClass().add("anchor-pane-hover");
-        An5.getStyleClass().add("anchor-pane-hover");
-        loadUsername();
-        Day.setText(String.valueOf(d));
-        Month.setText(String.valueOf(month));
-        Year.setText(String.valueOf(y));
+    public void TravelMomentsAction(MouseEvent mouseEvent) {
+    }
+    @FXML
+    public void LocalAttractionAction(MouseEvent mouseEvent) {
     }
 
+    @FXML
+    void MapAction(MouseEvent event) {
+
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        String username = ProfileUserJDBC.getCurrentUsername();
+        UsernameSpace.setText(username);
+    }
 }

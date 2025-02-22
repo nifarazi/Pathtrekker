@@ -7,92 +7,57 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1080.0" stylesheets="@../../../style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pathtrekker.HomeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pathtrekker.HomeController">
    <children>
-      <ImageView fitHeight="756.0" fitWidth="1080.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fitHeight="756.0" fitWidth="1080.0" pickOnBounds="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../../../Images/home.png" />
+            <Image url="@../../../FINALDASHBOARD.png" />
          </image>
       </ImageView>
-      <Label fx:id="Day" alignment="CENTER" layoutX="863.0" layoutY="88.0" prefHeight="58.22" prefWidth="59.06" textFill="#fffefe">
+      <Button fx:id="Hotel" layoutX="420.0" layoutY="286.6" mnemonicParsing="false" onMouseClicked="#HotelsAction" prefHeight="27.0" prefWidth="163.0" style="-fx-background-color: #18392b; -fx-background-radius: 10;" text="HOTELS" textFill="#90cab3" AnchorPane.bottomAnchor="442.2" AnchorPane.leftAnchor="420.0" AnchorPane.rightAnchor="496.79999999999995">
          <font>
-            <Font name="Franklin Gothic Heavy" size="20.0" />
+            <Font name="Arial Bold" size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="Transport" layoutX="64.6" layoutY="420.8" mnemonicParsing="false" onMouseClicked="#TransportAction" prefHeight="32.0" prefWidth="263.0" style="-fx-background-color: #18392b; -fx-background-radius: 10;" text="TRANSPORTATION" textFill="#90cab3" AnchorPane.bottomAnchor="303.2" AnchorPane.leftAnchor="64.6" AnchorPane.rightAnchor="753.0">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="Itinerary" layoutX="359.2" layoutY="675.2" mnemonicParsing="false" onMouseClicked="#ItineraryAction" prefHeight="32.0" prefWidth="318.0" style="-fx-background-color: #18392b; -fx-background-radius: 10;" text="ITINERARY GENERATOR" textFill="#90cab3" AnchorPane.bottomAnchor="49.0" AnchorPane.leftAnchor="359.0" AnchorPane.rightAnchor="403.0">
+         <font>
+            <Font name="Arial Bold" size="17.0" />
+         </font>
+      </Button>
+      <Button fx:id="Em" layoutX="695.0" layoutY="382.40000000000003" mnemonicParsing="false" onMouseClicked="#EmAction" prefHeight="26.0" prefWidth="226.0" style="-fx-background-color: #18392b; -fx-background-radius: 10;" text="EMERGENCY SERVICES" textFill="#90cab3" AnchorPane.bottomAnchor="347.2" AnchorPane.leftAnchor="695.0" AnchorPane.rightAnchor="159.39999999999998">
+         <font>
+            <Font name="Arial Bold" size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="Destination" layoutX="51.2" layoutY="676.2" mnemonicParsing="false" onMouseClicked="#DestinationAction" prefHeight="32.0" prefWidth="294.0" style="-fx-background-color: #18392b; -fx-background-radius: 10;" text="DESTINATION FINDER" textFill="#90cab3" AnchorPane.bottomAnchor="47.799999999999955" AnchorPane.leftAnchor="51.2" AnchorPane.rightAnchor="735.2">
+         <font>
+            <Font name="Arial Bold" size="17.0" />
+         </font>
+      </Button>
+      <Label fx:id="UsernameSpace" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="742.0" layoutY="50.0" onMouseClicked="#UsernameAction" prefHeight="44.0" prefWidth="178.0" textAlignment="RIGHT" textFill="#18392b">
+         <font>
+            <Font name="Arial Bold" size="21.0" />
          </font>
       </Label>
-      <Label fx:id="Month" alignment="CENTER" layoutX="928.0" layoutY="88.0" prefHeight="58.22" prefWidth="59.06" textFill="#fffefe">
+      <Button fx:id="Map" layoutX="940.0" layoutY="379.0" mnemonicParsing="false" onMouseClicked="#MapAction" prefHeight="26.0" prefWidth="78.0" style="-fx-background-color: #18392b; -fx-background-radius: 10;" text="MAP" textFill="#90cab3">
          <font>
-            <Font name="Franklin Gothic Heavy" size="20.0" />
+            <Font name="Arial Bold" size="17.0" />
          </font>
-      </Label>
-      <Label fx:id="Year" alignment="CENTER" layoutX="993.0" layoutY="88.0" prefHeight="58.22" prefWidth="59.06" textFill="#fffefe">
+      </Button>
+      <Button fx:id="TravelMoments" layoutX="729.0" layoutY="674.0" mnemonicParsing="false" onMouseClicked="#TravelMomentsAction" prefHeight="34.0" prefWidth="263.0" style="-fx-background-color: #18392b; -fx-background-radius: 10;" text="TRAVEL MOMENTS" textFill="#90cab3">
          <font>
-            <Font name="Franklin Gothic Heavy" size="20.0" />
+            <Font name="Arial Bold" size="18.0" />
          </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="863.0" layoutY="149.0" prefHeight="18.0" prefWidth="59.0" style="-fx-background-color: #09291C;" text="Day" textFill="WHITE">
+      </Button>
+      <Button fx:id="LocalAttraction" layoutX="704.0" layoutY="191.0" mnemonicParsing="false" onMouseClicked="#LocalAttractionAction" prefHeight="26.0" prefWidth="204.0" style="-fx-background-color: #18392b; -fx-background-radius: 10;" text="LOCAL ATTRACTIONS" textFill="#90cab3">
          <font>
-            <Font name="Franklin Gothic Heavy" size="12.0" />
+            <Font name="Arial Bold" size="10.0" />
          </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="993.0" layoutY="149.0" prefHeight="18.0" prefWidth="59.0" style="-fx-background-color: #09291C;" text="Year" textFill="#fff9f9">
-         <font>
-            <Font name="Franklin Gothic Heavy" size="12.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="928.0" layoutY="149.0" prefHeight="18.0" prefWidth="59.0" style="-fx-background-color: #09291C;" text="Month" textFill="#fff9f9">
-         <font>
-            <Font name="Franklin Gothic Heavy" size="12.0" />
-         </font>
-      </Label>
-      <AnchorPane fx:id="An1" layoutX="227.0" layoutY="299.0" prefHeight="200.5" prefWidth="281.0" style="-fx-background-radius: 30;" styleClass="anchor-pane-hover">
-         <children>
-            <Button fx:id="Hotel" layoutY="148.0" mnemonicParsing="false" onMouseClicked="#HotelsAction" prefHeight="40.0" prefWidth="253.0" style="-fx-background-radius: 30; -fx-background-color: transparent;" text="Hotels" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-               <font>
-                  <Font name="Forte" size="20.0" />
-               </font>
-            </Button>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="An2" layoutX="399.0" layoutY="515.0" prefHeight="200.5" prefWidth="282.0" style="-fx-background-radius: 30;" styleClass="anchor-pane-hover">
-         <children>
-            <Button fx:id="Transport" layoutX="41.0" layoutY="100.0" mnemonicParsing="false" onMouseClicked="#TransportAction" prefHeight="40.0" prefWidth="225.0" style="-fx-background-radius: 30; -fx-background-color: transparent;" text="Transportation Services" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-               <font>
-                  <Font name="Forte" size="20.0" />
-               </font>
-            </Button>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="An3" layoutX="45.0" layoutY="516.0" prefHeight="200.5" prefWidth="282.0" style="-fx-background-radius: 30;" styleClass="anchor-pane-hover">
-         <children>
-            <Button fx:id="Itinerary" layoutX="14.0" layoutY="137.0" mnemonicParsing="false" onMouseClicked="#ItineraryAction" prefHeight="40.0" prefWidth="251.0" style="-fx-background-radius: 30; -fx-background-color: transparent;" text="Itinerary Generator" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-               <font>
-                  <Font name="Forte" size="20.0" />
-               </font>
-            </Button>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="An4" layoutX="753.0" layoutY="515.0" prefHeight="200.5" prefWidth="282.0" style="-fx-background-radius: 30;" styleClass="anchor-pane-hover">
-         <children>
-            <Button fx:id="Em" layoutX="51.0" layoutY="56.0" mnemonicParsing="false" onMouseClicked="#EmAction" prefHeight="40.0" prefWidth="282.0" style="-fx-background-radius: 30; -fx-background-color: transparent;" text="Emergency Services" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-               <font>
-                  <Font name="Forte" size="20.0" />
-               </font>
-            </Button>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="An5" layoutX="582.0" layoutY="299.0" prefHeight="200.8" prefWidth="281.0" style="-fx-background-radius: 30;" styleClass="anchor-pane-hover">
-         <children>
-            <Button fx:id="Destination" layoutY="131.0" mnemonicParsing="false" onMouseClicked="#DestinationAction" prefHeight="40.0" prefWidth="254.0" style="-fx-background-radius: 30; -fx-background-color: transparent;" text="Destination Finder" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-               <font>
-                  <Font name="Forte" size="20.0" />
-               </font>
-            </Button>
-         </children>
-      </AnchorPane>
-      <Label fx:id="UsernameSpace" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="838.0" layoutY="8.0" onMouseClicked="#UsernameAction" prefHeight="40.0" prefWidth="170.0" textFill="WHITE">
-         <font>
-            <Font name="Roboto Bold" size="20.0" />
-         </font>
-      </Label>
+      </Button>
    </children>
 </AnchorPane>
