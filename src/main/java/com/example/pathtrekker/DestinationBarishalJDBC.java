@@ -12,7 +12,7 @@ public class DestinationBarishalJDBC {
     private static final String DB_PASSWORD = "nanjiba@282002";
 
     public static ResultSet getDhakaDestinations(int limit, int offset) throws SQLException {
-        String query = "SELECT * FROM destinations WHERE division='Barishal' LIMIT ? OFFSET ?";
+        String query = "SELECT * FROM final_destinations WHERE division='Barishal' LIMIT ? OFFSET ?";
         Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
 
         // Create a scrollable and updatable ResultSet
