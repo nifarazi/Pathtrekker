@@ -7,7 +7,7 @@ import java.util.List;
 public class MyProfileJDBC {
     private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/register";
     private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "nanjiba@282002";
+    private static final String DB_PASSWORD = "mirpurdohs832";
     private static String currentUsername;
 
     public static void setCurrentUsername(String username) {
@@ -37,28 +37,28 @@ public class MyProfileJDBC {
     }
 
     public static void addBucketListItem(String username, String place) {
-        String query = "INSERT INTO bucket_list (username, place, visited) VALUES (?, ?, ?)";
+        String query = "INSERT INTO bucket_list (username, place, visited) VALUES (?, ?, ?) " +
+                "ON DUPLICATE KEY UPDATE visited = visited";
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, place);
-            preparedStatement.setBoolean(3, false);
+            preparedStatement.setBoolean(3, false); // Default to "not visited"
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
     public static void updateBucketListItemVisited(String username, String place, boolean visited) {
-        String sql = "UPDATE bucket_list SET visited = ? WHERE username = ? AND place = ?";
-
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setBoolean(1, visited);
-            pstmt.setString(2, username);
-            pstmt.setString(3, place);
-            pstmt.executeUpdate();
-
+        String query = "UPDATE bucket_list SET visited = ? WHERE username = ? AND place = ?";
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setBoolean(1, visited);
+            preparedStatement.setString(2, username);
+            preparedStatement.setString(3, place);
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -66,23 +66,21 @@ public class MyProfileJDBC {
 
     public static List<BucketListItem> getBucketListItems(String username) {
         List<BucketListItem> bucketList = new ArrayList<>();
-        String query = "SELECT id, place, visited FROM bucket_list WHERE username = ?";
+        String query = "SELECT place, visited FROM bucket_list WHERE username = ?";
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, username);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
                 String place = resultSet.getString("place");
                 boolean visited = resultSet.getBoolean("visited");
-                bucketList.add(new BucketListItem(id, place, visited));
+                bucketList.add(new BucketListItem(place, visited));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return bucketList;
     }
-
     public static class User {
         private final String username;
         private final String firstName;
@@ -114,18 +112,12 @@ public class MyProfileJDBC {
     }
 
     public static class BucketListItem {
-        private final int id;
         private final String place;
         private boolean visited;
 
-        public BucketListItem(int id, String place, boolean visited) {
-            this.id = id;
+        public BucketListItem(String place, boolean visited) {
             this.place = place;
             this.visited = visited;
-        }
-
-        public int getId() {
-            return id;
         }
 
         public String getPlace() {

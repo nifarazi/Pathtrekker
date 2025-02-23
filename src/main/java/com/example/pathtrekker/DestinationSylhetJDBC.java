@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class DestinationSylhetJDBC {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/register";
     private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "nanjiba@282002";
+    private static final String DB_PASSWORD = "mirpurdohs832";
 
     public static ResultSet getDhakaDestinations(int limit, int offset) throws SQLException {
         String query = "SELECT * FROM destinations WHERE division='Sylhet' LIMIT ? OFFSET ?";
