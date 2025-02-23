@@ -89,6 +89,17 @@ public class DestinationSearchController {
             }
         });
 
+        divisionButton7.setOnAction(event -> {
+            try {
+                Stage stage = (Stage) divisionButton7.getScene().getWindow();
+                Parent root = FXMLLoader.load(getClass().getResource("DestinationMymensingh.fxml"));
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
         divisionButton8.setOnAction(event -> {
             try {
                 Stage stage = (Stage) divisionButton8.getScene().getWindow();
@@ -104,6 +115,17 @@ public class DestinationSearchController {
             try {
                 Stage stage = (Stage) divisionButton5.getScene().getWindow();
                 Parent root = FXMLLoader.load(getClass().getResource("DestinationRajshahi.fxml"));
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        divisionButton6.setOnAction(event -> {
+            try {
+                Stage stage = (Stage) divisionButton6.getScene().getWindow();
+                Parent root = FXMLLoader.load(getClass().getResource("DestinationRangpur.fxml"));
                 stage.setScene(new Scene(root));
                 stage.show();
             } catch (IOException e) {

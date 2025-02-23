@@ -10,10 +10,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.Label;
-import javafx.scene.Parent;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
-import javafx.event.ActionEvent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -34,7 +32,7 @@ public class DestinationSylhetController implements Initializable {
     @FXML
     private Button backButton;
 
-    private final int perPage = 10;
+    private final int perPage = 13;
 
     ChangeScene cs = new ChangeScene();
 
@@ -106,29 +104,17 @@ public class DestinationSylhetController implements Initializable {
                     descriptionBox.getChildren().add(descLine);
                 }
 
-                VBox attractionsBox = new VBox();
-                attractionsBox.setSpacing(5);
-                attractionsBox.setStyle("-fx-padding: 10px; -fx-background-color: #f9f9f9; -fx-border-radius: 5px;");
-
-                Label attrTitle = new Label("Top Attractions:");
-                attrTitle.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
-
-                String[] attractionsLines = rs.getString("top_attractions").split(", ");
-                for (String line : attractionsLines) {
-                    Label attrLine = new Label("• " + line.trim());
-                    attrLine.setStyle("-fx-font-size: 16px; -fx-text-fill: #444;");
-                    attractionsBox.getChildren().add(attrLine);
-                }
-
                 Label weather = new Label("Weather: " + rs.getString("weather_info"));
                 Label cuisine = new Label("Cuisine: " + rs.getString("local_cuisine"));
                 Label transport = new Label("Transport: " + rs.getString("transport_info"));
+                Label openingTime = new Label("Opening Time: " + rs.getString("opening_time"));
+                Label closingTime = new Label("Closing Time: " + rs.getString("closing_time"));
 
-                for (Label label : new Label[]{weather, cuisine, transport}) {
+                for (Label label : new Label[]{weather, cuisine, transport, openingTime, closingTime}) {
                     label.setStyle("-fx-font-size: 16px; -fx-text-fill: #444;");
                 }
 
-                infoBox.getChildren().addAll(name, descTitle, descriptionBox, attrTitle, attractionsBox, weather, cuisine, transport);
+                infoBox.getChildren().addAll(name, descTitle, descriptionBox, weather, cuisine, transport, openingTime, closingTime);
 
                 // Horizontal Box (Image + Info)
                 HBox hbox = new HBox(15, imageView, infoBox);
