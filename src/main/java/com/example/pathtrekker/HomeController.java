@@ -105,7 +105,13 @@ public class HomeController implements Initializable {
     }
 
     @FXML
-    public void TravelMomentsAction(MouseEvent mouseEvent) {
+    public void TravelMomentsAction(MouseEvent event) {
+        Stage stage = (Stage) TravelMoments.getScene().getWindow();
+        try {
+            cs.changeScene(stage, "Moments.fxml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     @FXML
     public void LocalAttractionAction(MouseEvent mouseEvent) {

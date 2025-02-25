@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pathtrekker.UserProfileController">
+
+    <!-- Profile Picture Placeholder -->
+    <ImageView fx:id="profileImage" layoutX="300" layoutY="100" fitWidth="100" fitHeight="100" />
+
+    <!-- Username Label -->
+    <Label fx:id="usernameLabel" layoutX="320" layoutY="220" text="Username" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+    <!-- Back to Home Button -->
+    <Button fx:id="homeButton" layoutX="350" layoutY="300" text="Back to Home" onAction="#goToHome" />
+
+</AnchorPane>
