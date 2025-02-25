@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class SignInController {
-    ChangeScene change=new ChangeScene();
+    ChangeScene change = new ChangeScene();
 
     @FXML
     private Button SignIn;
@@ -27,17 +27,19 @@ public class SignInController {
 
     @FXML
     void BackAction(MouseEvent event) throws IOException {
-        Stage stage= (Stage) SignInCancel.getScene().getWindow();
-        change.changeScene(stage,"OpeningPage.fxml");
+        Stage stage = (Stage) SignInCancel.getScene().getWindow();
+        change.changeScene(stage, "OpeningPage.fxml");
     }
 
     @FXML
-    void SignInAction(MouseEvent event) throws IOException{
-        String username = SignInUsername.getText();
+    void SignInAction(MouseEvent event) throws IOException {
+        String username = SignInUsername.getText().trim(); // Trim to remove leading/trailing spaces
         String password = SignInPassword.getText();
 
+        // Validate login credentials
         boolean isValid = SignInUserJDBC.validateLogin(username, password);
 
+        // Show alert based on login success or failure
         Alert alert = new Alert(isValid ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR);
         alert.setTitle(isValid ? "Login Successful" : "Login Failed");
         alert.setHeaderText(null);
@@ -47,10 +49,13 @@ public class SignInController {
         alert.showAndWait();
 
         if (isValid) {
+            // Set the current username in UploadProfileUserJDBC after successful login
+            UploadProfileUserJDBC.setCurrentUsername(username);
+            System.out.println("Username set in SignInController: " + username); // Debugging
+
+            // Navigate to Home screen
             Stage stage = (Stage) SignIn.getScene().getWindow();
             change.changeScene(stage, "Home.fxml");
         }
-
     }
-
 }
