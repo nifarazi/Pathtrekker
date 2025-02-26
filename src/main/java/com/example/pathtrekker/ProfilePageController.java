@@ -15,7 +15,6 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 import java.util.List;
 
 public class ProfilePageController {
@@ -50,6 +49,10 @@ public class ProfilePageController {
     @FXML
     private Button addToListButton;
 
+    // New Trip Marker button
+    @FXML
+    private Button tripMarkerButton;
+
     @FXML
     private AnchorPane rootPane;
 
@@ -71,7 +74,7 @@ public class ProfilePageController {
     @FXML
     private Button logOutButton;
 
-    ChangeScene cs=new ChangeScene();
+    ChangeScene cs = new ChangeScene();
 
     @FXML
     public void initialize() {
@@ -100,97 +103,120 @@ public class ProfilePageController {
 
         mainContainer.setStyle("-fx-spacing: 20px;");
 
-        // Add styles for the "Add to List" button
+        // Style for "Add to List" button
         addToListButton.setStyle(
-                "-fx-background-color: #85aa9b; " + /* Green background */
-                        "-fx-text-fill: white; " + /* White text */
-                        "-fx-font-size: 14px; " + /* Font size */
-                        "-fx-padding: 10px 20px; " + /* Padding */
-                        "-fx-border-radius: 5px; " + /* Rounded corners */
-                        "-fx-background-radius: 5px; " + /* Rounded corners */
-                        "-fx-cursor: hand;" /* Pointer cursor on hover */
+                "-fx-background-color: #85aa9b; " +
+                        "-fx-text-fill: white; " +
+                        "-fx-font-size: 14px; " +
+                        "-fx-padding: 10px 20px; " +
+                        "-fx-border-radius: 5px; " +
+                        "-fx-background-radius: 5px; " +
+                        "-fx-cursor: hand;"
         );
-
-        // Add hover effect for the "Add to List" button
         addToListButton.setOnMouseEntered(e -> addToListButton.setStyle(
-                "-fx-background-color: #588b76; " + /* Darker green on hover */
-                        "-fx-text-fill: white; " + /* White text */
-                        "-fx-font-size: 14px; " + /* Font size */
-                        "-fx-padding: 10px 20px; " + /* Padding */
-                        "-fx-border-radius: 5px; " + /* Rounded corners */
-                        "-fx-background-radius: 5px; " + /* Rounded corners */
-                        "-fx-cursor: hand;" /* Pointer cursor on hover */
+                "-fx-background-color: #588b76; " +
+                        "-fx-text-fill: white; " +
+                        "-fx-font-size: 14px; " +
+                        "-fx-padding: 10px 20px; " +
+                        "-fx-border-radius: 5px; " +
+                        "-fx-background-radius: 5px; " +
+                        "-fx-cursor: hand;"
         ));
         addToListButton.setOnMouseExited(e -> addToListButton.setStyle(
-                "-fx-background-color: #85aa9b; " + /* Green background */
-                        "-fx-text-fill: white; " + /* White text */
-                        "-fx-font-size: 14px; " + /* Font size */
-                        "-fx-padding: 10px 20px; " + /* Padding */
-                        "-fx-border-radius: 5px; " + /* Rounded corners */
-                        "-fx-background-radius: 5px; " + /* Rounded corners */
-                        "-fx-cursor: hand;" /* Pointer cursor on hover */
+                "-fx-background-color: #85aa9b; " +
+                        "-fx-text-fill: white; " +
+                        "-fx-font-size: 14px; " +
+                        "-fx-padding: 10px 20px; " +
+                        "-fx-border-radius: 5px; " +
+                        "-fx-background-radius: 5px; " +
+                        "-fx-cursor: hand;"
         ));
 
-        // Add styles for the "Home" button
-        homeButton.setStyle(
-                "-fx-background-color: #85aa9b; " + /* Green background */
-                        "-fx-text-fill: white; " + /* White text */
-                        "-fx-font-size: 12px; " + /* Font size */
-                        "-fx-padding: 5px 10px; " + /* Padding */
-                        "-fx-border-radius: 5px; " + /* Rounded corners */
-                        "-fx-background-radius: 5px; " + /* Rounded corners */
-                        "-fx-cursor: hand;" /* Pointer cursor on hover */
+        // Style for "Trip Marker" button
+        tripMarkerButton.setStyle(
+                "-fx-background-color: #85aa9b; " +
+                        "-fx-text-fill: white; " +
+                        "-fx-font-size: 14px; " +
+                        "-fx-padding: 10px 20px; " +
+                        "-fx-border-radius: 5px; " +
+                        "-fx-background-radius: 5px; " +
+                        "-fx-cursor: hand;"
         );
+        tripMarkerButton.setOnMouseEntered(e -> tripMarkerButton.setStyle(
+                "-fx-background-color: #588b76; " +
+                        "-fx-text-fill: white; " +
+                        "-fx-font-size: 14px; " +
+                        "-fx-padding: 10px 20px; " +
+                        "-fx-border-radius: 5px; " +
+                        "-fx-background-radius: 5px; " +
+                        "-fx-cursor: hand;"
+        ));
+        tripMarkerButton.setOnMouseExited(e -> tripMarkerButton.setStyle(
+                "-fx-background-color: #85aa9b; " +
+                        "-fx-text-fill: white; " +
+                        "-fx-font-size: 14px; " +
+                        "-fx-padding: 10px 20px; " +
+                        "-fx-border-radius: 5px; " +
+                        "-fx-background-radius: 5px; " +
+                        "-fx-cursor: hand;"
+        ));
 
-        // Add hover effect for the "Home" button
+        // Style for "Home" button
+        homeButton.setStyle(
+                "-fx-background-color: #85aa9b; " +
+                        "-fx-text-fill: white; " +
+                        "-fx-font-size: 12px; " +
+                        "-fx-padding: 5px 10px; " +
+                        "-fx-border-radius: 5px; " +
+                        "-fx-background-radius: 5px; " +
+                        "-fx-cursor: hand;"
+        );
         homeButton.setOnMouseEntered(e -> homeButton.setStyle(
-                "-fx-background-color: #588b76; " + /* Darker green on hover */
-                        "-fx-text-fill: white; " + /* White text */
-                        "-fx-font-size: 12px; " + /* Font size */
-                        "-fx-padding: 5px 10px; " + /* Padding */
-                        "-fx-border-radius: 5px; " + /* Rounded corners */
-                        "-fx-background-radius: 5px; " + /* Rounded corners */
-                        "-fx-cursor: hand;" /* Pointer cursor on hover */
+                "-fx-background-color: #588b76; " +
+                        "-fx-text-fill: white; " +
+                        "-fx-font-size: 12px; " +
+                        "-fx-padding: 5px 10px; " +
+                        "-fx-border-radius: 5px; " +
+                        "-fx-background-radius: 5px; " +
+                        "-fx-cursor: hand;"
         ));
         homeButton.setOnMouseExited(e -> homeButton.setStyle(
-                "-fx-background-color: #85aa9b; " + /* Green background */
-                        "-fx-text-fill: white; " + /* White text */
-                        "-fx-font-size: 12px; " + /* Font size */
-                        "-fx-padding: 5px 10px; " + /* Padding */
-                        "-fx-border-radius: 5px; " + /* Rounded corners */
-                        "-fx-background-radius: 5px; " + /* Rounded corners */
-                        "-fx-cursor: hand;" /* Pointer cursor on hover */
+                "-fx-background-color: #85aa9b; " +
+                        "-fx-text-fill: white; " +
+                        "-fx-font-size: 12px; " +
+                        "-fx-padding: 5px 10px; " +
+                        "-fx-border-radius: 5px; " +
+                        "-fx-background-radius: 5px; " +
+                        "-fx-cursor: hand;"
         ));
 
-        // Add styles for the "Log Out" button
+        // Style for "Log Out" button
         logOutButton.setStyle(
-                "-fx-background-color: #85aa9b; " + /* Green background */
-                        "-fx-text-fill: white; " + /* White text */
-                        "-fx-font-size: 12px; " + /* Font size */
-                        "-fx-padding: 5px 10px; " + /* Padding */
-                        "-fx-border-radius: 5px; " + /* Rounded corners */
-                        "-fx-background-radius: 5px; " + /* Rounded corners */
-                        "-fx-cursor: hand;" /* Pointer cursor on hover */
+                "-fx-background-color: #85aa9b; " +
+                        "-fx-text-fill: white; " +
+                        "-fx-font-size: 12px; " +
+                        "-fx-padding: 5px 10px; " +
+                        "-fx-border-radius: 5px; " +
+                        "-fx-background-radius: 5px; " +
+                        "-fx-cursor: hand;"
         );
-
-        // Add hover effect for the "Log Out" button
         logOutButton.setOnMouseEntered(e -> logOutButton.setStyle(
-                "-fx-background-color: #588b76; " + /* Darker green on hover */
-                        "-fx-text-fill: white; " + /* White text */
-                        "-fx-font-size: 12px; " + /* Font size */
-                        "-fx-padding: 5px 10px; " + /* Padding */
-                        "-fx-border-radius: 5px; " + /* Rounded corners */
-                        "-fx-background-radius: 5px; " + /* Rounded corners */
-                        "-fx-cursor: hand;" /* Pointer cursor on hover */
+                "-fx-background-color: #588b76; " +
+                        "-fx-text-fill: white; " +
+                        "-fx-font-size: 12px; " +
+                        "-fx-padding: 5px 10px; " +
+                        "-fx-border-radius: 5px; " +
+                        "-fx-background-radius: 5px; " +
+                        "-fx-cursor: hand;"
         ));
         logOutButton.setOnMouseExited(e -> logOutButton.setStyle(
-                "-fx-background-color: #85aa9b; " + /* Green background */
-                        "-fx-text-fill: white; " + /* White text */
-                        "-fx-font-size: 12px; " + /* Font size */
-                        "-fx-padding: 5px 10px; " + /* Padding */
-                        "-fx-border-radius: 5px; " + /* Rounded corners */
-                        "-fx-background-radius: 5px; " + /* Rounded corners */
-                        "-fx-cursor: hand;" /* Pointer cursor on hover */
+                "-fx-background-color: #85aa9b; " +
+                        "-fx-text-fill: white; " +
+                        "-fx-font-size: 12px; " +
+                        "-fx-padding: 5px 10px; " +
+                        "-fx-border-radius: 5px; " +
+                        "-fx-background-radius: 5px; " +
+                        "-fx-cursor: hand;"
         ));
 
         bucketListView.setCellFactory(param -> new ListCell<>() {
@@ -247,7 +273,6 @@ public class ProfilePageController {
         emailKeyLabel.setTextFill(Color.WHITE);
     }
 
-
     private void loadUserDetails() {
         String username = ProfileUserJDBC.getCurrentUsername();
         MyProfileJDBC.User user = MyProfileJDBC.getUserDetails(username);
@@ -279,10 +304,19 @@ public class ProfilePageController {
     }
 
     @FXML
+    private void handleTripMarker() {
+        Stage stage=(Stage) tripMarkerButton.getScene().getWindow();
+        TravelMapController mapController = new TravelMapController();
+        Stage mapStage = new Stage();
+        mapController.start(mapStage);
+        mapStage.show();
+
+    }
+
+    @FXML
     private void handleHome() throws IOException {
         Stage stage = (Stage) homeButton.getScene().getWindow();
         cs.changeScene(stage, "Home.fxml");
-
     }
 
     @FXML
