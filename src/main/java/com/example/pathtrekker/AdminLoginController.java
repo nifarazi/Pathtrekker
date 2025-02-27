@@ -59,7 +59,7 @@ public class AdminLoginController {
 
         if (isValid) {
             Stage stage = (Stage) AdminLogin.getScene().getWindow();
-            change.changeScene(stage, "Admin.fxml");
+            change.changeScene(stage, "AdminDashboard.fxml");
         } else {
             Stage stage = (Stage) AdminLogin.getScene().getWindow();
             return;
