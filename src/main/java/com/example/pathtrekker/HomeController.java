@@ -114,7 +114,13 @@ public class HomeController implements Initializable {
         }
     }
     @FXML
-    public void LocalAttractionAction(MouseEvent mouseEvent) {
+    void LocalAttractionAction(MouseEvent mouseEvent) {
+        Stage stage = (Stage) LocalAttraction.getScene().getWindow();
+        try {
+            cs.changeScene(stage, "LocalEvents.fxml"); // Navigates to the local events page
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

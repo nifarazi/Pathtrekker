@@ -689,3 +689,60 @@ CREATE TABLE IF NOT EXISTS comments (
     FOREIGN KEY (photo_id) REFERENCES photos(id) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS events (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    division VARCHAR(50) NOT NULL,
+    event_name VARCHAR(255) NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    opening_time TIME NOT NULL,
+    closing_time TIME NOT NULL,
+    location VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL
+);
+INSERT INTO events (division, event_name, start_date, end_date, opening_time, closing_time, location, description) 
+VALUES 
+('Dhaka', 'Dhaka International Book Fair', '2025-03-01', '2025-03-15', '10:00:00', '21:00:00', 'Bangla Academy, Dhaka', 'A book fair featuring national and international publishers.'),
+('Chittagong', 'Chittagong Street Food Festival', '2025-04-10', '2025-04-12', '12:00:00', '23:00:00', 'GEC Convention Hall, Chittagong', 'Taste the best local street food from different regions.'),
+('Sylhet', 'Sylhet Cultural Mela', '2025-05-05', '2025-05-08', '11:00:00', '20:00:00', 'Sylhet Stadium', 'A traditional fair with cultural performances and handicrafts.');
+INSERT INTO events (division, event_name, start_date, end_date, opening_time, closing_time, location, description) 
+VALUES 
+-- Dhaka Division
+
+('Dhaka', 'Dhaka Food Carnival', '2025-03-10', '2025-03-12', '12:00:00', '22:00:00', 'Hatirjheel, Dhaka', 'A gathering of the best restaurants, home chefs, and street food vendors.'),
+('Dhaka', 'Spring Music Fest', '2025-04-18', '2025-04-19', '17:00:00', '23:00:00', 'Army Stadium, Dhaka', 'Live performances by top Bangladeshi and international bands.'),
+
+-- Chittagong Division
+
+('Chittagong', 'Beach Film Festival', '2025-03-16', '2025-03-18', '18:00:00', '23:00:00', 'Cox’s Bazar Beach', 'Outdoor screenings of classic and new movies by the beach.'),
+('Chittagong', 'Traditional Handicrafts Fair', '2025-04-15', '2025-04-18', '10:00:00', '20:00:00', 'Agrabad Community Center, Chittagong', 'Exhibition of handmade crafts and traditional artwork.'),
+
+-- Sylhet Division
+
+('Sylhet', 'Tea Festival Sylhet', '2025-03-21', '2025-03-23', '09:00:00', '19:00:00', 'Sreemangal Tea Estate', 'A celebration of Bangladesh’s rich tea culture with tasting sessions.'),
+('Sylhet', 'Bengali New Year Celebration', '2025-04-14', '2025-04-15', '08:00:00', '20:00:00', 'Sylhet Central Park', 'Cultural programs, traditional food, and music to welcome the new year.'),
+
+-- Rajshahi Division
+('Rajshahi', 'Rajshahi Mango Festival', '2025-03-15', '2025-03-18', '10:00:00', '21:00:00', 'Rajshahi University Grounds', 'An event showcasing different varieties of mangoes from Rajshahi.'),
+('Rajshahi', 'Silk Expo', '2025-04-20', '2025-04-23', '11:00:00', '19:00:00', 'Rajshahi Silk Market', 'Exhibition of Rajshahi silk and traditional garments.'),
+('Rajshahi', 'Folk Music Festival', '2025-03-25', '2025-03-27', '16:00:00', '22:00:00', 'Padma Garden, Rajshahi', 'Live performances of Baul, Bhatiali, and other folk music genres.'),
+
+-- Khulna Division
+('Khulna', 'Sundarbans Eco-Tourism Fair', '2025-03-11', '2025-03-13', '09:00:00', '18:00:00', 'Khulna Divisional Stadium', 'Eco-friendly tourism promotion for the Sundarbans region.'),
+('Khulna', 'Riverside Literature Festival', '2025-04-09', '2025-04-10', '10:00:00', '19:00:00', 'Rupsha Riverbank, Khulna', 'Book readings, discussions, and poetry sessions by the riverside.'),
+('Khulna', 'Traditional Boat Race', '2025-03-22', '2025-03-22', '14:00:00', '17:00:00', 'Rupsha River, Khulna', 'A thrilling boat race featuring traditional wooden boats.'),
+
+-- Barisal Division
+('Barisal', 'Barisal River Festival', '2025-03-14', '2025-03-16', '10:00:00', '22:00:00', 'Kuakata Beach', 'A mix of cultural performances, boat rides, and seafood stalls.'),
+('Barisal', 'Boishakhi Mela', '2025-04-13', '2025-04-15', '10:00:00', '21:00:00', 'Barisal Central Park', 'A traditional fair celebrating Bengali New Year.'),
+('Barisal', 'Fishermen’s Festival', '2025-03-24', '2025-03-26', '07:00:00', '20:00:00', 'Barguna Dockyard, Barisal', 'Fishing competitions and seafood cook-offs.'),
+
+-- Rangpur Division
+('Rangpur', 'Agricultural Fair', '2025-03-17', '2025-03-19', '09:00:00', '18:00:00', 'Rangpur Agricultural University', 'Showcasing innovations in agriculture and farming techniques.'),
+('Rangpur', 'Heritage Festival', '2025-04-07', '2025-04-09', '11:00:00', '19:00:00', 'Rangpur Museum', 'Exhibition of local history, arts, and crafts.'),
+('Rangpur', 'Winter Harvest Fest', '2025-03-26', '2025-03-28', '10:00:00', '21:00:00', 'Thakurgaon Town Hall', 'Celebrating the harvest season with food and cultural performances.'),
+
+-- Mymensingh Division
+('Mymensingh', 'Mymensingh Science Fair', '2025-03-20', '2025-03-22', '09:00:00', '17:00:00', 'Mymensingh Engineering College', 'A platform for young innovators and researchers to showcase projects.'),
+('Mymensingh', 'Haor Festival', '2025-04-12', '2025-04-14', '10:00:00', '20:00:00', 'Netrokona Lake, Mymensingh', 'An eco-tourism fair focusing on wetland conservation and culture.'),
+('Mymensingh', 'Folk Dance Festival', '2025-03-30', '2025-03-31', '15:00:00', '21:00:00', 'Zainul Abedin Park, Mymensingh', 'Traditional dance performances by local artists.');
