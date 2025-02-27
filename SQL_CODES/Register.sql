@@ -393,7 +393,7 @@ CREATE TABLE bucket_list (
     visited BOOLEAN NOT NULL DEFAULT FALSE,
     FOREIGN KEY (username) REFERENCES user(username)
 );
-
+SELECT * FROM bucket_list;
 
 CREATE TABLE IF NOT EXISTS final_destinations (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -653,3 +653,39 @@ INSERT INTO final_destinations (division, name, opening_time, closing_time, desc
  'River Tours, Photography', 'Warm and humid climate, occasional rains.', 'Panta Bhat, Bhuna Khichuri', 'Accessible by local transport.');
 
  SELECT * FROM final_destinations;
+
+-- Modified `photos` table (Store images by `username` instead of `user_id`)
+CREATE TABLE IF NOT EXISTS photos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    image BLOB NOT NULL,
+    caption TEXT,
+    uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (username) REFERENCES user(username) ON DELETE CASCADE
+);
+ SELECT * FROM photos;
+-- View uploaded photos
+ALTER TABLE photos MODIFY image LONGBLOB;
+
+
+-- Modified `likes` table (Now references `username` instead of `user_id`)
+CREATE TABLE IF NOT EXISTS likes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    photo_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (username) REFERENCES user(username) ON DELETE CASCADE,
+    FOREIGN KEY (photo_id) REFERENCES photos(id) ON DELETE CASCADE
+);
+
+-- Modified `comments` table (Now references `username` instead of `user_id`)
+CREATE TABLE IF NOT EXISTS comments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    photo_id INT NOT NULL,
+    comment TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (username) REFERENCES user(username) ON DELETE CASCADE,
+    FOREIGN KEY (photo_id) REFERENCES photos(id) ON DELETE CASCADE
+);
+
