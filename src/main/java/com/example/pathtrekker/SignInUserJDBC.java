@@ -21,6 +21,7 @@ public class SignInUserJDBC {
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
+                ProfileUserJDBC.setCurrentUsername(username);
                 return rs.getInt(1) > 0;
             }
             return false;
