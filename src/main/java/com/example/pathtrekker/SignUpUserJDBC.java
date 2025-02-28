@@ -41,6 +41,7 @@ public class SignUpUserJDBC {
             int rowsInserted = pstmt.executeUpdate();
 
             if (rowsInserted > 0) {
+                UploadProfileUserJDBC.setCurrentUsername(username);
                 ProfileUserJDBC.setCurrentUsername(username);
                 System.out.println("User signed in successfully!");
             }
