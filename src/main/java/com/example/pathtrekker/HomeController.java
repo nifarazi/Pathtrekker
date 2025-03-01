@@ -125,8 +125,15 @@ public class HomeController implements Initializable {
 
     @FXML
     void MapAction(MouseEvent event) {
+        Stage stage = (Stage) Map.getScene().getWindow();
+        try {
+            cs.changeScene(stage, "Map.fxml");
+        } catch (Exception e) {
+            e.printStackTrace();
 
+        }
     }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

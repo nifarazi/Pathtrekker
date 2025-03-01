@@ -3,6 +3,8 @@ module com.example.pathtrekker {
     requires javafx.fxml;
     requires org.jetbrains.annotations;
     requires java.sql;
+    requires org.json;
+    requires javafx.web;
 
 
     opens com.example.pathtrekker to javafx.fxml;
