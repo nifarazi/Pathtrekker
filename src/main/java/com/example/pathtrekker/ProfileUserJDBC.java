@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class ProfileUserJDBC {
     private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/register";
     private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "mirpurdohs832";
+    private static final String DB_PASSWORD = "nanjiba@282002";
     private static String currentUsername;
 
     public static String getCurrentUsername() {

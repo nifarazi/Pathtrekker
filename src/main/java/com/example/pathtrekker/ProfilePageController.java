@@ -49,7 +49,6 @@ public class ProfilePageController {
     @FXML
     private Button addToListButton;
 
-    // New Trip Marker button
     @FXML
     private Button tripMarkerButton;
 
@@ -249,6 +248,7 @@ public class ProfilePageController {
         loadUserDetails();
         setLabelStyles();
         loadBucketList();
+
     }
 
     private void setLabelStyles() {
@@ -305,12 +305,15 @@ public class ProfilePageController {
 
     @FXML
     private void handleTripMarker() {
-        Stage stage=(Stage) tripMarkerButton.getScene().getWindow();
-        TravelMapController mapController = new TravelMapController();
-        Stage mapStage = new Stage();
-        mapController.start(mapStage);
-        mapStage.show();
-
+        if (tripMarkerButton != null) {
+            Stage stage = (Stage) tripMarkerButton.getScene().getWindow();
+            TravelMapController mapController = new TravelMapController();
+            Stage mapStage = new Stage();
+            mapController.start(mapStage);
+            mapStage.show();
+        } else {
+            System.err.println("tripMarkerButton is not initialized!");
+        }
     }
 
     @FXML
