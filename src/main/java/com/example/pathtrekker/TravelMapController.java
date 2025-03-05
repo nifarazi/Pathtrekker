@@ -24,7 +24,7 @@ public class TravelMapController extends Application {
 
     private static final String DB_URL = "jdbc:mysql://localhost:3306/register";
     private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "nanjiba@282002";
+    private static final String DB_PASSWORD = "mirpurdohs832";
 
     private static final Map<String, Point2D> divisionCoordinates = Map.of(
             "Khulna", new Point2D(500, 500),
