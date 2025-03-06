@@ -13,33 +13,33 @@
             </image>
         </ImageView>
 
-        <Label layoutX="300" layoutY="175" text="From Division:" />
+        <Label layoutX="300" layoutY="175" text="From Division:" style="-fx-font-weight: bold;" />
         <ComboBox fx:id="fromDivisionComboBox" layoutX="400" layoutY="175" prefWidth="300" />
 
-        <Label layoutX="300" layoutY="225" text="To Division:" />
+        <Label layoutX="300" layoutY="225" text="To Division:" style="-fx-font-weight: bold;" />
         <ComboBox fx:id="toDivisionComboBox" layoutX="400" layoutY="225" prefWidth="300" />
 
-        <Label layoutX="300" layoutY="275" text="Transport Type:" />
+        <Label layoutX="300" layoutY="275" text="Transport Type:" style="-fx-font-weight: bold;" />
         <TextField fx:id="transportTypeField" layoutX="400" layoutY="275" prefWidth="300" />
 
-        <Label layoutX="300" layoutY="325" text="Fare Price:" />
+        <Label layoutX="300" layoutY="325" text="Fare Price:" style="-fx-font-weight: bold;" />
         <TextField fx:id="fareField" layoutX="400" layoutY="325" prefWidth="300" />
 
-        <Label layoutX="300" layoutY="375" text="Service Name:" />
+        <Label layoutX="300" layoutY="375" text="Service Name:" style="-fx-font-weight: bold;" />
         <TextField fx:id="serviceNameField" layoutX="400" layoutY="375" prefWidth="300" />
 
-        <Label layoutX="300" layoutY="425" text="Email:" />
+        <Label layoutX="300" layoutY="425" text="Email:" style="-fx-font-weight: bold;" />
         <TextField fx:id="emailField" layoutX="400" layoutY="425" prefWidth="300" />
 
-        <Label layoutX="300" layoutY="475" text="Phone Number:" />
+        <Label layoutX="300" layoutY="475" text="Phone Number:" style="-fx-font-weight: bold;" />
         <TextField fx:id="phoneField" layoutX="400" layoutY="475" prefWidth="300" />
 
-        <Label layoutX="300" layoutY="525" text="Service Location:" />
+        <Label layoutX="300" layoutY="525" text="Service Location:" style="-fx-font-weight: bold;" />
         <TextField fx:id="serviceLocationField" layoutX="400" layoutY="525" prefWidth="300" />
 
-        <!-- Buttons -->
-        <Button fx:id="insertButton" text="Insert Service" layoutX="400" layoutY="595" onAction="#insertTransportService" />
-        <Button fx:id="deleteButton" text="Delete Service" layoutX="600" layoutY="595" onAction="#deleteTransportService" />
-        <Button fx:id="backButton" text="Back" layoutX="500" layoutY="645" onAction="#handleBackButton" />
+        <!-- Buttons with Bold Text -->
+        <Button fx:id="insertButton" text="Insert Service" layoutX="400" layoutY="595" onAction="#insertTransportService" style="-fx-font-weight: bold;" />
+        <Button fx:id="deleteButton" text="Delete Service" layoutX="600" layoutY="595" onAction="#deleteTransportService" style="-fx-font-weight: bold;" />
+        <Button fx:id="backButton" text="Back" layoutX="520" layoutY="645" onAction="#handleBackButton" style="-fx-font-weight: bold;" />
     </children>
 </AnchorPane>

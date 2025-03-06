@@ -13,33 +13,33 @@
             </image>
         </ImageView>
 
-        <Label layoutX="300" layoutY="175" text="Division:" />
+        <Label layoutX="300" layoutY="175" text="Division:" style="-fx-font-weight: bold;" />
         <ComboBox fx:id="divisionComboBox" layoutX="400" layoutY="175" prefWidth="300" />
 
-        <Label layoutX="300" layoutY="225" text="Event Name:" />
+        <Label layoutX="300" layoutY="225" text="Event Name:" style="-fx-font-weight: bold;" />
         <TextField fx:id="eventNameField" layoutX="400" layoutY="225" prefWidth="300" />
 
-        <Label layoutX="300" layoutY="275" text="Start Date:" />
+        <Label layoutX="300" layoutY="275" text="Start Date:" style="-fx-font-weight: bold;" />
         <DatePicker fx:id="startDatePicker" layoutX="400" layoutY="275" prefWidth="300" />
 
-        <Label layoutX="300" layoutY="325" text="End Date:" />
+        <Label layoutX="300" layoutY="325" text="End Date:" style="-fx-font-weight: bold;" />
         <DatePicker fx:id="endDatePicker" layoutX="400" layoutY="325" prefWidth="300" />
 
-        <Label layoutX="300" layoutY="375" text="Opening Time:" />
+        <Label layoutX="300" layoutY="375" text="Opening Time:" style="-fx-font-weight: bold;" />
         <TextField fx:id="openingTimeField" layoutX="400" layoutY="375" prefWidth="300" />
 
-        <Label layoutX="300" layoutY="425" text="Closing Time:" />
+        <Label layoutX="300" layoutY="425" text="Closing Time:" style="-fx-font-weight: bold;" />
         <TextField fx:id="closingTimeField" layoutX="400" layoutY="425" prefWidth="300" />
 
-        <Label layoutX="300" layoutY="475" text="Location:" />
+        <Label layoutX="300" layoutY="475" text="Location:" style="-fx-font-weight: bold;" />
         <TextField fx:id="locationField" layoutX="400" layoutY="475" prefWidth="300" />
 
-        <Label layoutX="300" layoutY="525" text="Description:" />
+        <Label layoutX="300" layoutY="525" text="Description:" style="-fx-font-weight: bold;" />
         <TextArea fx:id="descriptionField" layoutX="400" layoutY="525" prefWidth="300" prefHeight="100" />
 
-        <!-- Buttons -->
-        <Button fx:id="insertButton" text="Insert Event" layoutX="400" layoutY="650" onAction="#insertEvent" />
-        <Button fx:id="deleteButton" text="Delete Event" layoutX="600" layoutY="650" onAction="#deleteEvent" />
-        <Button fx:id="backButton" text="Back" layoutX="500" layoutY="700" onAction="#handleBackButton" />
+        <!-- Buttons with Bold Text -->
+        <Button fx:id="insertButton" text="Insert Event" layoutX="400" layoutY="650" onAction="#insertEvent" style="-fx-font-weight: bold;" />
+        <Button fx:id="deleteButton" text="Delete Event" layoutX="600" layoutY="650" onAction="#deleteEvent" style="-fx-font-weight: bold;" />
+        <Button fx:id="backButton" text="Back" layoutX="520" layoutY="700" onAction="#handleBackButton" style="-fx-font-weight: bold;" />
     </children>
 </AnchorPane>

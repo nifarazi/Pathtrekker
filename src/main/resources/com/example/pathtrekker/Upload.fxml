@@ -25,7 +25,9 @@
     <!-- Upload Button -->
     <Button fx:id="uploadButton" layoutX="350" layoutY="470" text="Upload" onAction="#uploadPhoto"/>
 
-    <!-- Home Button -->
-    <Button fx:id="homeButton" layoutX="20" layoutY="30" text="HOME" onAction="#goToMoments"/>
+    <!-- Back Button (Updated from Home) -->
+    <Button fx:id="homeButton" layoutX="38" layoutY="42" prefWidth="150" prefHeight="22"
+            style="-fx-background-color: #18392B; -fx-text-fill: #90CAB3; -fx-font-family: 'Montserrat'; -fx-font-size: 26; -fx-font-weight: normal;"
+            text="BACK" onAction="#goToMoments"/>
 
 </AnchorPane>

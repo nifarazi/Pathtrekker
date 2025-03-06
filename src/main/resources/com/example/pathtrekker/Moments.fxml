@@ -24,16 +24,19 @@
     </VBox>
 
     <!-- Navigation Buttons -->
-    <Button fx:id="homeButton" layoutX="30" layoutY="30" text="HOME"
-            style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-weight: bold;"
-            onAction="#goToHome"/>
+    <!-- Home Button -->
+    <Button fx:id="homeButton" layoutX="38" layoutY="42" prefWidth="150" prefHeight="22"
+            style="-fx-background-color: #18392B; -fx-text-fill: #90CAB3; -fx-font-family: 'Montserrat'; -fx-font-size: 26; -fx-font-weight: normal;"
+            text="HOME" onAction="#goToHome"/>
 
-    <Button fx:id="uploadButton" layoutX="30" layoutY="650" text="UPLOAD"
-            style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-weight: bold;"
-            onAction="#goToUpload"/>
+    <!-- Upload Button (Shifted right by 0.1 inch) -->
+    <Button fx:id="uploadButton" layoutX="40.5" layoutY="659" prefWidth="152" prefHeight="14"
+            style="-fx-background-color: #18392B; -fx-text-fill: #90CAB3; -fx-font-family: 'Montserrat'; -fx-font-size: 26; -fx-font-weight: normal;"
+            text="UPLOAD" onAction="#goToUpload"/>
 
-    <Button fx:id="profileButton" layoutX="950" layoutY="650" text="PROFILE"
-            style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-weight: bold;"
-            onAction="#goToProfile"/>
+    <!-- Profile Button (No Change) -->
+    <Button fx:id="profileButton" layoutX="887" layoutY="659" prefWidth="152" prefHeight="14"
+            style="-fx-background-color: #18392B; -fx-text-fill: #90CAB3; -fx-font-family: 'Montserrat'; -fx-font-size: 26; -fx-font-weight: normal;"
+            text="PROFILE" onAction="#goToProfile"/>
 
 </AnchorPane>

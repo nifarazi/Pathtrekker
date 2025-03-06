@@ -33,7 +33,7 @@ public class HotelResultsPage {
                     backgroundImage,
                     BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
                     BackgroundPosition.CENTER,
-                    new BackgroundSize(1024, 730, false, false, true, false) // More precise fit
+                    new BackgroundSize(1080, 768, false, false, true, false) // More precise fit
             );
             root.setBackground(new Background(background));
         } catch (Exception e) {
@@ -92,7 +92,7 @@ public class HotelResultsPage {
         root.setBottom(buttonBox);
 
         // Scene setup with a better fit
-        Scene resultScene = new Scene(root, 1024, 730);
+        Scene resultScene = new Scene(root, 1080, 768);
         primaryStage.setScene(resultScene);
         primaryStage.show();
     }

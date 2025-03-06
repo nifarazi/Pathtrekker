@@ -3,7 +3,7 @@ package com.example.pathtrekker;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
 public class LocalEventsResultController {
 
     @FXML
-    private VBox resultsContainer;
+    private GridPane resultsGrid;
 
     @FXML
     private Button backButton;
@@ -30,21 +30,24 @@ public class LocalEventsResultController {
         } else {
             Label noSelectionLabel = new Label("No division selected.");
             noSelectionLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: red;");
-            resultsContainer.getChildren().add(noSelectionLabel);
+            resultsGrid.add(noSelectionLabel, 0, 0);
         }
     }
 
     private void loadEvents(String division) {
-        resultsContainer.getChildren().clear();
+        resultsGrid.getChildren().clear();
         try {
             List<LocalEvent> events = LocalEventsJDBC.getEventsByDivision(division);
             if (events == null || events.isEmpty()) {
                 Label noEventsLabel = new Label("No events available in " + division);
                 noEventsLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: red;");
-                resultsContainer.getChildren().add(noEventsLabel);
+                resultsGrid.add(noEventsLabel, 0, 0);
             } else {
+                int row = 0;
                 for (LocalEvent event : events) {
-                    VBox eventBox = new VBox(10);
+                    GridPane eventBox = new GridPane();
+                    eventBox.setHgap(10);
+                    eventBox.setVgap(5);
                     eventBox.setStyle("-fx-border-color: #588b76; -fx-padding: 15; -fx-background-color: #d0ded8; -fx-background-radius: 10;");
 
                     Label eventName = new Label("Event: " + event.getEventName());
@@ -53,14 +56,19 @@ public class LocalEventsResultController {
                     Label locationLabel = new Label("Location: " + event.getLocation());
                     Label descriptionLabel = new Label(event.getDescription());
 
-                    eventBox.getChildren().addAll(eventName, dateLabel, timeLabel, locationLabel, descriptionLabel);
-                    resultsContainer.getChildren().add(eventBox);
+                    eventBox.add(eventName, 0, 0);
+                    eventBox.add(dateLabel, 0, 1);
+                    eventBox.add(timeLabel, 0, 2);
+                    eventBox.add(locationLabel, 0, 3);
+                    eventBox.add(descriptionLabel, 0, 4);
+
+                    resultsGrid.add(eventBox, 0, row++);
                 }
             }
         } catch (Exception e) {
             Label errorLabel = new Label("Error loading events: " + e.getMessage());
             errorLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: red;");
-            resultsContainer.getChildren().add(errorLabel);
+            resultsGrid.add(errorLabel, 0, 0);
             e.printStackTrace();
         }
     }

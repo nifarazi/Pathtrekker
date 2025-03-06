@@ -7,7 +7,6 @@
 
 <AnchorPane fx:id="rootPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pathtrekker.AdminHotelController">
     <children>
-        <!-- Background Image -->
         <ImageView fitWidth="1080.0" fitHeight="756.0">
             <image>
                 <Image url="/ADMINHOTEL.png" />
@@ -15,24 +14,24 @@
         </ImageView>
 
         <!-- Form Fields -->
-        <Label layoutX="300" layoutY="200" text="Hotel Name:" />
+        <Label layoutX="300" layoutY="200" text="Hotel Name:" style="-fx-font-weight: bold;" />
         <TextField fx:id="hotelNameField" layoutX="400" layoutY="200" prefWidth="300" />
 
-        <Label layoutX="300" layoutY="250" text="Division:" />
+        <Label layoutX="300" layoutY="250" text="Division:" style="-fx-font-weight: bold;" />
         <ComboBox fx:id="divisionComboBox" layoutX="400" layoutY="250" prefWidth="300" />
 
-        <Label layoutX="300" layoutY="300" text="Price Range:" />
+        <Label layoutX="300" layoutY="300" text="Price Range:" style="-fx-font-weight: bold;" />
         <ComboBox fx:id="priceRangeComboBox" layoutX="400" layoutY="300" prefWidth="300" />
 
-        <Label layoutX="300" layoutY="350" text="Email:" />
+        <Label layoutX="300" layoutY="350" text="Email:" style="-fx-font-weight: bold;" />
         <TextField fx:id="emailField" layoutX="400" layoutY="350" prefWidth="300" />
 
-        <Label layoutX="300" layoutY="400" text="Phone Number:" />
+        <Label layoutX="300" layoutY="400" text="Phone Number:" style="-fx-font-weight: bold;" />
         <TextField fx:id="phoneField" layoutX="400" layoutY="400" prefWidth="300" />
 
-        <!-- Buttons -->
-        <Button fx:id="insertButton" text="Insert Hotel" layoutX="400" layoutY="500" onAction="#insertHotel" />
-        <Button fx:id="deleteButton" text="Delete Hotel" layoutX="600" layoutY="500" onAction="#deleteHotel" />
-        <Button fx:id="backButton" text="Back" layoutX="500" layoutY="550" onAction="#handleBackButton" />
+        <!-- Buttons with Bold Text -->
+        <Button fx:id="insertButton" text="Insert Hotel" layoutX="400" layoutY="500" onAction="#insertHotel" style="-fx-font-weight: bold;" />
+        <Button fx:id="deleteButton" text="Delete Hotel" layoutX="600" layoutY="500" onAction="#deleteHotel" style="-fx-font-weight: bold;" />
+        <Button fx:id="backButton" text="Back" layoutX="520" layoutY="550" onAction="#handleBackButton" style="-fx-font-weight: bold;" />
     </children>
 </AnchorPane>

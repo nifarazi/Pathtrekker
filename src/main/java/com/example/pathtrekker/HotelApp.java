@@ -35,10 +35,10 @@ public class HotelApp extends Application {
         grid.setHgap(15);
         grid.setAlignment(Pos.CENTER);
 
-        Image backgroundImage = new Image(getClass().getResourceAsStream("/HOTEL.png"));
+        Image backgroundImage = new Image(getClass().getResourceAsStream("/hotelssuggestion.png"));
         BackgroundImage background = new BackgroundImage(backgroundImage,
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER, new BackgroundSize(100, 100, true, true, false, true));
+                BackgroundPosition.CENTER, new BackgroundSize(1080, 768, true, true, false, true));
 
         StackPane stackPane = new StackPane();
         stackPane.setBackground(new Background(background));
@@ -100,7 +100,7 @@ public class HotelApp extends Application {
         grid.add(submitButton, 1, 8);
         grid.add(homeButton, 1, 9);
 
-        Scene scene = new Scene(stackPane, 1000, 700);
+        Scene scene = new Scene(stackPane, 1080, 768);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

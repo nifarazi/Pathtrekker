@@ -26,9 +26,9 @@
         </ScrollPane>
     </VBox>
 
-    <!-- Back to Moments Button -->
-    <Button fx:id="backToMomentsButton" layoutX="30" layoutY="30" text="Back"
-            style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-weight: bold;"
-            onAction="#goToMoments"/>
+    <!-- Back Button (Updated to match required style) -->
+    <Button fx:id="backToMomentsButton" layoutX="38" layoutY="42" prefWidth="150" prefHeight="22"
+            style="-fx-background-color: #18392B; -fx-text-fill: #90CAB3; -fx-font-family: 'Montserrat'; -fx-font-size: 26; -fx-font-weight: normal;"
+            text="BACK" onAction="#goToMoments"/>
 
 </AnchorPane>

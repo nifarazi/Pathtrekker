@@ -5,7 +5,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="rootPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pathtrekker.AdminDashboardController">
@@ -25,34 +24,28 @@
             </font>
         </Button>
 
-        <!-- Button Layout -->
-        <HBox layoutX="160.0" layoutY="655.0" spacing="80.0">
-            <children>
-                <Button fx:id="hotelsButton" text="HOTELS" onAction="#handleHotelsButton" prefWidth="200.0" prefHeight="50.0">
-                    <font>
-                        <Font name="Arial Bold" size="16.0" />
-                    </font>
-                    <HBox.margin>
-                        <Insets left="-60.0" />
-                    </HBox.margin>
-                </Button>
-                <Button fx:id="transportationButton" text="TRANSPORTATION" onAction="#handleTransportationButton" prefWidth="200.0" prefHeight="50.0">
-                    <font>
-                        <Font name="Arial Bold" size="16.0" />
-                    </font>
-                    <HBox.margin>
-                        <Insets left="60.0" />
-                    </HBox.margin>
-                </Button>
-                <Button fx:id="localAttractionsButton" text="LOCAL ATTRACTIONS" onAction="#handleLocalAttractionsButton" prefWidth="200.0" prefHeight="50.0">
-                    <font>
-                        <Font name="Arial Bold" size="16.0" />
-                    </font>
-                    <HBox.margin>
-                        <Insets left="80.0" />
-                    </HBox.margin>
-                </Button>
-            </children>
-        </HBox>
+        <!-- Hotels Button -->
+        <Button fx:id="hotelsButton" text="HOTELS" onAction="#handleHotelsButton"
+                layoutX="75.0" layoutY="655.0" prefWidth="200.0" prefHeight="50.0">
+            <font>
+                <Font name="Arial Bold" size="16.0" />
+            </font>
+        </Button>
+
+        <!-- Transportation Button -->
+        <Button fx:id="transportationButton" text="TRANSPORTATION" onAction="#handleTransportationButton"
+                layoutX="435.0" layoutY="655.0" prefWidth="220.0" prefHeight="45.0">
+            <font>
+                <Font name="Arial Bold" size="16.0" />
+            </font>
+        </Button>
+
+        <!-- Local Attractions Button -->
+        <Button fx:id="localAttractionsButton" text="LOCAL ATTRACTIONS" onAction="#handleLocalAttractionsButton"
+                layoutX="815.0" layoutY="655.0" prefWidth="200.0" prefHeight="50.0">
+            <font>
+                <Font name="Arial Bold" size="16.0" />
+            </font>
+        </Button>
     </children>
 </AnchorPane>
