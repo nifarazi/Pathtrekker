@@ -1,32 +1,20 @@
 package com.example.pathtrekker;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.paint.Color;
-import javafx.scene.layout.CornerRadii;
-import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
+import java.io.IOException;
 
 public class AdminDashboardController {
 
     @FXML
-    private Button reviewRatingsButton;
+    private Button reviewRatingsButton, hotelsButton, transportationButton, localAttractionsButton;
 
-    @FXML
-    private Button hotelsButton;
-
-    @FXML
-    private Button transportationButton;
-
-    @FXML
-    private Button localAttractionsButton;
+    private final ChangeScene sceneChanger = new ChangeScene(); // Using ChangeScene class
 
     @FXML
     public void initialize() {
-        // Apply button styles dynamically
         setButtonStyle(reviewRatingsButton);
         setButtonStyle(hotelsButton);
         setButtonStyle(transportationButton);
@@ -39,19 +27,31 @@ public class AdminDashboardController {
     }
 
     @FXML
+    private void handleHotelsButton() {
+        try {
+            Stage stage = (Stage) hotelsButton.getScene().getWindow();
+            sceneChanger.changeScene(stage, "/com/example/pathtrekker/AdminHotel.fxml");
+        } catch (IOException e) {
+            showAlert("Error", "Failed to load the Hotel Management page.\n" + e.getMessage());
+        }
+    }
+
+
+    @FXML
     private void handleReviewRatingsButton() {
         showAlert("Review and Ratings", "Opening Review and Ratings Page...");
     }
 
     @FXML
-    private void handleHotelsButton() {
-        showAlert("Hotels", "Opening Hotels Page...");
+    private void handleTransportationButton() {
+        try {
+            Stage stage = (Stage) transportationButton.getScene().getWindow();
+            sceneChanger.changeScene(stage, "/com/example/pathtrekker/AdminTransport.fxml"); // Navigate to Transport Management
+        } catch (IOException e) {
+            showAlert("Error", "Failed to load the Transport Management page.\n" + e.getMessage());
+        }
     }
 
-    @FXML
-    private void handleTransportationButton() {
-        showAlert("Transportation", "Opening Transportation Page...");
-    }
 
     @FXML
     private void handleLocalAttractionsButton() {
@@ -59,9 +59,8 @@ public class AdminDashboardController {
     }
 
     private void showAlert(String title, String message) {
-        Alert alert = new Alert(AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
-        alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }
