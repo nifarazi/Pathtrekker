@@ -7,7 +7,7 @@ import java.util.List;
 public class MyProfileJDBC {
     private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/register";
     private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "mirpurdohs832";
+    private static final String DB_PASSWORD = "nanjiba@282002";
     private static String currentUsername;
 
     public static void setCurrentUsername(String username) {
@@ -50,7 +50,6 @@ public class MyProfileJDBC {
         }
     }
 
-
     public static void updateBucketListItemVisited(String username, String place, boolean visited) {
         String query = "UPDATE bucket_list SET visited = ? WHERE username = ? AND place = ?";
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
@@ -81,6 +80,19 @@ public class MyProfileJDBC {
         }
         return bucketList;
     }
+
+    public static void deleteBucketListItem(String username, String place) {
+        String query = "DELETE FROM bucket_list WHERE username = ? AND place = ?";
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, place);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static class User {
         private final String username;
         private final String firstName;

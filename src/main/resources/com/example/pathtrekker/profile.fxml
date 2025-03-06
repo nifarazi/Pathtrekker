@@ -25,7 +25,7 @@
         <VBox fx:id="viewItinerariesSection" spacing="10" prefWidth="300"
               style="-fx-background-color: rgba(120,160,140,0.5); -fx-padding: 20px; -fx-border-radius: 100px;
                      -fx-background-radius: 100px; -fx-background-insets: 0; -fx-border-insets: 0;">
-            <Label text="View Itineraries" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+            <Label  style="-fx-font-size: 18px; -fx-font-weight: bold;" />
             <ListView fx:id="itinerariesListView" prefHeight="400" />
         </VBox>
 
@@ -33,12 +33,19 @@
         <VBox fx:id="bucketListSection" spacing="10" prefWidth="300"
               style="-fx-background-color: rgba(150,180,160,0.5); -fx-padding: 20px; -fx-border-radius: 100px;
                      -fx-background-radius: 100px; -fx-background-insets: 0; -fx-border-insets: 0;">
-            <Label text="Bucket List" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+            <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" />
             <ListView fx:id="bucketListView" prefHeight="350" />
             <TextField fx:id="bucketListInput" promptText="Enter place to visit" />
-            <Button fx:id="addToListButton" text="Add to List" onAction="#handleAddToList" />
-
-            <!-- Correctly Added Trip Marker Button -->
+            <HBox spacing="10">
+                <Button fx:id="addToListButton" text="Add to List" onAction="#handleAddToList"
+                        style="-fx-background-color: #85aa9b; -fx-text-fill: white; -fx-font-size: 14px;
+                               -fx-padding: 10px 20px; -fx-border-radius: 5px; -fx-background-radius: 5px;
+                               -fx-cursor: hand;" />
+                <Button fx:id="deleteFromListButton" text="Delete" onAction="#handleDeleteFromList"
+                        style="-fx-background-color: #85aa9b; -fx-text-fill: white; -fx-font-size: 14px;
+                               -fx-padding: 10px 15px; -fx-border-radius: 5px; -fx-background-radius: 5px;
+                               -fx-cursor: hand;" />
+            </HBox>
             <Button fx:id="tripMarkerButton" text="Mark Trip" onAction="#handleTripMarker"
                     style="-fx-background-color: #85aa9b; -fx-text-fill: white; -fx-font-size: 12px;
                            -fx-padding: 5px 10px; -fx-border-radius: 5px; -fx-background-radius: 5px;
@@ -46,24 +53,24 @@
         </VBox>
 
         <!-- Profile Section -->
-        <VBox fx:id="profileSection" spacing="20" prefWidth="300"
+        <VBox fx:id="profileSection" spacing="10" prefWidth="300"
               style="-fx-background-color: rgba(100,150,130,0.5); -fx-padding: 20px; -fx-border-radius: 100px;
                      -fx-background-radius: 100px; -fx-background-insets: 0; -fx-border-insets: 0;">
             <HBox spacing="10">
                 <ImageView fitWidth="40" fitHeight="40" />
-                <Label text="Profile" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+                <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" />
             </HBox>
-            <Label fx:id="nameKeyLabel" text="Name:"
+            <Label fx:id="nameKeyLabel" text="Name:" layoutY="-10"
                    style="-fx-font-family: 'Roboto'; -fx-font-weight: bold; -fx-text-fill: white; -fx-font-size: 20px;" />
-            <Label fx:id="fullNameLabel" text="Full Name: "
+            <Label fx:id="fullNameLabel" text="Full Name: " layoutY="-10"
                    style="-fx-font-family: 'Roboto'; -fx-text-fill: white; -fx-font-size: 20px;" />
-            <Label fx:id="usernameKeyLabel" text="Username:"
+            <Label fx:id="usernameKeyLabel" text="Username:" layoutY="-10"
                    style="-fx-font-family: 'Roboto'; -fx-font-weight: bold; -fx-text-fill: white; -fx-font-size: 20px;" />
-            <Label fx:id="usernameLabel" text="Username: "
+            <Label fx:id="usernameLabel" text="Username: " layoutY="-10"
                    style="-fx-font-family: 'Roboto'; -fx-text-fill: white; -fx-font-size: 20px;" />
-            <Label fx:id="emailKeyLabel" text="Email:"
+            <Label fx:id="emailKeyLabel" text="Email:" layoutY="-10"
                    style="-fx-font-family: 'Roboto'; -fx-font-weight: bold; -fx-text-fill: white; -fx-font-size: 20px;" />
-            <Label fx:id="emailLabel" text="Email: "
+            <Label fx:id="emailLabel" text="Email: " layoutY="-10"
                    style="-fx-font-family: 'Roboto'; -fx-text-fill: white; -fx-font-size: 20px;" />
         </VBox>
 
@@ -78,5 +85,4 @@
                 style="-fx-background-color: #85aa9b; -fx-text-fill: white; -fx-font-size: 12px;
                        -fx-padding: 5px 10px; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-cursor: hand;" />
     </HBox>
-
 </AnchorPane>

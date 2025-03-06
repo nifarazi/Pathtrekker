@@ -50,6 +50,9 @@ public class ProfilePageController {
     private Button addToListButton;
 
     @FXML
+    private Button deleteFromListButton;
+
+    @FXML
     private Button tripMarkerButton;
 
     @FXML
@@ -126,6 +129,35 @@ public class ProfilePageController {
                         "-fx-text-fill: white; " +
                         "-fx-font-size: 14px; " +
                         "-fx-padding: 10px 20px; " +
+                        "-fx-border-radius: 5px; " +
+                        "-fx-background-radius: 5px; " +
+                        "-fx-cursor: hand;"
+        ));
+
+        // Style for "Delete from List" button
+        deleteFromListButton.setStyle(
+                "-fx-background-color: #85aa9b; " +
+                        "-fx-text-fill: white; " +
+                        "-fx-font-size: 14px; " +
+                        "-fx-padding: 10px 15px; " +
+                        "-fx-border-radius: 5px; " +
+                        "-fx-background-radius: 5px; " +
+                        "-fx-cursor: hand;"
+        );
+        deleteFromListButton.setOnMouseEntered(e -> deleteFromListButton.setStyle(
+                "-fx-background-color: #588b76; " +
+                        "-fx-text-fill: white; " +
+                        "-fx-font-size: 14px; " +
+                        "-fx-padding: 10px 15px; " +
+                        "-fx-border-radius: 5px; " +
+                        "-fx-background-radius: 5px; " +
+                        "-fx-cursor: hand;"
+        ));
+        deleteFromListButton.setOnMouseExited(e -> deleteFromListButton.setStyle(
+                "-fx-background-color: #85aa9b; " +
+                        "-fx-text-fill: white; " +
+                        "-fx-font-size: 14px; " +
+                        "-fx-padding: 10px 15px; " +
                         "-fx-border-radius: 5px; " +
                         "-fx-background-radius: 5px; " +
                         "-fx-cursor: hand;"
@@ -248,7 +280,6 @@ public class ProfilePageController {
         loadUserDetails();
         setLabelStyles();
         loadBucketList();
-
     }
 
     private void setLabelStyles() {
@@ -301,6 +332,26 @@ public class ProfilePageController {
             bucketListView.getItems().add(new BucketListItem(place, false));
             bucketListInput.clear();
         }
+    }
+
+    @FXML
+    private void handleDeleteFromList() {
+        BucketListItem selectedItem = bucketListView.getSelectionModel().getSelectedItem();
+        if (selectedItem != null) {
+            String username = ProfileUserJDBC.getCurrentUsername();
+            MyProfileJDBC.deleteBucketListItem(username, selectedItem.getPlace());
+            bucketListView.getItems().remove(selectedItem);
+        } else {
+            showAlert("No Selection", "No item selected", "Please select an item to delete.");
+        }
+    }
+
+    private void showAlert(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
     @FXML
