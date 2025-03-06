@@ -55,8 +55,14 @@ public class AdminDashboardController {
 
     @FXML
     private void handleLocalAttractionsButton() {
-        showAlert("Local Attractions", "Opening Local Attractions Page...");
+        try {
+            Stage stage = (Stage) localAttractionsButton.getScene().getWindow();
+            sceneChanger.changeScene(stage, "/com/example/pathtrekker/AdminEvents.fxml"); // Navigate to Events Management
+        } catch (IOException e) {
+            showAlert("Error", "Failed to load the Events Management page.\n" + e.getMessage());
+        }
     }
+
 
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

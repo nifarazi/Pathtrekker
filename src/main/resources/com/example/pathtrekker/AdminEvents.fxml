@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="rootPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pathtrekker.AdminEventsController">
+    <children>
+        <ImageView fitWidth="1080.0" fitHeight="756.0">
+            <image>
+                <Image url="/ADMINLOCAL.png" />
+            </image>
+        </ImageView>
+
+        <Label layoutX="300" layoutY="175" text="Division:" />
+        <ComboBox fx:id="divisionComboBox" layoutX="400" layoutY="175" prefWidth="300" />
+
+        <Label layoutX="300" layoutY="225" text="Event Name:" />
+        <TextField fx:id="eventNameField" layoutX="400" layoutY="225" prefWidth="300" />
+
+        <Label layoutX="300" layoutY="275" text="Start Date:" />
+        <DatePicker fx:id="startDatePicker" layoutX="400" layoutY="275" prefWidth="300" />
+
+        <Label layoutX="300" layoutY="325" text="End Date:" />
+        <DatePicker fx:id="endDatePicker" layoutX="400" layoutY="325" prefWidth="300" />
+
+        <Label layoutX="300" layoutY="375" text="Opening Time:" />
+        <TextField fx:id="openingTimeField" layoutX="400" layoutY="375" prefWidth="300" />
+
+        <Label layoutX="300" layoutY="425" text="Closing Time:" />
+        <TextField fx:id="closingTimeField" layoutX="400" layoutY="425" prefWidth="300" />
+
+        <Label layoutX="300" layoutY="475" text="Location:" />
+        <TextField fx:id="locationField" layoutX="400" layoutY="475" prefWidth="300" />
+
+        <Label layoutX="300" layoutY="525" text="Description:" />
+        <TextArea fx:id="descriptionField" layoutX="400" layoutY="525" prefWidth="300" prefHeight="100" />
+
+        <!-- Buttons -->
+        <Button fx:id="insertButton" text="Insert Event" layoutX="400" layoutY="650" onAction="#insertEvent" />
+        <Button fx:id="deleteButton" text="Delete Event" layoutX="600" layoutY="650" onAction="#deleteEvent" />
+        <Button fx:id="backButton" text="Back" layoutX="500" layoutY="700" onAction="#handleBackButton" />
+    </children>
+</AnchorPane>
