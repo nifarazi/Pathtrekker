@@ -82,8 +82,6 @@ public class HomeController implements Initializable {
         stage.setScene(transportScene);
     }
 
-
-
     @FXML
     void EmAction(MouseEvent event) {
         Stage stage = (Stage) Em.getScene().getWindow();
@@ -98,7 +96,7 @@ public class HomeController implements Initializable {
     void UsernameAction(MouseEvent event) {
         Stage stage = (Stage) UsernameSpace.getScene().getWindow();
         try {
-            cs.changeScene(stage, "Profile.fxml");
+            cs.changeScene(stage, "profile.fxml");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -113,11 +111,12 @@ public class HomeController implements Initializable {
             e.printStackTrace();
         }
     }
+
     @FXML
     void LocalAttractionAction(MouseEvent mouseEvent) {
         Stage stage = (Stage) LocalAttraction.getScene().getWindow();
         try {
-            cs.changeScene(stage, "LocalEvents.fxml"); // Navigates to the local events page
+            cs.changeScene(stage, "LocalEvents.fxml");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -130,10 +129,8 @@ public class HomeController implements Initializable {
             cs.changeScene(stage, "Map.fxml");
         } catch (Exception e) {
             e.printStackTrace();
-
         }
     }
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
