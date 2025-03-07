@@ -4,26 +4,37 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItineraryResultController {
 
     @FXML
-    private Label hotelNameLabel, amenitiesLabel, nightlyRateLabel, totalCostLabel, emailLabel, phoneLabel;
+    private Label hotelNameLabel, amenitiesLabel, nightlyRateLabel, totalCostLabel, emailLabel, phoneLabel, commentDisplayLabel;
     @FXML
-    private Button backButton;
+    private Button backButton, saveCommentButton;
     @FXML
     private VBox destinationsVBox;
+    @FXML
+    private TextArea commentArea;
+
+    private int itineraryId; // To track the current itinerary
 
     @FXML
     public void initialize() {
+        // Fetch itineraryId from somewhere (e.g., ItineraryData or passed from ItineraryController)
+        itineraryId = ItineraryData.getItineraryId(); // Assume this is added to ItineraryData
+
         Hotel hotel = ItineraryData.getHotel();
         if (hotel != null) {
             hotelNameLabel.setText(hotel.getName());
@@ -41,6 +52,14 @@ public class ItineraryResultController {
             phoneLabel.setText("N/A");
         }
 
+        // Load existing comment
+        loadComment();
+
+        refreshDestinations();
+    }
+
+    private void refreshDestinations() {
+        destinationsVBox.getChildren().clear();
         List<Destination> destinations = ItineraryData.getDestinations();
         List<Event> nightEvents = ItineraryData.getNightEvents();
 
@@ -73,6 +92,16 @@ public class ItineraryResultController {
                         final int currentIndex = i;
                         showMapButton.setOnAction(e -> showMap(dest, currentIndex, destinations));
                         dayBox.getChildren().add(showMapButton);
+
+                        // Add swap functionality
+                        ComboBox<String> swapComboBox = new ComboBox<>();
+                        swapComboBox.getItems().addAll(fetchAvailableDestinations(ItineraryData.getHotel().getDivision()));
+                        swapComboBox.setPromptText("Swap with...");
+                        Button swapButton = new Button("Swap Destination");
+                        swapButton.setFont(new Font(16));
+                        swapButton.setStyle("-fx-background-color: #ff9800; -fx-text-fill: white; -fx-font-weight: bold;");
+                        swapButton.setOnAction(e -> swapDestination(currentIndex, swapComboBox.getValue()));
+                        dayBox.getChildren().addAll(swapComboBox, swapButton);
                     }
                 }
 
@@ -105,7 +134,6 @@ public class ItineraryResultController {
             String loc1, loc2;
 
             boolean isFirstDestinationOfTheDay = (index == 0) || (destinations.get(index - 1).getDay() != dest.getDay());
-
             if (isFirstDestinationOfTheDay) {
                 loc1 = ItineraryData.getHotel().getName();
                 loc2 = dest.getName();
@@ -129,6 +157,112 @@ public class ItineraryResultController {
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Error loading Map.fxml: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void saveComment() {
+        String comment = commentArea.getText();
+        if (comment != null && !comment.trim().isEmpty()) {
+            saveCommentToDatabase(comment);
+            commentDisplayLabel.setText(comment);
+            commentArea.clear();
+        }
+    }
+
+    private void loadComment() {
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement("SELECT comment FROM itineraryhotel WHERE id = ?")) {
+            pstmt.setInt(1, itineraryId);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                String comment = rs.getString("comment");
+                if (comment != null) {
+                    commentDisplayLabel.setText(comment);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void saveCommentToDatabase(String comment) {
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement("UPDATE itineraryhotel SET comment = ? WHERE id = ?")) {
+            pstmt.setString(1, comment);
+            pstmt.setInt(2, itineraryId);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private List<String> fetchAvailableDestinations(String division) {
+        List<String> destinations = new ArrayList<>();
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement("SELECT name FROM final_destinations WHERE division = ?")) {
+            pstmt.setString(1, division);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                destinations.add(rs.getString("name"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return destinations;
+    }
+
+    private void swapDestination(int index, String newDestName) {
+        if (newDestName == null || newDestName.trim().isEmpty()) {
+            return;
+        }
+
+        List<Destination> destinations = ItineraryData.getDestinations();
+        Destination oldDest = destinations.get(index);
+
+        // Fetch new destination details from database
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM final_destinations WHERE name = ?")) {
+            pstmt.setString(1, newDestName);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                Destination newDest = new Destination(
+                        rs.getString("name"),
+                        rs.getString("description"),
+                        rs.getString("top_attractions"),
+                        rs.getString("weather_info"),
+                        rs.getString("local_cuisine"),
+                        rs.getString("transport_info"),
+                        rs.getString("opening_time"),
+                        rs.getString("closing_time")
+                );
+                newDest.setDay(oldDest.getDay());
+                newDest.setTimeSlot(oldDest.getTimeSlot());
+
+                // Update in-memory list
+                destinations.set(index, newDest);
+                ItineraryData.setDestinations(destinations);
+
+                // Update database
+                try (PreparedStatement updateStmt = conn.prepareStatement(
+                        "UPDATE itinerary_destinations SET destination_name = ? WHERE itinerary_id = ? AND day = ? AND time_slot = ?")) {
+                    updateStmt.setString(1, newDestName);
+                    updateStmt.setInt(2, itineraryId);
+                    updateStmt.setInt(3, oldDest.getDay());
+                    updateStmt.setString(4, oldDest.getTimeSlot());
+                    updateStmt.executeUpdate();
+                }
+
+                // Refresh UI
+                refreshDestinations();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Destination not found in database.");
+                alert.showAndWait();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Error swapping destination.");
+            alert.showAndWait();
         }
     }
 

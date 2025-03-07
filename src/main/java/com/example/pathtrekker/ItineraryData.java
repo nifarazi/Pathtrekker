@@ -8,6 +8,7 @@ public class ItineraryData {
     private static int numDays;
     private static List<Destination> destinations;
     private static List<Event> nightEvents;
+    private static int itineraryId;
 
     public static void setHotel(Hotel h) { hotel = h; }
     public static Hotel getHotel() { return hotel; }
@@ -23,4 +24,7 @@ public class ItineraryData {
 
     public static void setNightEvents(List<Event> e) { nightEvents = e; }
     public static List<Event> getNightEvents() { return nightEvents; }
+
+    public static void setItineraryId(int id) { itineraryId = id; }
+    public static int getItineraryId() { return itineraryId; }
 }

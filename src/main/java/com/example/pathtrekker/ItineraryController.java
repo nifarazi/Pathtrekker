@@ -76,11 +76,13 @@ public class ItineraryController {
             List<Event> nightEvents = fetchAndScheduleNightEvents(division, numDays);
             int itineraryId = storeItinerary(division, numPeople, numDays, selectedHotel, destinations, nightEvents);
 
+            // Set all data in ItineraryData, including the itineraryId
             ItineraryData.setHotel(selectedHotel);
             ItineraryData.setNumPeople(numPeople);
             ItineraryData.setNumDays(numDays);
             ItineraryData.setDestinations(destinations);
-            ItineraryData.setNightEvents(nightEvents); // Assuming this setter exists
+            ItineraryData.setNightEvents(nightEvents);
+            ItineraryData.setItineraryId(itineraryId); // Moved here from outside
 
             Stage stage = (Stage) generateButton.getScene().getWindow();
             change.changeScene(stage, "ItineraryResult.fxml");
@@ -103,8 +105,15 @@ public class ItineraryController {
             if (rs.next()) {
                 int roomsRequired = (int) Math.ceil(numPeople / 2.0);
                 double totalCost = roomsRequired * rs.getDouble("nightly_rate") * numDays;
-                return new Hotel(rs.getString("name"), rs.getString("amenities"), rs.getDouble("nightly_rate"),
-                        totalCost, rs.getString("email"), rs.getString("phone_number"));
+                return new Hotel(
+                        rs.getString("name"),
+                        rs.getString("amenities"),
+                        rs.getDouble("nightly_rate"),
+                        totalCost,
+                        rs.getString("email"),
+                        rs.getString("phone_number"),
+                        division // Pass the division parameter
+                );
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -220,12 +229,11 @@ public class ItineraryController {
             if (day <= allEvents.size()) {
                 scheduledEvents.add(allEvents.get(day - 1));
             } else {
-                // Fallback: Alternate between Shopping and Rest Day
                 String fallbackName = (day % 2 == 0) ? "Shopping" : "Rest Day";
                 scheduledEvents.add(new Event(
                         fallbackName,
-                        "18:00:00", // Default opening time (6 PM)
-                        "23:00:00", // Default closing time (11 PM)
+                        "18:00:00",
+                        "23:00:00",
                         "Local Area",
                         fallbackName.equals("Shopping") ? "Explore local shops and markets." : "Relax at the hotel or nearby."
                 ));
@@ -252,7 +260,6 @@ public class ItineraryController {
             int itineraryId = rs.next() ? rs.getInt(1) : -1;
 
             if (itineraryId != -1) {
-                // Store destinations
                 try (PreparedStatement destStmt = conn.prepareStatement(destSql)) {
                     for (Destination dest : destinations) {
                         destStmt.setInt(1, itineraryId);
@@ -264,12 +271,11 @@ public class ItineraryController {
                     destStmt.executeBatch();
                 }
 
-                // Store night events
                 try (PreparedStatement eventStmt = conn.prepareStatement(eventSql)) {
                     for (int i = 0; i < nightEvents.size(); i++) {
                         Event event = nightEvents.get(i);
                         eventStmt.setInt(1, itineraryId);
-                        eventStmt.setInt(2, i + 1); // Day starts from 1
+                        eventStmt.setInt(2, i + 1);
                         eventStmt.setString(3, event.getName());
                         eventStmt.addBatch();
                     }

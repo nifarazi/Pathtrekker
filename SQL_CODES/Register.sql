@@ -1145,7 +1145,7 @@ CREATE TABLE IF NOT EXISTS itineraryhotel (
     total_cost DOUBLE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
+ALTER TABLE itineraryhotel ADD COLUMN comment TEXT;
 -- Table to store itinerary destinations (updated foreign key reference)
 CREATE TABLE IF NOT EXISTS itinerary_destinations (
     id INT AUTO_INCREMENT PRIMARY KEY,
