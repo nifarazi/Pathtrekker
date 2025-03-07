@@ -9,6 +9,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,18 +28,24 @@ public class ItineraryResultController {
     @FXML
     private Label hotelNameLabel, amenitiesLabel, nightlyRateLabel, totalCostLabel, emailLabel, phoneLabel, commentDisplayLabel;
     @FXML
-    private Button backButton, saveCommentButton;
+    private Button backButton, saveCommentButton, savePdfButton;
     @FXML
     private VBox destinationsVBox;
     @FXML
     private TextArea commentArea;
+    @FXML
+    private TextField itineraryNameField;
 
-    private int itineraryId; // To track the current itinerary
+    private int itineraryId;
+    private static final float PAGE_TOP = 750; // Starting Y position
+    private static final float PAGE_BOTTOM = 50; // Bottom margin
+    private static final float LINE_SPACING = 15; // Space between lines
+
+
 
     @FXML
     public void initialize() {
-        // Fetch itineraryId from somewhere (e.g., ItineraryData or passed from ItineraryController)
-        itineraryId = ItineraryData.getItineraryId(); // Assume this is added to ItineraryData
+        itineraryId = ItineraryData.getItineraryId();
 
         Hotel hotel = ItineraryData.getHotel();
         if (hotel != null) {
@@ -52,9 +64,7 @@ public class ItineraryResultController {
             phoneLabel.setText("N/A");
         }
 
-        // Load existing comment
         loadComment();
-
         refreshDestinations();
     }
 
@@ -70,7 +80,6 @@ public class ItineraryResultController {
                 dayLabel.setFont(new Font(18));
                 dayBox.getChildren().add(dayLabel);
 
-                // Add morning and afternoon destinations
                 for (int i = 0; i < destinations.size(); i++) {
                     Destination dest = destinations.get(i);
                     if (dest.getDay() == day) {
@@ -93,7 +102,6 @@ public class ItineraryResultController {
                         showMapButton.setOnAction(e -> showMap(dest, currentIndex, destinations));
                         dayBox.getChildren().add(showMapButton);
 
-                        // Add swap functionality
                         ComboBox<String> swapComboBox = new ComboBox<>();
                         swapComboBox.getItems().addAll(fetchAvailableDestinations(ItineraryData.getHotel().getDivision()));
                         swapComboBox.setPromptText("Swap with...");
@@ -105,7 +113,6 @@ public class ItineraryResultController {
                     }
                 }
 
-                // Add night event for the day
                 if (nightEvents != null && day - 1 < nightEvents.size()) {
                     Event nightEvent = nightEvents.get(day - 1);
                     dayBox.getChildren().add(createLabel("Night - Event: " + nightEvent.getName()));
@@ -129,7 +136,6 @@ public class ItineraryResultController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pathtrekker/Map.fxml"));
             Parent root = loader.load();
-
             MapController mapController = loader.getController();
             String loc1, loc2;
 
@@ -137,7 +143,6 @@ public class ItineraryResultController {
             if (isFirstDestinationOfTheDay) {
                 loc1 = ItineraryData.getHotel().getName();
                 loc2 = dest.getName();
-                System.out.println("Showing map from Hotel → " + loc2);
             } else {
                 Destination morningDest = destinations.stream()
                         .filter(d -> d.getDay() == dest.getDay() && d.getTimeSlot().equals("Morning"))
@@ -145,11 +150,9 @@ public class ItineraryResultController {
                         .orElse(null);
                 loc1 = (morningDest != null) ? morningDest.getName() : ItineraryData.getHotel().getName();
                 loc2 = dest.getName();
-                System.out.println("Showing map from " + loc1 + " → " + loc2);
             }
 
             mapController.setLocations(loc1, loc2);
-
             Stage mapStage = new Stage();
             mapStage.setTitle("Map View");
             mapStage.setScene(new Scene(root, 1080, 756));
@@ -213,37 +216,27 @@ public class ItineraryResultController {
     }
 
     private void swapDestination(int index, String newDestName) {
-        if (newDestName == null || newDestName.trim().isEmpty()) {
-            return;
-        }
+        if (newDestName == null || newDestName.trim().isEmpty()) return;
 
         List<Destination> destinations = ItineraryData.getDestinations();
         Destination oldDest = destinations.get(index);
 
-        // Fetch new destination details from database
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM final_destinations WHERE name = ?")) {
             pstmt.setString(1, newDestName);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 Destination newDest = new Destination(
-                        rs.getString("name"),
-                        rs.getString("description"),
-                        rs.getString("top_attractions"),
-                        rs.getString("weather_info"),
-                        rs.getString("local_cuisine"),
-                        rs.getString("transport_info"),
-                        rs.getString("opening_time"),
-                        rs.getString("closing_time")
+                        rs.getString("name"), rs.getString("description"), rs.getString("top_attractions"),
+                        rs.getString("weather_info"), rs.getString("local_cuisine"), rs.getString("transport_info"),
+                        rs.getString("opening_time"), rs.getString("closing_time")
                 );
                 newDest.setDay(oldDest.getDay());
                 newDest.setTimeSlot(oldDest.getTimeSlot());
 
-                // Update in-memory list
                 destinations.set(index, newDest);
                 ItineraryData.setDestinations(destinations);
 
-                // Update database
                 try (PreparedStatement updateStmt = conn.prepareStatement(
                         "UPDATE itinerary_destinations SET destination_name = ? WHERE itinerary_id = ? AND day = ? AND time_slot = ?")) {
                     updateStmt.setString(1, newDestName);
@@ -253,7 +246,6 @@ public class ItineraryResultController {
                     updateStmt.executeUpdate();
                 }
 
-                // Refresh UI
                 refreshDestinations();
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Destination not found in database.");
@@ -263,6 +255,220 @@ public class ItineraryResultController {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR, "Error swapping destination.");
             alert.showAndWait();
+        }
+    }
+
+    @FXML
+    private void saveItineraryAsPdf() {
+        String itineraryName = itineraryNameField.getText().trim();
+        if (itineraryName.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText(null);
+            alert.setContentText("Please enter a name for the itinerary.");
+            alert.showAndWait();
+            return;
+        }
+
+        // Sanitize file name to avoid illegal characters
+        itineraryName = itineraryName.replaceAll("[<>:\"/\\\\|?*]", "_");
+
+        try (PDDocument document = new PDDocument()) {
+            PDPage page = new PDPage();
+            document.addPage(page);
+            PDPageContentStream contentStream = new PDPageContentStream(document, page);
+            float yPosition = PAGE_TOP;
+
+            contentStream.beginText();
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 14);
+            contentStream.newLineAtOffset(25, yPosition);
+            contentStream.showText("Itinerary: " + itineraryName);
+            contentStream.setFont(PDType1Font.HELVETICA, 12);
+            yPosition -= LINE_SPACING;
+            contentStream.newLineAtOffset(0, -LINE_SPACING);
+
+            // Hotel Info
+            AddTextResult result = addText(document, contentStream, "Hotel Information:", yPosition, page);
+            contentStream = result.contentStream; // Update contentStream
+            yPosition = result.yPosition;
+            Hotel hotel = ItineraryData.getHotel();
+            if (hotel != null) {
+                result = addText(document, contentStream, "Name: " + hotel.getName(), yPosition, page);
+                contentStream = result.contentStream;
+                yPosition = result.yPosition;
+
+                result = addText(document, contentStream, "Amenities: " + hotel.getAmenities(), yPosition, page);
+                contentStream = result.contentStream;
+                yPosition = result.yPosition;
+
+                result = addText(document, contentStream, "Nightly Rate: BDT " + String.format("%.2f", hotel.getNightlyRate()), yPosition, page);
+                contentStream = result.contentStream;
+                yPosition = result.yPosition;
+
+                result = addText(document, contentStream, "Total Cost: BDT " + String.format("%.2f", hotel.getTotalCost()), yPosition, page);
+                contentStream = result.contentStream;
+                yPosition = result.yPosition;
+
+                result = addText(document, contentStream, "Email: " + hotel.getEmail(), yPosition, page);
+                contentStream = result.contentStream;
+                yPosition = result.yPosition;
+
+                result = addText(document, contentStream, "Phone: " + hotel.getPhoneNumber(), yPosition, page);
+                contentStream = result.contentStream;
+                yPosition = result.yPosition - LINE_SPACING; // Extra spacing
+            }
+
+            // Destinations
+            result = addText(document, contentStream, "Destinations:", yPosition, page);
+            contentStream = result.contentStream;
+            yPosition = result.yPosition;
+            List<Destination> destinations = ItineraryData.getDestinations();
+            for (Destination dest : destinations) {
+                result = addText(document, contentStream, "Day " + dest.getDay() + " - " + dest.getTimeSlot(), yPosition, page);
+                contentStream = result.contentStream;
+                yPosition = result.yPosition;
+
+                result = addText(document, contentStream, "Name: " + dest.getName(), yPosition, page);
+                contentStream = result.contentStream;
+                yPosition = result.yPosition;
+
+                result = addText(document, contentStream, "Description: " + dest.getDescription(), yPosition, page);
+                contentStream = result.contentStream;
+                yPosition = result.yPosition;
+
+                result = addText(document, contentStream, "Top Attractions: " + dest.getTopAttractions(), yPosition, page);
+                contentStream = result.contentStream;
+                yPosition = result.yPosition;
+
+                result = addText(document, contentStream, "Local Cuisine: " + dest.getLocalCuisine(), yPosition, page);
+                contentStream = result.contentStream;
+                yPosition = result.yPosition;
+
+                result = addText(document, contentStream, "Transport Info: " + dest.getTransportInfo(), yPosition, page);
+                contentStream = result.contentStream;
+                yPosition = result.yPosition;
+
+                result = addText(document, contentStream, "Open: " + dest.getOpeningTime() + " - Close: " + dest.getClosingTime(), yPosition, page);
+                contentStream = result.contentStream;
+                yPosition = result.yPosition - LINE_SPACING; // Extra spacing
+            }
+
+            // Night Events
+            result = addText(document, contentStream, "Night Events:", yPosition, page);
+            contentStream = result.contentStream;
+            yPosition = result.yPosition;
+            List<Event> nightEvents = ItineraryData.getNightEvents();
+            for (int i = 0; i < nightEvents.size(); i++) {
+                Event event = nightEvents.get(i);
+                result = addText(document, contentStream, "Day " + (i + 1) + " - Night Event", yPosition, page);
+                contentStream = result.contentStream;
+                yPosition = result.yPosition;
+
+                result = addText(document, contentStream, "Name: " + event.getName(), yPosition, page);
+                contentStream = result.contentStream;
+                yPosition = result.yPosition;
+
+                result = addText(document, contentStream, "Open: " + event.getOpeningTime() + " - Close: " + event.getClosingTime(), yPosition, page);
+                contentStream = result.contentStream;
+                yPosition = result.yPosition;
+
+                result = addText(document, contentStream, "Location: " + event.getLocation(), yPosition, page);
+                contentStream = result.contentStream;
+                yPosition = result.yPosition;
+
+                result = addText(document, contentStream, "Description: " + event.getDescription(), yPosition, page);
+                contentStream = result.contentStream;
+                yPosition = result.yPosition - LINE_SPACING; // Extra spacing
+            }
+
+            // Comment
+            String comment = commentDisplayLabel.getText();
+            if (!comment.isEmpty()) {
+                result = addText(document, contentStream, "Comment: " + comment, yPosition, page);
+                contentStream = result.contentStream;
+                yPosition = result.yPosition;
+            }
+
+            contentStream.endText();
+            contentStream.close();
+
+            // Save PDF locally
+            String filePath = System.getProperty("user.home") + "/Downloads/" + itineraryName + ".pdf";
+            File pdfFile = new File(filePath);
+            if (!pdfFile.getParentFile().exists()) {
+                pdfFile.getParentFile().mkdirs(); // Create Downloads folder if it doesn’t exist
+            }
+            document.save(pdfFile);
+
+            // Convert to byte array for database storage
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            document.save(baos);
+            byte[] pdfBytes = baos.toByteArray();
+
+            // Save to database
+            savePdfToDatabase(itineraryName, pdfBytes);
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setHeaderText(null);
+            alert.setContentText("Itinerary saved as PDF at " + filePath + " and in the database.");
+            alert.showAndWait();
+            itineraryNameField.clear();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Failed to save itinerary as PDF: " + e.getMessage());
+            alert.showAndWait();
+        }
+    }
+
+    // Helper class to return both contentStream and yPosition
+    private static class AddTextResult {
+        PDPageContentStream contentStream;
+        float yPosition;
+
+        AddTextResult(PDPageContentStream contentStream, float yPosition) {
+            this.contentStream = contentStream;
+            this.yPosition = yPosition;
+        }
+    }
+
+    private AddTextResult addText(PDDocument document, PDPageContentStream contentStream, String text, float yPosition, PDPage currentPage) throws IOException {
+        if (yPosition < PAGE_BOTTOM) {
+            contentStream.endText();
+            contentStream.close();
+            PDPage newPage = new PDPage();
+            document.addPage(newPage);
+            contentStream = new PDPageContentStream(document, newPage);
+            contentStream.beginText();
+            contentStream.setFont(PDType1Font.HELVETICA, 12);
+            contentStream.newLineAtOffset(25, PAGE_TOP);
+            yPosition = PAGE_TOP;
+        }
+        contentStream.showText(text);
+        contentStream.newLineAtOffset(0, -LINE_SPACING);
+        return new AddTextResult(contentStream, yPosition - LINE_SPACING);
+    }
+
+    private void savePdfToDatabase(String itineraryName, byte[] pdfBytes) {
+        String sql = "INSERT INTO saved_itineraries (itinerary_name, username, itinerary_id, pdf_data) VALUES (?, ?, ?, ?)";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, itineraryName);
+            String username = ProfileUserJDBC.getCurrentUsername();
+            if (username == null || username.isEmpty()) {
+                username = "guest"; // Fallback if no user is logged in
+            }
+            pstmt.setString(2, username);
+            pstmt.setInt(3, itineraryId);
+            pstmt.setBytes(4, pdfBytes);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to save PDF to database: " + e.getMessage(), e);
         }
     }
 

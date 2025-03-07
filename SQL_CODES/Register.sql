@@ -1173,3 +1173,15 @@ CREATE TABLE IF NOT EXISTS itinerary_events (
     event_name VARCHAR(255) NOT NULL,
     FOREIGN KEY (itinerary_id) REFERENCES itineraryhotel(id) ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS saved_itineraries (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    itinerary_name VARCHAR(255) NOT NULL,
+    username VARCHAR(50) NOT NULL,
+    itinerary_id INT NOT NULL,
+    pdf_data LONGBLOB NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (itinerary_id) REFERENCES itineraryhotel(id) ON DELETE CASCADE
+);
+
+ SELECT * FROM saved_itineraries;

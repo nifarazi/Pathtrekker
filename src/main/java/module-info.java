@@ -5,8 +5,8 @@ module com.example.pathtrekker {
     requires java.sql;
     requires org.json;
     requires javafx.web;
-
-
+    requires java.desktop;
+    requires org.apache.pdfbox;
     opens com.example.pathtrekker to javafx.fxml;
     exports com.example.pathtrekker;
 }

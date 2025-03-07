@@ -4,6 +4,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?> <!-- Added this import -->
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.StackPane?>
@@ -13,81 +15,90 @@
 <StackPane fx:id="root" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.example.pathtrekker.ItineraryResultController">
 
-    <!-- Main Layout -->
     <AnchorPane prefHeight="756" prefWidth="1100">
-        <!-- Scrollable Content with Background Color -->
         <ScrollPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0">
             <content>
-                <VBox spacing="20" prefWidth="1080" style="-fx-background-color: #FFFFFF;" alignment="TOP_CENTER">
+                <VBox spacing="20" prefWidth="1080" style="-fx-background-color: #FFFFFF; -fx-padding: 20;" alignment="TOP_CENTER">
                     <!-- Hotel Info -->
                     <GridPane hgap="100" vgap="20" alignment="CENTER" prefWidth="1080">
-                        <Label style="-fx-font-weight: bold;" text="Hotel Name:" textFill="BLACK" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <Label style="-fx-font-weight: bold; -fx-font-family: 'Roboto';" text="Hotel Name:" textFill="BLACK" GridPane.columnIndex="0" GridPane.rowIndex="0">
                             <font><Font size="18.0"/></font>
                         </Label>
-                        <Label fx:id="hotelNameLabel" textFill="BLACK" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <Label fx:id="hotelNameLabel" textFill="BLACK" GridPane.columnIndex="1" GridPane.rowIndex="0" style="-fx-font-family: 'Roboto';">
                             <font><Font size="18.0"/></font>
                         </Label>
-                        <Label style="-fx-font-weight: bold;" text="Nightly Rate:" textFill="BLACK" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <Label style="-fx-font-weight: bold; -fx-font-family: 'Roboto';" text="Nightly Rate:" textFill="BLACK" GridPane.columnIndex="0" GridPane.rowIndex="1">
                             <font><Font size="18.0"/></font>
                         </Label>
-                        <Label fx:id="nightlyRateLabel" textFill="BLACK" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label fx:id="nightlyRateLabel" textFill="BLACK" GridPane.columnIndex="1" GridPane.rowIndex="1" style="-fx-font-family: 'Roboto';">
                             <font><Font size="18.0"/></font>
                         </Label>
-                        <Label style="-fx-font-weight: bold;" text="Total Cost:" textFill="BLACK" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                        <Label style="-fx-font-weight: bold; -fx-font-family: 'Roboto';" text="Total Cost:" textFill="BLACK" GridPane.columnIndex="0" GridPane.rowIndex="2">
                             <font><Font size="18.0"/></font>
                         </Label>
-                        <Label fx:id="totalCostLabel" textFill="BLACK" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <Label fx:id="totalCostLabel" textFill="BLACK" GridPane.columnIndex="1" GridPane.rowIndex="2" style="-fx-font-family: 'Roboto';">
                             <font><Font size="18.0"/></font>
                         </Label>
-                        <Label style="-fx-font-weight: bold;" text="Amenities:" textFill="BLACK" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                        <Label style="-fx-font-weight: bold; -fx-font-family: 'Roboto';" text="Amenities:" textFill="BLACK" GridPane.columnIndex="2" GridPane.rowIndex="0">
                             <font><Font size="18.0"/></font>
                         </Label>
-                        <Label fx:id="amenitiesLabel" textFill="BLACK" GridPane.columnIndex="3" GridPane.rowIndex="0">
+                        <Label fx:id="amenitiesLabel" textFill="BLACK" GridPane.columnIndex="3" GridPane.rowIndex="0" style="-fx-font-family: 'Roboto';">
                             <font><Font size="18.0"/></font>
                         </Label>
-                        <Label style="-fx-font-weight: bold;" text="Email:" textFill="BLACK" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <Label style="-fx-font-weight: bold; -fx-font-family: 'Roboto';" text="Email:" textFill="BLACK" GridPane.columnIndex="2" GridPane.rowIndex="1">
                             <font><Font size="18.0"/></font>
                         </Label>
-                        <Label fx:id="emailLabel" textFill="BLACK" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                        <Label fx:id="emailLabel" textFill="BLACK" GridPane.columnIndex="3" GridPane.rowIndex="1" style="-fx-font-family: 'Roboto';">
                             <font><Font size="18.0"/></font>
                         </Label>
-                        <Label style="-fx-font-weight: bold;" text="Phone Number:" textFill="BLACK" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                        <Label style="-fx-font-weight: bold; -fx-font-family: 'Roboto';" text="Phone Number:" textFill="BLACK" GridPane.columnIndex="2" GridPane.rowIndex="2">
                             <font><Font size="18.0"/></font>
                         </Label>
-                        <Label fx:id="phoneLabel" textFill="BLACK" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                        <Label fx:id="phoneLabel" textFill="BLACK" GridPane.columnIndex="3" GridPane.rowIndex="2" style="-fx-font-family: 'Roboto';">
                             <font><Font size="18.0"/></font>
                         </Label>
                     </GridPane>
 
-                    <!-- Comment Section -->
+                    <!-- Destinations and Events Display -->
+                    <VBox fx:id="destinationsVBox" spacing="30" alignment="CENTER" prefWidth="1080"/>
+
+                    <!-- Comment and Save PDF Section -->
                     <VBox spacing="10" prefWidth="1080" alignment="CENTER">
-                        <Label text="Your Comments:" style="-fx-font-weight: bold;">
+                        <Label text="Your Comments:" style="-fx-font-weight: bold; -fx-font-family: 'Roboto';">
                             <font><Font size="18.0"/></font>
                         </Label>
-                        <TextArea fx:id="commentArea" prefWidth="600" prefHeight="100" wrapText="true"/>
-                        <Label fx:id="commentDisplayLabel" text="" textFill="BLACK" wrapText="true">
+                        <TextArea fx:id="commentArea" prefWidth="600" prefHeight="100" wrapText="true" style="-fx-font-family: 'Roboto';"/>
+                        <Label fx:id="commentDisplayLabel" text="" textFill="BLACK" wrapText="true" style="-fx-font-family: 'Roboto';">
                             <font><Font size="16.0"/></font>
                         </Label>
                         <Button fx:id="saveCommentButton" text="Save Comment" onAction="#saveComment"
-                                style="-fx-background-color: #3ba545; -fx-text-fill: white; -fx-font-weight: bold;">
+                                style="-fx-background-color: #3ba545; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-family: 'Roboto';">
                             <font><Font size="16.0"/></font>
                         </Button>
-                    </VBox>
 
-                    <!-- Destinations and Events Display -->
-                    <VBox fx:id="destinationsVBox" spacing="30" alignment="CENTER" prefWidth="1080"/>
+                        <!-- Save as PDF Section -->
+                        <Label text="Save Itinerary as PDF:" style="-fx-font-weight: bold; -fx-font-family: 'Roboto';">
+                            <font><Font size="18.0"/></font>
+                        </Label>
+                        <TextField fx:id="itineraryNameField" promptText="Enter itinerary name" prefWidth="300" style="-fx-font-family: 'Roboto';"/>
+                        <Button fx:id="savePdfButton" text="Save as PDF" onAction="#saveItineraryAsPdf"
+                                style="-fx-background-color: #0288d1; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-family: 'Roboto';">
+                            <font><Font size="16.0"/></font>
+                            <tooltip>
+                                <Tooltip text="Saves the itinerary as a PDF file in your Downloads folder and database"/>
+                            </tooltip>
+                        </Button>
+                    </VBox>
                 </VBox>
             </content>
         </ScrollPane>
 
-        <!-- Back Button (Fixed Position) -->
+        <!-- Back Button -->
         <VBox spacing="15" AnchorPane.rightAnchor="46.0" AnchorPane.bottomAnchor="50.0">
             <Button fx:id="backButton" onMouseClicked="#goBack" prefHeight="24.0" prefWidth="200.0"
                     style="-fx-background-color: #3ba545; -fx-font-family: 'Roboto'; -fx-text-fill: white; -fx-font-weight: bold;"
                     text="Back to Itinerary Generator">
-                <font>
-                    <Font size="16.0"/>
-                </font>
+                <font><Font size="16.0"/></font>
             </Button>
         </VBox>
     </AnchorPane>

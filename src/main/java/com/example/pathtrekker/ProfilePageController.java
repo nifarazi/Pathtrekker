@@ -4,6 +4,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -12,7 +13,13 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -76,6 +83,9 @@ public class ProfilePageController {
     @FXML
     private Button logOutButton;
 
+    @FXML
+    private ListView<String> itinerariesListView;
+
     ChangeScene cs = new ChangeScene();
 
     @FXML
@@ -87,169 +97,22 @@ public class ProfilePageController {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
 
-        // Apply CSS styling to match the provided image
+        // Apply CSS styling
         rootPane.setStyle("-fx-background-color: transparent;");
-
         profileSection.setStyle("-fx-background-color: rgba(100,150,130,0.5); -fx-padding: 20px; -fx-border-radius: 10px;");
-        fullNameLabel.setFont(new Font("Arial", 16));
-        usernameLabel.setFont(new Font("Arial", 14));
-        emailLabel.setFont(new Font("Arial", 14));
-        fullNameLabel.setTextFill(Color.DARKGREEN);
-        usernameLabel.setTextFill(Color.DARKBLUE);
-        emailLabel.setTextFill(Color.DARKRED);
-
         bucketListSection.setStyle("-fx-background-color: rgba(150,180,160,0.5); -fx-padding: 20px; -fx-border-radius: 10px;");
         bucketListInput.setPromptText("Enter place to visit");
-
         viewItinerariesSection.setStyle("-fx-background-color: rgba(120,160,140,0.5); -fx-padding: 20px; -fx-border-radius: 10px;");
-
         mainContainer.setStyle("-fx-spacing: 20px;");
 
-        // Style for "Add to List" button
-        addToListButton.setStyle(
-                "-fx-background-color: #85aa9b; " +
-                        "-fx-text-fill: white; " +
-                        "-fx-font-size: 14px; " +
-                        "-fx-padding: 10px 20px; " +
-                        "-fx-border-radius: 5px; " +
-                        "-fx-background-radius: 5px; " +
-                        "-fx-cursor: hand;"
-        );
-        addToListButton.setOnMouseEntered(e -> addToListButton.setStyle(
-                "-fx-background-color: #588b76; " +
-                        "-fx-text-fill: white; " +
-                        "-fx-font-size: 14px; " +
-                        "-fx-padding: 10px 20px; " +
-                        "-fx-border-radius: 5px; " +
-                        "-fx-background-radius: 5px; " +
-                        "-fx-cursor: hand;"
-        ));
-        addToListButton.setOnMouseExited(e -> addToListButton.setStyle(
-                "-fx-background-color: #85aa9b; " +
-                        "-fx-text-fill: white; " +
-                        "-fx-font-size: 14px; " +
-                        "-fx-padding: 10px 20px; " +
-                        "-fx-border-radius: 5px; " +
-                        "-fx-background-radius: 5px; " +
-                        "-fx-cursor: hand;"
-        ));
+        // Style buttons
+        styleButton(addToListButton, "#85aa9b", "#588b76", "14px", "10px 20px");
+        styleButton(deleteFromListButton, "#85aa9b", "#588b76", "14px", "10px 15px");
+        styleButton(tripMarkerButton, "#85aa9b", "#588b76", "14px", "10px 20px");
+        styleButton(homeButton, "#85aa9b", "#588b76", "12px", "5px 10px");
+        styleButton(logOutButton, "#85aa9b", "#588b76", "12px", "5px 10px");
 
-        // Style for "Delete from List" button
-        deleteFromListButton.setStyle(
-                "-fx-background-color: #85aa9b; " +
-                        "-fx-text-fill: white; " +
-                        "-fx-font-size: 14px; " +
-                        "-fx-padding: 10px 15px; " +
-                        "-fx-border-radius: 5px; " +
-                        "-fx-background-radius: 5px; " +
-                        "-fx-cursor: hand;"
-        );
-        deleteFromListButton.setOnMouseEntered(e -> deleteFromListButton.setStyle(
-                "-fx-background-color: #588b76; " +
-                        "-fx-text-fill: white; " +
-                        "-fx-font-size: 14px; " +
-                        "-fx-padding: 10px 15px; " +
-                        "-fx-border-radius: 5px; " +
-                        "-fx-background-radius: 5px; " +
-                        "-fx-cursor: hand;"
-        ));
-        deleteFromListButton.setOnMouseExited(e -> deleteFromListButton.setStyle(
-                "-fx-background-color: #85aa9b; " +
-                        "-fx-text-fill: white; " +
-                        "-fx-font-size: 14px; " +
-                        "-fx-padding: 10px 15px; " +
-                        "-fx-border-radius: 5px; " +
-                        "-fx-background-radius: 5px; " +
-                        "-fx-cursor: hand;"
-        ));
-
-        // Style for "Trip Marker" button
-        tripMarkerButton.setStyle(
-                "-fx-background-color: #85aa9b; " +
-                        "-fx-text-fill: white; " +
-                        "-fx-font-size: 14px; " +
-                        "-fx-padding: 10px 20px; " +
-                        "-fx-border-radius: 5px; " +
-                        "-fx-background-radius: 5px; " +
-                        "-fx-cursor: hand;"
-        );
-        tripMarkerButton.setOnMouseEntered(e -> tripMarkerButton.setStyle(
-                "-fx-background-color: #588b76; " +
-                        "-fx-text-fill: white; " +
-                        "-fx-font-size: 14px; " +
-                        "-fx-padding: 10px 20px; " +
-                        "-fx-border-radius: 5px; " +
-                        "-fx-background-radius: 5px; " +
-                        "-fx-cursor: hand;"
-        ));
-        tripMarkerButton.setOnMouseExited(e -> tripMarkerButton.setStyle(
-                "-fx-background-color: #85aa9b; " +
-                        "-fx-text-fill: white; " +
-                        "-fx-font-size: 14px; " +
-                        "-fx-padding: 10px 20px; " +
-                        "-fx-border-radius: 5px; " +
-                        "-fx-background-radius: 5px; " +
-                        "-fx-cursor: hand;"
-        ));
-
-        // Style for "Home" button
-        homeButton.setStyle(
-                "-fx-background-color: #85aa9b; " +
-                        "-fx-text-fill: white; " +
-                        "-fx-font-size: 12px; " +
-                        "-fx-padding: 5px 10px; " +
-                        "-fx-border-radius: 5px; " +
-                        "-fx-background-radius: 5px; " +
-                        "-fx-cursor: hand;"
-        );
-        homeButton.setOnMouseEntered(e -> homeButton.setStyle(
-                "-fx-background-color: #588b76; " +
-                        "-fx-text-fill: white; " +
-                        "-fx-font-size: 12px; " +
-                        "-fx-padding: 5px 10px; " +
-                        "-fx-border-radius: 5px; " +
-                        "-fx-background-radius: 5px; " +
-                        "-fx-cursor: hand;"
-        ));
-        homeButton.setOnMouseExited(e -> homeButton.setStyle(
-                "-fx-background-color: #85aa9b; " +
-                        "-fx-text-fill: white; " +
-                        "-fx-font-size: 12px; " +
-                        "-fx-padding: 5px 10px; " +
-                        "-fx-border-radius: 5px; " +
-                        "-fx-background-radius: 5px; " +
-                        "-fx-cursor: hand;"
-        ));
-
-        // Style for "Log Out" button
-        logOutButton.setStyle(
-                "-fx-background-color: #85aa9b; " +
-                        "-fx-text-fill: white; " +
-                        "-fx-font-size: 12px; " +
-                        "-fx-padding: 5px 10px; " +
-                        "-fx-border-radius: 5px; " +
-                        "-fx-background-radius: 5px; " +
-                        "-fx-cursor: hand;"
-        );
-        logOutButton.setOnMouseEntered(e -> logOutButton.setStyle(
-                "-fx-background-color: #588b76; " +
-                        "-fx-text-fill: white; " +
-                        "-fx-font-size: 12px; " +
-                        "-fx-padding: 5px 10px; " +
-                        "-fx-border-radius: 5px; " +
-                        "-fx-background-radius: 5px; " +
-                        "-fx-cursor: hand;"
-        ));
-        logOutButton.setOnMouseExited(e -> logOutButton.setStyle(
-                "-fx-background-color: #85aa9b; " +
-                        "-fx-text-fill: white; " +
-                        "-fx-font-size: 12px; " +
-                        "-fx-padding: 5px 10px; " +
-                        "-fx-border-radius: 5px; " +
-                        "-fx-background-radius: 5px; " +
-                        "-fx-cursor: hand;"
-        ));
-
+        // Bucket List View cell factory
         bucketListView.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(BucketListItem item, boolean empty) {
@@ -277,29 +140,65 @@ public class ProfilePageController {
                 }
             }
         });
+
+        // Itineraries ListView setup - Use black text
+        itinerariesListView.setCellFactory(param -> new ListCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    Label label = new Label(item);
+                    label.setStyle("-fx-font-family: 'Roboto'; -fx-font-size: 14px; -fx-text-fill: black;");
+                    setGraphic(label);
+                }
+            }
+        });
+
+        // Handle click on itinerary to open PDF
+        itinerariesListView.setOnMouseClicked(event -> {
+            String selectedItinerary = itinerariesListView.getSelectionModel().getSelectedItem();
+            if (selectedItinerary != null) {
+                openItineraryPdf(selectedItinerary);
+            }
+        });
+
+        // Load initial data
         loadUserDetails();
         setLabelStyles();
         loadBucketList();
+        loadItineraries();
+
+        // Debug and force refresh
+        System.out.println("Items in itinerariesListView after load: " + itinerariesListView.getItems());
+        itinerariesListView.refresh();
+    }
+
+    private void styleButton(Button button, String defaultColor, String hoverColor, String fontSize, String padding) {
+        String baseStyle = "-fx-background-color: " + defaultColor + "; -fx-text-fill: white; -fx-font-size: " + fontSize + "; " +
+                "-fx-padding: " + padding + "; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-cursor: hand;";
+        String hoverStyle = "-fx-background-color: " + hoverColor + "; -fx-text-fill: white; -fx-font-size: " + fontSize + "; " +
+                "-fx-padding: " + padding + "; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-cursor: hand;";
+
+        button.setStyle(baseStyle);
+        button.setOnMouseEntered(e -> button.setStyle(hoverStyle));
+        button.setOnMouseExited(e -> button.setStyle(baseStyle));
     }
 
     private void setLabelStyles() {
         Font robotoBold = Font.font("Roboto Bold", 14);
-
         fullNameLabel.setFont(robotoBold);
         fullNameLabel.setTextFill(Color.WHITE);
-
         usernameLabel.setFont(robotoBold);
         usernameLabel.setTextFill(Color.WHITE);
-
         emailLabel.setFont(robotoBold);
         emailLabel.setTextFill(Color.WHITE);
-
         nameKeyLabel.setFont(robotoBold);
         nameKeyLabel.setTextFill(Color.WHITE);
-
         usernameKeyLabel.setFont(robotoBold);
         usernameKeyLabel.setTextFill(Color.WHITE);
-
         emailKeyLabel.setFont(robotoBold);
         emailKeyLabel.setTextFill(Color.WHITE);
     }
@@ -320,6 +219,55 @@ public class ProfilePageController {
         bucketListView.getItems().clear();
         for (MyProfileJDBC.BucketListItem item : bucketListItems) {
             bucketListView.getItems().add(new BucketListItem(item.getPlace(), item.isVisited()));
+        }
+    }
+
+    private void loadItineraries() {
+        String username = ProfileUserJDBC.getCurrentUsername();
+        if (username == null || username.isEmpty()) {
+            System.err.println("Cannot load itineraries: Username is null or empty");
+            return;
+        }
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement("SELECT itinerary_name FROM saved_itineraries WHERE username = ?")) {
+            pstmt.setString(1, username);
+            ResultSet rs = pstmt.executeQuery();
+            itinerariesListView.getItems().clear();
+            while (rs.next()) {
+                String itineraryName = rs.getString("itinerary_name");
+                itinerariesListView.getItems().add(itineraryName);
+            }
+            if (itinerariesListView.getItems().isEmpty()) {
+                System.out.println("No itineraries found for user: " + username);
+            } else {
+                System.out.println("Loaded " + itinerariesListView.getItems().size() + " itineraries for user: " + username);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert("Error", "Database Error", "Failed to load itineraries: " + e.getMessage());
+        }
+    }
+
+    private void openItineraryPdf(String itineraryName) {
+        String username = ProfileUserJDBC.getCurrentUsername();
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement("SELECT pdf_data FROM saved_itineraries WHERE username = ? AND itinerary_name = ?")) {
+            pstmt.setString(1, username);
+            pstmt.setString(2, itineraryName);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                byte[] pdfData = rs.getBytes("pdf_data");
+                File tempFile = new File(System.getProperty("java.io.tmpdir") + "/" + itineraryName + ".pdf");
+                try (FileOutputStream fos = new FileOutputStream(tempFile)) {
+                    fos.write(pdfData);
+                }
+                java.awt.Desktop.getDesktop().open(tempFile);
+            } else {
+                showAlert("Error", "PDF Not Found", "No PDF found for itinerary: " + itineraryName);
+            }
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+            showAlert("Error", "Failed to Open PDF", "An error occurred: " + e.getMessage());
         }
     }
 
