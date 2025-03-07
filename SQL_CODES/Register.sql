@@ -746,3 +746,370 @@ VALUES
 ('Mymensingh', 'Mymensingh Science Fair', '2025-03-20', '2025-03-22', '09:00:00', '17:00:00', 'Mymensingh Engineering College', 'A platform for young innovators and researchers to showcase projects.'),
 ('Mymensingh', 'Haor Festival', '2025-04-12', '2025-04-14', '10:00:00', '20:00:00', 'Netrokona Lake, Mymensingh', 'An eco-tourism fair focusing on wetland conservation and culture.'),
 ('Mymensingh', 'Folk Dance Festival', '2025-03-30', '2025-03-31', '15:00:00', '21:00:00', 'Zainul Abedin Park, Mymensingh', 'Traditional dance performances by local artists.');
+
+
+
+
+CREATE TABLE IF NOT EXISTS destinationsDivisions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    division VARCHAR(50) NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    top_attractions TEXT,
+    weather_info TEXT,
+    local_cuisine TEXT,
+    transport_info TEXT,
+    opening_time TEXT,
+    closing_time TEXT
+);
+
+-- Dhaka Division
+INSERT INTO destinationsDivisions (division, name, opening_time, closing_time, description, top_attractions, weather_info, local_cuisine, transport_info) VALUES
+('Dhaka', 'Ahsan Manzil', '09:00:00', '17:00:00', 'A beautiful historical palace located in Old Dhaka. Known for its Mughal architecture and historical significance.',
+ 'Ahsan Manzil Museum, Pink Palace', 'Tropical monsoon climate, hot summers, and mild winters.', 'Biryani, Bhuna Khichuri, Panta Bhat', 'Accessible by Rickshaws, taxis, and local buses.'),
+
+('Dhaka', 'Lalbagh Fort', '09:00:00', '17:00:00', 'A Mughal-era fort in the heart of Dhaka. It has a rich history and stunning architecture.',
+ 'Lalbagh Fort Museum, Archaeological Remains', 'Hot and humid summers, moderate winters.', 'Kacchi Biryani, Fuchka, Bhorta', 'Easily accessible via taxis, buses, or rickshaws.'),
+
+('Dhaka', 'National Museum', '10:00:00', '17:00:00', 'The largest museum in Bangladesh, featuring exhibitions on the country’s history, culture, and art.',
+ 'Historical Exhibitions, Ancient Artifacts', 'Warm and humid with rainy seasons.', 'Hilsa Fish, Shorshe Ilish', 'Located near the National Press Club, accessible by taxi or public transport.'),
+
+('Dhaka', 'Sonargaon', '09:00:00', '17:00:00', 'Sonargaon, the ancient capital of Bengal, features historical buildings and remnants of its rich cultural heritage.',
+ 'Historical Sites, Folk Art Museum', 'Tropical monsoon climate, hot summers, and mild winters.', 'Biryani, Bhuna Khichuri, Panta Bhat', 'Accessible by taxi, rickshaw, and local buses.'),
+
+('Dhaka', 'Panam City', '09:00:00', '17:00:00', 'An ancient city near Sonargaon, famous for its old architecture, colonial buildings, and history.',
+ 'Colonial Architecture, Historical Significance', 'Tropical climate, with moderate humidity and occasional rainfall.', 'Kacchi Biryani, Fuchka', 'Accessible by taxi, rickshaw, and buses.'),
+
+('Dhaka', 'Shahid Minar', '06:00:00', '20:00:00', 'A memorial dedicated to the martyrs of the 1952 Language Movement. It stands as a symbol of national pride.',
+ 'Language Movement Memorial, Historic Significance', 'Mild winter and hot summers.', 'Panta Bhat, Bhuna Khichuri', 'Located in central Dhaka, easily accessible by rickshaws or taxis.'),
+
+('Dhaka', 'Baitul Mukarram Mosque', '09:00:00', '17:00:00', 'The national mosque of Bangladesh, known for its modernist architecture and religious importance.',
+ 'Islamic Architecture, National Mosque', 'Tropical climate with monsoon rains.', 'Kebabs, Biryani, Pulao', 'Well connected by buses, taxis, and rickshaws.'),
+
+ ('Dhaka', 'Puran Dhaka', '09:00:00', '17:00:00', 'Old Dhaka, known for its colonial architecture, busy markets, and delicious street food.',
+ 'Old Markets, Colonial Buildings', 'Warm summers with occasional rainfall.', 'Fuchka, Kacchi Biryani', 'Easily accessible by rickshaws and public buses.'),
+
+('Dhaka', 'Jatiyo Sangsad Bhaban', '09:00:00', '17:00:00', 'The National Parliament House of Bangladesh, designed by architect Louis Kahn. A masterpiece of modern architecture.',
+ 'Architectural Tours, National Assembly', 'Hot summers with tropical rains.', 'Chingri Malai Curry, Ilish Bhorta', 'Public transport, taxis, and rickshaws.'),
+
+('Dhaka', 'Ramna Park', '06:00:00', '18:00:00', 'A large urban park located in central Dhaka. Popular for relaxation, jogging, and bird-watching.',
+ 'Nature Walks, Jogging Tracks', 'Humid and warm with occasional rains.', 'Shorshe Ilish, Chingri Bhorta', 'Easily accessible by local buses and rickshaws.'),
+
+('Dhaka', 'Zinda Park', '08:00:00', '18:00:00', 'A serene eco-park with lakes, greenery, and cultural attractions.',
+ 'Lush Gardens, Lakes, Cultural Attractions', 'Hot summers, wet monsoon season.', 'Traditional Pithas, Bhuna Khichuri', 'Accessible by private car, CNG, and local buses.'),
+
+('Dhaka', 'Mana Bay Water Park', '10:00:00', '20:00:00', 'A modern water park with thrilling slides and wave pools.',
+ 'Water Slides, Wave Pools, Family Entertainment', 'Hot summer, occasional rainfall.', 'Fast food, Ice Cream', 'Accessible by private car, ride-sharing services.'),
+
+('Dhaka', 'Bangladesh Liberation War Museum', '09:00:00', '17:00:00', 'The museum holds exhibitions and collections related to the 1971 Liberation War.',
+ 'Historical Exhibits, War Documents', 'Hot summers, wet monsoon season.', 'Shorshe Ilish, Bhuna Khichuri', 'Easily accessible via rickshaw and taxis.'),
+
+('Dhaka', 'Zia Memorial Museum', '09:00:00', '17:00:00', 'The museum dedicated to the memory of former President Ziaur Rahman.',
+ 'Zia Memorial, Historical Exhibits', 'Humid tropical climate.', 'Biryani, Khichuri', 'Easily accessible by taxi or rickshaw.'),
+
+-- Chattogram Division
+('Chattogram', 'Patenga Beach', '06:00:00', '18:00:00', 'A popular beach in Chattogram, known for its calm waters and scenic beauty. Great for relaxation and family outings.',
+ 'Beach Activities, Sunset Views', 'Tropical monsoon climate, with sunny and humid weather.', 'Mezban, Bhuna Khichuri', 'Accessible by taxis, local buses, or rickshaws.'),
+
+('Chattogram', 'Kaptai Lake', '06:00:00', '18:00:00', 'A man-made lake surrounded by hills, offering boat rides and scenic views of nature.',
+ 'Boating, Scenic Views', 'Moderate temperatures with monsoon rains.', 'Panta Bhat, Chingri Malai Curry', 'Accessible via boat, rickshaws, and buses.'),
+
+('Chattogram', 'Foy’s Lake', '09:00:00', '17:00:00', 'An artificial lake offering boating, an amusement park, and views of the surrounding hills.',
+ 'Amusement Park, Scenic Boating', 'Humid tropical climate with monsoons.', 'Shorshe Ilish, Bhorta', 'Accessible by taxis or local buses.'),
+
+('Chattogram', 'Inani Beach', '06:00:00', '18:30:00', 'A scenic beach with golden sand and coral stones, perfect for relaxation.',
+ 'Golden Sand, Coral Stones, Serene Environment', 'Hot summers, mild winters, occasional monsoon rain.', 'Fresh Seafood, Green Coconut', 'Accessible by private car, CNG, and local buses.'),
+
+('Chattogram', 'Marine Drive', '24:00:00', '24:00:00', 'A breathtaking coastal road offering stunning sea views and fresh air.',
+ 'Scenic Coastal Road, Panoramic Views', 'Humid coastal climate with occasional rainfall.', 'Seafood, Street Snacks', 'Accessible by private car, rental bikes, and local transport.'),
+
+('Chattogram', 'Nilgiri', '07:00:00', '17:00:00', 'A high-altitude tourist spot known for clouds, hills, and stunning sunrise views.',
+ 'Cloud-Covered Hills, Breathtaking Sunrise', 'Cool and misty, occasional rain.', 'Traditional Bamboo Chicken, Local Fruits', 'Accessible by private car and local transport with special permission.'),
+
+('Chattogram', 'Nilachal', '07:00:00', '18:00:00', 'A popular hilltop viewpoint offering breathtaking panoramic views.',
+ 'Hilltop Viewpoint, Sunset Spot', 'Mild and pleasant weather, occasional rain.', 'Bamboo Chicken, Traditional Snacks', 'Accessible by local transport and private vehicles.'),
+
+('Chattogram', 'Himchari', '08:00:00', '17:30:00', 'A nature park famous for its waterfalls and sea-facing hills.',
+ 'Waterfalls, Green Hills, Wildlife', 'Tropical climate with monsoon rains.', 'Grilled Fish, Green Coconut', 'Accessible by private car, CNG, and local buses.'),
+
+('Chattogram', '100 Feet Buddha', '08:00:00', '18:00:00', 'A large reclining Buddha statue in a peaceful Buddhist temple complex.',
+ 'Buddhist Temple, Giant Buddha Statue', 'Warm with occasional rain.', 'Vegetarian Dishes, Local Snacks', 'Accessible by private transport and local buses.'),
+
+('Chattogram', 'Sajek', '06:00:00', '18:00:00', 'A beautiful hilltop valley known for its clouds, tribal culture, and scenic beauty.',
+ 'Hilltop Views, Tribal Culture, Cloudy Weather', 'Cool and misty, occasional rain.', 'Bamboo Chicken, Sticky Rice', 'Accessible by 4x4 vehicles, requires army escort.') ,
+
+('Chattogram', 'Cox’s Bazar', '00:00:00', '23:59:59', 'The world’s longest natural sea beach, stretching over 120 kilometers. Known for its beauty and relaxing atmosphere.',
+ 'Beaches, Water Sports', 'Tropical climate with humid conditions, Hot summers', 'Ilish Bhorta, Panta Bhat', 'Accessible by taxis, local buses, and boats.'),
+
+('Chattogram', 'Saint Martin’s Island', '06:00:00', '18:00:00', 'A small island in the Bay of Bengal, famous for its crystal-clear waters and coral reefs.',
+ 'Coral Reefs, Scuba Diving', 'Warm, sunny with occasional rains.', 'Chingri Malai Curry, Panta Bhat', 'Boat transport from Chattogram city.'),
+
+('Chattogram', 'Karnaphuli River', '06:00:00', '18:00:00', 'A major river in Chattogram, offering boat trips and stunning views of the city and surrounding hills.',
+ 'River Cruises, Scenic Views', 'Humid tropical with frequent rains.', 'Mezban, Panta Bhat', 'Easily accessible via boat and taxis.'),
+
+('Chattogram', 'Bandarban', '06:00:00', '18:00:00', 'A hill district famous for its tea gardens, tribal cultures, and stunning waterfalls like Nilgiri and Nafakhum.',
+ 'Waterfalls, Tea Gardens', 'Cool climate, moderate rainfall.', 'Biryani, Khichuri', 'Accessible by bus, taxis, or private vehicles.'),
+
+('Chattogram', 'Patiya', '06:00:00', '18:00:00', 'A charming region known for its rural beauty and peaceful landscapes, perfect for a quiet getaway.',
+ 'Cultural Sites, Rural Beauty', 'Moderate climate with mild winters.', 'Panta Bhat, Kacchi Biryani', 'Accessible by local buses and rickshaws.'),
+
+('Chattogram', 'Lohagara', '06:00:00', '18:00:00', 'A peaceful upazila known for its natural beauty and vibrant rural culture.',
+ 'Tribal Culture, Village Life', 'Warm with occasional showers.', 'Bhuna Khichuri, Meze', 'Accessible by local buses and taxis.'),
+
+('Chattogram', 'Kaptai National Park', '09:00:00', '17:00:00', 'A national park surrounded by dense forests and wildlife, ideal for nature lovers and trekkers.',
+ 'Wildlife Viewing, Trekking', 'Moderate temperature, rains in summer.', 'Kacchi Biryani, Shorshe Ilish', 'Accessible by boat, taxis, and local transport.'),
+
+('Chattogram', 'Pahartali', '09:00:00', '17:00:00', 'A scenic region near the hills, known for its peaceful surroundings and natural beauty.',
+ 'Hills, Scenic Beauty', 'Tropical humid climate.', 'Biryani, Kacchi Biryani', 'Local buses and taxis accessible.'),
+
+-- Rajshahi Division
+('Rajshahi', 'Puthia Temple Complex', '09:00:00', '17:00:00', 'A historical site in Rajshahi with several temples, including the stunning Shiva temple. Known for its intricate architecture.',
+ 'Shiva Temple, Ancient Ruins', 'Moderate climate with dry winter and humid summer.', 'Biryani, Panta Bhat', 'Accessible by bus or local transport.'),
+
+('Rajshahi', 'Varendra Research Museum', '09:00:00', '17:00:00', 'A museum showcasing the history and culture of ancient Bengal, with various artifacts and historical exhibits.',
+ 'Ancient Artifacts, Historical Exhibits', 'Mild winters and hot summers.', 'Khichuri, Bhorta', 'Local buses, rickshaws, and taxis.'),
+
+('Rajshahi', 'Rajshahi University', '09:00:00', '17:00:00', 'A prestigious educational institution, surrounded by greenery and offering a peaceful environment for visitors.',
+ 'Green Campus, Research Exhibits', 'Mild and pleasant climate.', 'Panta Bhat, Shorshe Ilish', 'Easily accessible by rickshaws and taxis.'),
+
+('Rajshahi', 'Bogra', '09:00:00', '17:00:00', 'A district known for its historical significance, including the ancient Mahasthangarh archaeological site.',
+ 'Mahasthangarh, Ancient Ruins', 'Warm, with rainy monsoon seasons.', 'Biryani, Bhuna Khichuri', 'Accessible by local buses and taxis.'),
+
+('Rajshahi', 'Mahasthangarh', '09:00:00', '17:00:00', 'An ancient archaeological site dating back to the 3rd century BC. Known for its ruins and historical importance.',
+ 'Ancient City, Archaeological Ruins', 'Dry winters, humid summers.', 'Khichuri, Panta Bhat', 'Local transport or taxis available.'),
+
+('Rajshahi', 'Shah Makhdum Mazar', '09:00:00', '17:00:00', 'The shrine of Shah Makhdum, a revered saint. Known for its peaceful atmosphere and historical significance.',
+ 'Religious Site, Spiritual Peace', 'Cool winters, hot summers.', 'Panta Bhat, Shorshe Ilish', 'Accessible by taxis and buses.'),
+
+('Rajshahi', 'Godagari', '09:00:00', '17:00:00', 'A rural area known for its agricultural beauty, with vast fields and a calm environment.',
+ 'Rice Fields, Rural Culture', 'Warm, with occasional rain.', 'Khichuri, Bhuna Khichuri', 'Local buses and rickshaws available.'),
+
+('Rajshahi', 'Naogaon', '09:00:00', '17:00:00', 'A district known for its historical temples, rich culture, and rural landscapes.',
+ 'Historical Temples, Rural Beauty', 'Tropical climate with humid summers.', 'Biryani, Panta Bhat', 'Accessible via local transport.'),
+
+('Rajshahi', 'Bagha Mosque', '09:00:00', '17:00:00', 'A historic mosque with impressive Mughal architecture, located in the Bagha region of Rajshahi.',
+ 'Mughal Architecture, Historical Sites', 'Moderate, dry climate.', 'Shorshe Ilish, Panta Bhat', 'Accessible by rickshaw and local buses.'),
+
+ ('Rajshahi', 'Choto Sona Mosque', '09:00:00', '17:00:00', 'A historic mosque from the Bengal Sultanate era, known for its intricate stone carvings and golden hue.',
+ 'Bengal Sultanate Architecture, Historical Landmark', 'Tropical climate with humid summers.', 'Shutki Bhuna, Panta Bhat', 'Accessible by local buses and private transport.'),
+
+('Rajshahi', 'Ramsagar National Park', '08:00:00', '18:00:00', 'A scenic national park featuring Ramsagar Lake, diverse wildlife, and picnic spots.',
+ 'Lush Greenery, Ramsagar Lake, Wildlife Sanctuary', 'Warm summers, mild winters.', 'Traditional Sweets, Panta Bhat', 'Accessible via local transport and private vehicles.') ,
+
+('Rajshahi', 'Bogra Fort', '09:00:00', '17:00:00', 'A historical fort dating back to the Mughal era, located in the Bogra region.',
+ 'Fortifications, Historical Exhibits', 'Hot summers with moderate winters.', 'Biryani, Shorshe Ilish', 'Taxi and local transport accessible.'),
+
+('Rajshahi', 'Chalan Beel', '09:00:00', '17:00:00', 'A large beel (lake) in Rajshahi, offering natural beauty and opportunities for bird watching.',
+ 'Bird Watching, Scenic Views', 'Mild and cool, with monsoon rains.', 'Khichuri, Bhuna Khichuri', 'Local buses and rickshaws available.'),
+
+('Rajshahi', 'Bonpara', '09:00:00', '17:00:00', 'A scenic area offering a glimpse of rural life, with fertile land and traditional agricultural practices.',
+ 'Traditional Farming, Scenic Views', 'Hot summer, mild winter.', 'Khichuri, Panta Bhat', 'Local buses and taxis available.'),
+
+ -- Khulna Division
+('Khulna', 'Sundarbans', '06:00:00', '18:00:00', 'The Sundarbans is the world’s largest mangrove forest and a UNESCO World Heritage site, famous for its unique ecosystem.',
+ 'Royal Bengal Tiger, Wildlife Safari', 'Tropical monsoon climate with heavy rainfall during the monsoon.', 'Sundarbans Fish Curry, Panta Bhat', 'Access by boat, local buses, and taxis.'),
+
+('Khulna', 'Shat Gombuj Mosque', '09:00:00', '17:00:00', 'A historic mosque in Bagerhat, known for its unique architecture and historical significance.',
+ 'UNESCO World Heritage Site, Ancient Mosque', 'Hot summers with occasional rains, mild winters.', 'Ilish Bhorta, Khichuri', 'Accessible by rickshaw or local transport.'),
+
+('Khulna', 'Bagerhat Museum', '10:00:00', '17:00:00', 'A museum showcasing the history of Bagerhat, featuring exhibits related to the area’s historical landmarks.',
+ 'Bagerhat Heritage, Museum Exhibits', 'Tropical climate, high humidity.', 'Panta Bhat, Shorshe Ilish', 'Accessible via local buses and taxis.'),
+
+('Khulna', 'Karamjal Eco-Tourism Center', '09:00:00', '17:00:00', 'A nature reserve within the Sundarbans, focused on eco-tourism, with boat rides and wildlife watching.',
+ 'Eco-Tourism, Sundarbans Wildlife', 'Hot summers, mild winters, and a humid monsoon season.', 'Panta Bhat, Sundarbans Fish Curry', 'Accessible by boat and rickshaws.'),
+
+('Khulna', 'Rupsha Bridge', '00:00:00', '23:59:59', 'A bridge spanning the Rupsha River, providing stunning views of the surrounding areas.',
+ 'Scenic Views, Local Markets', 'Humid tropical climate with summer rains.', 'Chingri Malai Curry, Bhuna Khichuri', 'Accessible by taxi and local buses.'),
+
+('Khulna', 'Mongla Port', '00:00:00', '23:59:59', 'A major seaport in Bangladesh, offering views of ships and maritime activities.',
+ 'Port Views, River Cruises', 'Tropical monsoon climate, hot summers, mild winters.', 'Sundarbans Fish Curry, Bhuna Khichuri', 'Accessible by boat, local buses, and taxis.'),
+
+('Khulna', 'Riverside Park', '06:00:00', '18:00:00', 'A scenic park located along the river with walking trails and picnic areas.',
+ 'Nature Walks, Scenic Views', 'Warm climate, with high humidity during the summer months.', 'Panta Bhat, Shorshe Ilish', 'Accessible by taxi and local transport.'),
+
+ ('Khulna', 'Jess Garden Park', '06:00:00', '20:00:00', 'A beautifully maintained park offering scenic greenery and a peaceful environment.',
+ 'Lush Gardens, Walking Trails, Family-Friendly', 'Warm tropical climate, humid summers.', 'Local Snacks, Bhuna Khichuri', 'Accessible by local buses, rickshaws, and private vehicles.'),
+
+('Khulna', 'Shilaidaha Kuthibari', '09:00:00', '17:00:00', 'The historic residence of Rabindranath Tagore, now a museum showcasing his life and work.',
+ 'Tagore’s Residence, Cultural Heritage', 'Moderate climate with warm summers.', 'Traditional Bengali Sweets, Panta Bhat', 'Accessible by local transport and private vehicles.'),
+
+
+('Khulna', 'Bagerhat Shahi Mosque', '09:00:00', '17:00:00', 'A historic mosque from the 15th century, known for its impressive architecture.',
+ 'Ancient Mosque, Historical Significance', 'Tropical climate, high humidity.', 'Ilish Bhorta, Shorshe Ilish', 'Accessible by local transport and rickshaws.'),
+
+('Khulna', 'Khulna City Park', '06:00:00', '20:00:00', 'A spacious park in the city, great for picnics and leisure walks.',
+ 'Walking Trails, Greenery', 'Warm tropical climate, humid summers.', 'Shorshe Ilish, Bhuna Khichuri', 'Accessible by taxis and local transport.'),
+
+
+('Khulna', 'Sundarbans Reserve Forest', '06:00:00', '18:00:00', 'A UNESCO site and largest mangrove forest in the world, home to diverse wildlife.',
+ 'Mangrove Forest, Bengal Tiger Viewing', 'Tropical monsoon climate, rainy season.', 'Sundarbans Fish Curry, Bhuna Khichuri', 'Accessible by boat, rickshaws, and local buses.'),
+
+('Khulna', 'Shibganj River', '06:00:00', '18:00:00', 'A picturesque river offering boating opportunities and scenic views.',
+ 'River Cruises, Fishing', 'Tropical weather with humid summers.', 'Panta Bhat, Ilish Bhorta', 'Accessible by boat and local transport.'),
+
+ -- Barishal Division
+('Barishal', 'Fatrar Char', '06:00:00', '18:00:00', 'A charming island with clear waters, a great place for relaxation and beach activities.',
+ 'Beach Relaxation, Water Sports', 'Tropical climate with mild winters.', 'Chingri Bhorta, Panta Bhat', 'Accessible by boat and local transport.'),
+
+('Barishal', 'Allepalli Mosque', '09:00:00', '17:00:00', 'An ancient mosque with beautiful architecture, known for its historic significance.',
+ 'Historical Architecture, Religious Tourism', 'Tropical climate with seasonal rainfall.', 'Panta Bhat, Ilish Bhorta', 'Accessible by taxi and local transport.'),
+
+('Barishal', 'Guava Market', '06:00:00', '14:00:00', 'A floating market where fresh guavas are sold from boats, creating a unique shopping experience.',
+ 'Floating Market, Fresh Fruits', 'Tropical climate with heavy monsoon rains.', 'Fresh Guava, Panta Bhat', 'Accessible by boat and local transport.'),
+
+('Barishal', 'Lebur Char', '06:00:00', '18:00:00', 'A secluded char land with beautiful landscapes, perfect for nature lovers.',
+ 'Isolated Island, Natural Beauty', 'Tropical climate with mild winters.', 'Fresh Seafood, Panta Bhat', 'Accessible by boat and private transport.'),
+
+('Barishal', 'Jhau Forest', '06:00:00', '18:00:00', 'A coastal forest with dense Jhau trees, offering a tranquil atmosphere and scenic views.',
+ 'Coastal Forest, Nature Walks', 'Humid coastal climate with occasional storms.', 'Grilled Fish, Panta Bhat', 'Accessible by local transport and private vehicles.'),
+
+('Barishal', 'Kuakata', '06:00:00', '19:00:00', 'A rare beach where both sunrise and sunset can be seen over the sea.',
+ 'Sandy Beach, Panoramic Views, Sunrise & Sunset', 'Warm and humid climate.', 'Fresh Seafood, Bhuna Khichuri', 'Accessible by local transport and private vehicles.'),
+
+('Barishal', 'Durgasagar', '06:00:00', '18:00:00', 'A large pond surrounded by greenery, known for its migratory birds and peaceful environment.',
+ 'Large Waterbody, Birdwatching', 'Mild climate with seasonal variations.', 'Traditional Sweets, Panta Bhat', 'Accessible by local transport and private vehicles.'),
+
+('Barishal', 'Shonar Char', '06:00:00', '18:00:00', 'A remote island with golden sandy beaches, a hidden paradise for travelers.',
+ 'Golden Sandy Beach, Remote Escape', 'Tropical climate with mild winters.', 'Coconut Water, Seafood', 'Accessible by boat and private transport.'),
+
+
+
+ -- Sylhet Division
+('Sylhet', 'Ratargul Swamp Forest', '06:00:00', '18:00:00', 'A freshwater swamp forest in Sylhet, known for its unique ecosystem and boat rides through the dense forest.',
+ 'Swamp Boat Ride, Rare Flora and Fauna', 'Cool weather with a tropical monsoon climate.', 'Shorshe Ilish, Bhuna Khichuri', 'Boat transport and local buses.'),
+
+('Sylhet', 'Jaflong', '06:00:00', '18:00:00', 'A hill station known for its tea gardens, tribal culture, and scenic beauty.',
+ 'Tea Gardens, Trekking', 'Cool climate, with rainy monsoon season.', 'Panta Bhat, Ilish Bhorta', 'Accessible by local buses and taxis.'),
+
+('Sylhet', 'Madhabkunda Waterfall', '09:00:00', '17:00:00', 'One of the largest waterfalls in Bangladesh, located in the scenic Sylhet region.',
+ 'Waterfalls, Scenic Trekking', 'Mild winters and warm, humid summers.', 'Kacchi Biryani, Bhorta', 'Accessible by taxi or local buses.'),
+
+('Sylhet', 'Lawachara National Park', '06:00:00', '18:00:00', 'A vast forest reserve, ideal for nature lovers, featuring diverse wildlife and walking trails.',
+ 'Wildlife Viewing, Nature Walks', 'Moderate weather, cool winters.', 'Shorshe Ilish, Panta Bhat', 'Accessible by local buses and taxis.'),
+
+('Sylhet', 'Shahjalal University of Science and Technology (SUST)', '09:00:00', '17:00:00', 'A renowned university known for its lush green campus and peaceful atmosphere.',
+ 'Campus Tours, Educational Tours', 'Moderate climate with cool winters.', 'Ilish Bhorta, Bhuna Khichuri', 'Accessible by taxi and local buses.'),
+
+('Sylhet', 'Shahjalal University Mosque', '09:00:00', '17:00:00', 'A beautifully designed mosque within the university campus, a serene place for reflection.',
+ 'Religious Tourism, Architecture', 'Moderate weather with mild winters.', 'Panta Bhat, Bhorta', 'Accessible by local buses and taxis.'),
+
+('Sylhet', 'Jadukata River', '06:00:00', '18:00:00', 'A river in Sylhet known for its crystal-clear water and scenic surroundings.',
+ 'River Cruises, Photography', 'Tropical climate with heavy rains during the monsoon.', 'Ilish Bhorta, Panta Bhat', 'Accessible by boat and local transport.'),
+
+('Sylhet', 'Srimangal Tea Gardens', '06:00:00', '18:00:00', 'Known as the "Tea Capital of Bangladesh," this region features lush tea plantations.',
+ 'Tea Garden Tours, Photography', 'Cool weather, with high rainfall in monsoon season.', 'Shorshe Ilish, Bhuna Khichuri', 'Accessible by bus or taxi.'),
+
+('Sylhet', 'Tanguar Haor', '06:00:00', '18:00:00', 'A wetland area known for its migratory birds and natural beauty.',
+ 'Bird Watching, Boat Tours', 'Mild winters and warm summers with seasonal monsoon rains.', 'Panta Bhat, Bhorta', 'Accessible by boat and local transport.'),
+
+('Sylhet', 'Moulvibazar', '06:00:00', '18:00:00', 'A beautiful town surrounded by tea gardens and scenic views, perfect for a getaway.',
+ 'Tea Gardens, Nature Walks', 'Moderate climate with cool winters.', 'Ilish Bhorta, Kacchi Biryani', 'Accessible by local transport and rickshaws.'),
+
+('Sylhet', 'Shah Paran Mazar Sharif', '09:00:00', '17:00:00', 'A significant religious site, the tomb of Hazrat Shah Paran, attracting pilgrims.',
+ 'Religious Tourism, Historical Significance', 'Mild winters with cool breezes.', 'Panta Bhat, Bhorta', 'Accessible by taxi and local buses.'),
+
+('Sylhet', 'Bichanakandi', '06:00:00', '18:00:00', 'A scenic spot near Jaflong, with crystal-clear streams and beautiful views.',
+ 'Nature Walks, Photography', 'Cool weather with occasional rainfall.', 'Shorshe Ilish, Bhuna Khichuri', 'Accessible by local transport and taxis.'),
+
+('Sylhet', 'Dawki', '06:00:00', '18:00:00', 'A village known for its beautiful river views and crystal-clear waters.',
+ 'River Cruises, Photography', 'Tropical climate, with monsoon season rains.', 'Ilish Bhorta, Panta Bhat', 'Accessible by local buses and taxis.'),
+
+('Sylhet', 'Rustompur Lake', '06:00:00', '18:00:00', 'A picturesque lake surrounded by lush green hills, ideal for relaxation and boating.',
+ 'Lake Tours, Scenic Views', 'Tropical monsoon climate with moderate temperatures.', 'Shorshe Ilish, Kacchi Biryani', 'Accessible by boat and local transport.'),
+
+('Sylhet', 'Khasia Village', '06:00:00', '18:00:00', 'A picturesque village inhabited by the Khasia tribe, known for their culture and lifestyle.',
+ 'Tribal Culture, Photography', 'Mild winters with cool temperatures.', 'Ilish Bhorta, Bhuna Khichuri', 'Accessible by local transport and trekking.'),
+
+
+ -- Rangpur Division
+('Rangpur', 'Tajhat Palace', '10:00:00', '17:00:00', 'A grand palace built during the British colonial era, offering a glimpse of royal life in the past.',
+ 'Palace Tours, Historical Exhibits', 'Moderate climate with warm summers and mild winters.', 'Shorshe Ilish, Bhuna Khichuri', 'Accessible by taxi and local transport.'),
+
+('Rangpur', 'Ramsagar National Park', '09:00:00', '17:00:00', 'A national park with a variety of flora and fauna, perfect for nature lovers and wildlife enthusiasts.',
+ 'Wildlife Viewing, Nature Trails', 'Mild winter and warm, humid summers.', 'Chingri Malai, Shorshe Ilish', 'Accessible by bus, taxis, and rickshaws.'),
+
+('Rangpur', 'Kantajew Temple', '10:00:00', '17:00:00', 'An ancient Hindu temple, known for its intricate terracotta carvings and architectural beauty.',
+ 'Terracotta Temples, Historical Significance', 'Moderate climate with dry winters and humid summers.', 'Panta Bhat, Kacchi Biryani', 'Accessible by rickshaw and local buses.'),
+
+('Rangpur', 'Pirgachha Shahi Mosque', '09:00:00', '17:00:00', 'A significant historical mosque with impressive architecture located in Rangpur.',
+ 'Historical Sites, Religious Significance', 'Moderate climate with dry winters and humid summers.', 'Shorshe Ilish, Bhuna Khichuri', 'Accessible by local transport.'),
+
+('Rangpur', 'Kurigram', '06:00:00', '18:00:00', 'A scenic region near the Brahmaputra River, known for its rural beauty and cultural heritage.',
+ 'River Views, Rural Tourism', 'Moderate climate with seasonal rainfall.', 'Shorshe Ilish, Panta Bhat', 'Accessible by bus and local transport.'),
+
+('Rangpur', 'Gojira Dighi', '06:00:00', '18:00:00', 'A picturesque lake located in Rangpur, popular for fishing and local sightseeing.',
+ 'Lake Tours, Fishing', 'Mild winters, warm humid summers.', 'Chingri Malai, Bhuna Khichuri', 'Accessible by local buses and taxis.'),
+
+('Rangpur', 'Baliadangi', '06:00:00', '18:00:00', 'A scenic location with a combination of tea gardens and hilly areas.',
+ 'Tea Garden Tours, Photography', 'Cool weather with occasional rains.', 'Shorshe Ilish, Bhuna Khichuri', 'Accessible by local buses and taxis.'),
+
+('Rangpur', 'Teesta Barrage', '09:00:00', '17:00:00', 'A large dam that controls water flow in the Teesta River, offering breathtaking views.',
+ 'River View, Photography', 'Warm climate with rainy monsoon season.', 'Panta Bhat, Kacchi Biryani', 'Accessible by taxi and local transport.'),
+
+('Rangpur', 'Natore Rajbari', '10:00:00', '17:00:00', 'An ancient palace with stunning architecture, once home to the Rajbari royal family.',
+ 'Royal Palace Tours, Historical Exhibits', 'Moderate weather with cool winters.', 'Ilish Bhorta, Bhuna Khichuri', 'Accessible by local transport.'),
+
+('Rangpur', 'Brahmaputra River', '06:00:00', '18:00:00', 'A major river of South Asia offering picturesque views and boat tours.',
+ 'River Cruises, Scenic Views', 'Humid tropical climate with seasonal monsoon rains.', 'Shorshe Ilish, Kacchi Biryani', 'Accessible by boat and local transport.'),
+
+('Rangpur', 'Narsingdi', '09:00:00', '17:00:00', 'A city known for its agricultural activities and local crafts.',
+ 'Crafts Market, Rural Tourism', 'Moderate climate with hot summers.', 'Ilish Bhorta, Panta Bhat', 'Accessible by taxi and local buses.'),
+
+('Rangpur', 'Mithapukur', '06:00:00', '18:00:00', 'A small town in Rangpur known for its historical sites and local culture.',
+ 'Historical Sites, Local Culture', 'Warm summers, with occasional rains.', 'Panta Bhat, Bhuna Khichuri', 'Accessible by local buses and rickshaws.'),
+
+('Rangpur', 'Kochu Khet', '06:00:00', '18:00:00', 'A rural village known for its lush green fields and peaceful environment.',
+ 'Rural Nature Walks, Photography', 'Cool winters and hot humid summers.', 'Shorshe Ilish, Kacchi Biryani', 'Accessible by local transport.'),
+
+('Rangpur', 'Mithapukur Lake', '06:00:00', '18:00:00', 'A serene lake in Mithapukur, perfect for nature walks and boating.',
+ 'Lake Tours, Photography', 'Moderate climate with seasonal rains.', 'Ilish Bhorta, Bhuna Khichuri', 'Accessible by local transport.'),
+
+ -- Mymensingh Division
+('Mymensingh', 'Shashi Lodge', '10:00:00', '17:00:00', 'A historical mansion located in the city, showcasing colonial-era architecture.',
+ 'Colonial Architecture, Historic Lodge', 'Mild winters, warm humid summers.', 'Shorshe Ilish, Panta Bhat', 'Accessible by local transport and taxis.'),
+
+('Mymensingh', 'Birishiri', '09:00:00', '17:00:00', 'A picturesque village known for its rural beauty, vibrant tribal culture, and the famous Birishiri Pottery.',
+ 'Tribal Culture, Pottery Tours', 'Cool winters and warm, humid summers.', 'Panta Bhat, Ilish Bhorta', 'Accessible by local transport and rickshaws.'),
+
+('Mymensingh', 'Muktagacha Zamindar Bari', '09:00:00', '17:00:00', 'A historical mansion belonging to the Zamindar family, showcasing the area’s colonial past.',
+ 'Historical Mansion, Zamindar Heritage', 'Warm summers with humid conditions.', 'Kacchi Biryani, Shorshe Ilish', 'Accessible by taxi and local buses.'),
+
+('Mymensingh', 'Mymensingh Museum', '09:00:00', '17:00:00', 'A museum displaying the history and culture of the Mymensingh region.',
+ 'Museum Exhibits, Cultural Heritage', 'Warm summers, cool winters.', 'Panta Bhat, Shorshe Ilish', 'Accessible by local buses and taxis.'),
+
+
+('Mymensingh', 'Jamalpur', '06:00:00', '18:00:00', 'A city known for its vibrant local markets and agricultural activities.',
+ 'Local Markets, Agricultural Tours', 'Warm summers, occasional rains.', 'Shorshe Ilish, Panta Bhat', 'Accessible by taxi and local buses.'),
+
+('Mymensingh', 'Kishoreganj', '06:00:00', '18:00:00', 'A historical town with significant landmarks related to Bangladesh’s liberation.',
+ 'Liberation History, Historical Tours', 'Warm and humid summers, mild winters.', 'Ilish Bhorta, Bhuna Khichuri', 'Accessible by local transport.'),
+
+('Mymensingh', 'Tekerhat', '06:00:00', '18:00:00', 'A small village with stunning landscapes and lush greenery.',
+ 'Nature Walks, Scenic Views', 'Moderate temperatures with seasonal rains.', 'Panta Bhat, Bhuna Khichuri', 'Accessible by local transport.'),
+
+ ('Mymensingh', 'Jainul Abedin Park', '06:00:00', '18:00:00', 'A serene park dedicated to the famous artist Zainul Abedin, featuring greenery and sculptures.',
+ 'Artistic Sculptures, Peaceful Environment', 'Moderate temperatures with seasonal rains.', 'Local Snacks, Panta Bhat', 'Accessible by local transport and rickshaws.'),
+
+('Mymensingh', 'Jainul Abedin Udyan', '06:00:00', '18:00:00', 'A beautiful riverside park with a museum showcasing the works of Zainul Abedin.',
+ 'Art Museum, Riverside Views', 'Warm summers, mild winters.', 'Traditional Sweets, Bhuna Khichuri', 'Accessible by local transport and private vehicles.'),
+
+('Mymensingh', 'Circuit House Park', '06:00:00', '18:00:00', 'A scenic park surrounding the historic Circuit House, perfect for leisure walks.',
+ 'Heritage Site, Greenery', 'Moderate climate with seasonal rainfall.', 'Local Street Food, Panta Bhat', 'Accessible by local buses and private transport.'),
+
+('Mymensingh', 'Bepin Park', '06:00:00', '18:00:00', 'A peaceful public park with open spaces, playgrounds, and relaxing views.',
+ 'Recreational Park, Walking Trails', 'Mild climate with occasional rain.', 'Local Snacks, Tea', 'Accessible by local transport and rickshaws.'),
+
+('Mymensingh', 'Madhutila Eco Park', '06:00:00', '17:00:00', 'A lush eco-park offering trekking trails, wildlife, and a natural escape.',
+ 'Trekking, Wildlife, Eco-Tourism', 'Tropical climate with occasional rains.', 'Fresh Fruits, Bhuna Khichuri', 'Accessible by private vehicles and local transport.'),
+
+('Mymensingh', 'China Matir Pahar', '06:00:00', '18:00:00', 'A unique hill formation with red and white clay, resembling China clay hills.',
+ 'Scenic Hills, Photography', 'Moderate climate with warm summers.', 'Panta Bhat, Local Snacks', 'Accessible by local transport and private vehicles.') ,
+
+
+('Mymensingh', 'Trishal', '06:00:00', '18:00:00', 'A town known for its historic temples, museums, and local attractions.',
+ 'Temple Visits, Cultural Heritage', 'Moderate temperatures with cool winters.', 'Shorshe Ilish, Kacchi Biryani', 'Accessible by local buses and taxis.'),
+
+('Mymensingh', 'Dhanu River', '06:00:00', '18:00:00', 'A peaceful river with opportunities for boat tours and scenic walks.',
+ 'River Tours, Photography', 'Warm and humid climate, occasional rains.', 'Panta Bhat, Bhuna Khichuri', 'Accessible by local transport.');
+
+ SELECT * FROM destinationsDivisions;
