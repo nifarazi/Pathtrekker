@@ -6,112 +6,135 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-
+import java.sql.*;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.fxml.FXMLLoader;
 public class ItineraryController {
 
     @FXML
-    private Button ItineraryBack;
+    private Button ItineraryBack, generateButton;
 
     @FXML
-    private TextField numberOfPeopleField;
+    private TextField numberOfPeopleField, numberOfDaysField, districtField, divisionField;
 
     @FXML
-    private TextField numberOfDaysField;
+    private Label peopleLabel, daysLabel, districtLabel, divisionLabel;
 
     @FXML
-    private TextField districtField;
-
+    private CheckBox lowBudget, mediumBudget, highBudget, mountainPerson, beachPerson;
     @FXML
-    private TextField divisionField;
-
+    private CheckBox summerSeason, autumnSeason, springSeason, winterSeason;
     @FXML
-    private CheckBox lowBudget;
-
-    @FXML
-    private CheckBox mediumBudget;
-
-    @FXML
-    private CheckBox highBudget;
-
-    @FXML
-    private CheckBox mountainPerson;
-
-    @FXML
-    private CheckBox beachPerson;
-
-    @FXML
-    private CheckBox summerSeason;
-
-    @FXML
-    private CheckBox autumnSeason;
-
-    @FXML
-    private CheckBox springSeason;
-
-
-    @FXML
-    private CheckBox winterSeason;
-
-    @FXML
-    private CheckBox cityPerson;
-
-    @FXML
-    private CheckBox countryPerson;
-
-    @FXML
-    private ComboBox<String> seasonComboBox;
-
-    @FXML
-    private CheckBox historicalSites;
-
-    @FXML
-    private CheckBox adventureSports;
-
-    @FXML
-    private CheckBox foodCulture;
-
-    @FXML
-    private CheckBox wildlifeNature;
-
-    @FXML
-    private Button generateButton;
+    private CheckBox cityPerson, countryPerson, historicalSites, adventureSports, foodCulture, wildlifeNature;
 
     @FXML
     private Pane blackBlurredBox;
 
-    ChangeScene change=new ChangeScene();
+    ChangeScene change = new ChangeScene();
 
     @FXML
     public void initialize() {
-        // Set padding programmatically
         blackBlurredBox.setPadding(new Insets(20, 20, 20, 20));
-    }
 
+        numberOfPeopleField.textProperty().addListener((observable, oldValue, newValue) -> {
+            peopleLabel.setText("Entered: " + newValue);
+        });
+
+        numberOfDaysField.textProperty().addListener((observable, oldValue, newValue) -> {
+            daysLabel.setText("Entered: " + newValue);
+        });
+
+        districtField.textProperty().addListener((observable, oldValue, newValue) -> {
+            districtLabel.setText("Entered: " + newValue);
+        });
+
+        divisionField.textProperty().addListener((observable, oldValue, newValue) -> {
+            divisionLabel.setText("Entered: " + newValue);
+        });
+    }
+    private boolean validateInput() {
+        return !numberOfPeopleField.getText().isEmpty() &&
+                !numberOfDaysField.getText().isEmpty() &&
+                !districtField.getText().isEmpty() &&
+                !divisionField.getText().isEmpty();
+    }
     @FXML
     private void handleGenerateButton() {
-        if (numberOfPeopleField.getText().isEmpty() || numberOfDaysField.getText().isEmpty() ||
-                districtField.getText().isEmpty() || divisionField.getText().isEmpty() ||
-                (!lowBudget.isSelected() && !mediumBudget.isSelected() && !highBudget.isSelected()) ||
-                (!mountainPerson.isSelected() && !beachPerson.isSelected()) ||
-                (!cityPerson.isSelected() && !countryPerson.isSelected()) ||
-                (!springSeason.isSelected() && !summerSeason.isSelected() && !autumnSeason.isSelected() && !winterSeason.isSelected())) {
+        if (!validateInput()) {
             showAlert(Alert.AlertType.WARNING, "Unfulfilled Boxes", "Please fill all the boxes before generating the itinerary.");
-        } else {
-            // Simulate itinerary creation
-            boolean isSuccess = createItinerary(); // Replace with actual logic
-            if (isSuccess) {
-                showAlert(Alert.AlertType.INFORMATION, "Success", "Your itinerary has been successfully created!");
-            } else {
-                showAlert(Alert.AlertType.ERROR, "Error", "There was an issue creating your itinerary. Please try again.");
+            return;
+        }
+
+        try {
+            int numPeople = Integer.parseInt(numberOfPeopleField.getText());
+            int numDays = Integer.parseInt(numberOfDaysField.getText());
+            String division = divisionField.getText();
+            String budget = getBudgetPreference();
+
+            Hotel selectedHotel = fetchHotel(division, budget, numPeople, numDays);
+
+            if (selectedHotel == null) {
+                showAlert(Alert.AlertType.ERROR, "No Hotel Found", "No available hotels match your criteria.");
+                return;
             }
+
+            // Store data
+            ItineraryData.setHotel(selectedHotel);
+            ItineraryData.setNumPeople(numPeople);
+            ItineraryData.setNumDays(numDays);
+
+            // 🔴 CHANGE SCENE TO RESULT PAGE
+            System.out.println("Changing scene to ItineraryResult.fxml...");
+            Stage stage = (Stage) generateButton.getScene().getWindow();
+            change.changeScene(stage, "ItineraryResult.fxml");
+
+        } catch (NumberFormatException e) {
+            showAlert(Alert.AlertType.ERROR, "Invalid Input", "Please enter valid numbers for people and days.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Could not load Itinerary Result Page.");
         }
     }
 
-    private boolean createItinerary() {
-        // Simulate itinerary creation logic
-        return true; // Replace with actual logic
+    /**
+     * Fetches a hotel from the database based on user's selection.
+     * Calculates total cost based on people, days, and room requirement.
+     */
+    private Hotel fetchHotel(String division, String budget, int numPeople, int numDays) {
+        String sql = "SELECT * FROM hotel WHERE division = ? AND price_range = ? AND available_rooms > 0 ORDER BY available_rooms DESC LIMIT 1";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, division);
+            pstmt.setString(2, budget);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                int roomsRequired = (int) Math.ceil(numPeople / 2.0);
+                double totalCost = roomsRequired * rs.getDouble("nightly_rate") * numDays;
+
+                return new Hotel(
+                        rs.getString("name"),
+                        rs.getString("amenities"),
+                        rs.getDouble("nightly_rate"),
+                        totalCost,
+                        rs.getString("email"),
+                        rs.getString("phone_number")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private String getBudgetPreference() {
+        if (lowBudget.isSelected()) return "low";
+        if (mediumBudget.isSelected()) return "mid";
+        return "high";
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String message) {
@@ -124,8 +147,7 @@ public class ItineraryController {
 
     @FXML
     void ItineraryBackAction(MouseEvent event) throws IOException {
-        Stage stage=(Stage) ItineraryBack.getScene().getWindow();
-        change.changeScene(stage,"Home.fxml");
-
+        Stage stage = (Stage) ItineraryBack.getScene().getWindow();
+        change.changeScene(stage, "Home.fxml");
     }
 }

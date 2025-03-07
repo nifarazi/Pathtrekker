@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyProfileJDBC {
+    private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/register";
+    private static final String DB_USER = "root";
+    private static final String DB_PASSWORD = "nanjiba@282002";
     private static String currentUsername;
 
     public static void setCurrentUsername(String username) {
@@ -17,7 +20,7 @@ public class MyProfileJDBC {
 
     public static User getUserDetails(String username) {
         String query = "SELECT first_name, last_name, email FROM user WHERE username = ?";
-        try (Connection connection = DatabaseConnection.getConnection();
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, username);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -36,7 +39,7 @@ public class MyProfileJDBC {
     public static void addBucketListItem(String username, String place) {
         String query = "INSERT INTO bucket_list (username, place, visited) VALUES (?, ?, ?) " +
                 "ON DUPLICATE KEY UPDATE visited = visited";
-        try (Connection connection = DatabaseConnection.getConnection();
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, place);
@@ -49,7 +52,7 @@ public class MyProfileJDBC {
 
     public static void updateBucketListItemVisited(String username, String place, boolean visited) {
         String query = "UPDATE bucket_list SET visited = ? WHERE username = ? AND place = ?";
-        try (Connection connection = DatabaseConnection.getConnection();
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setBoolean(1, visited);
             preparedStatement.setString(2, username);
@@ -63,7 +66,7 @@ public class MyProfileJDBC {
     public static List<BucketListItem> getBucketListItems(String username) {
         List<BucketListItem> bucketList = new ArrayList<>();
         String query = "SELECT place, visited FROM bucket_list WHERE username = ?";
-        try (Connection connection = DatabaseConnection.getConnection();
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, username);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -80,7 +83,7 @@ public class MyProfileJDBC {
 
     public static void deleteBucketListItem(String username, String place) {
         String query = "DELETE FROM bucket_list WHERE username = ? AND place = ?";
-        try (Connection connection = DatabaseConnection.getConnection();
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, place);
