@@ -2,65 +2,77 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
 <StackPane fx:id="root" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.example.pathtrekker.ItineraryResultController">
 
-    <!-- Background Image -->
-    <Pane>
-        <ImageView fx:id="backgroundImage" fitHeight="756" fitWidth="1080" preserveRatio="false">
-            <image>
-                <Image url="/RESULT.png" />
-            </image>
-        </ImageView>
-    </Pane>
-
     <!-- Main Layout -->
-    <AnchorPane prefHeight="756" prefWidth="1080">
+    <AnchorPane prefHeight="756" prefWidth="1100">
+        <!-- Scrollable Content with Background Color -->
+        <ScrollPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0">
+            <content>
+                <VBox spacing="20" prefWidth="1080" style="-fx-background-color: #FFFFFF;">
+                    <!-- Hotel Info -->
+                    <GridPane hgap="100" vgap="50" alignment="CENTER" prefWidth="1080" layoutY="100.0">
+                        <Label style="-fx-font-weight: bold;" text="Hotel Name:" textFill="BLACK" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <font><Font size="18.0"/></font>
+                        </Label>
+                        <Label fx:id="hotelNameLabel" textFill="BLACK" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <font><Font size="18.0"/></font>
+                        </Label>
+                        <Label style="-fx-font-weight: bold;" text="Nightly Rate:" textFill="BLACK" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                            <font><Font size="18.0"/></font>
+                        </Label>
+                        <Label fx:id="nightlyRateLabel" textFill="BLACK" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <font><Font size="18.0"/></font>
+                        </Label>
+                        <Label style="-fx-font-weight: bold;" text="Total Cost:" textFill="BLACK" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                            <font><Font size="18.0"/></font>
+                        </Label>
+                        <Label fx:id="totalCostLabel" textFill="BLACK" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                            <font><Font size="18.0"/></font>
+                        </Label>
+                        <Label style="-fx-font-weight: bold;" text="Amenities:" textFill="BLACK" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                            <font><Font size="18.0"/></font>
+                        </Label>
+                        <Label fx:id="amenitiesLabel" textFill="BLACK" GridPane.columnIndex="3" GridPane.rowIndex="0">
+                            <font><Font size="18.0"/></font>
+                        </Label>
+                        <Label style="-fx-font-weight: bold;" text="Email:" textFill="BLACK" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                            <font><Font size="18.0"/></font>
+                        </Label>
+                        <Label fx:id="emailLabel" textFill="BLACK" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                            <font><Font size="18.0"/></font>
+                        </Label>
+                        <Label style="-fx-font-weight: bold;" text="Phone Number:" textFill="BLACK" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                            <font><Font size="18.0"/></font>
+                        </Label>
+                        <Label fx:id="phoneLabel" textFill="BLACK" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                            <font><Font size="18.0"/></font>
+                        </Label>
+                    </GridPane>
 
-        <!-- Grid Layout for Proper Side-by-Side Display -->
-        <GridPane hgap="100" vgap="50" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="100.0">
-            <!-- Reduced spacing: hgap="100", vgap="50" (3 inches less) -->
+                    <!-- Destinations Display -->
+                    <VBox fx:id="destinationsVBox" spacing="20" alignment="CENTER" prefWidth="1080" layoutY="350.0"/>
+                </VBox>
+            </content>
+        </ScrollPane>
 
-            <!-- Left Column (Labels) -->
-            <Label style="-fx-font-weight: bold;" text="Hotel Name:" textFill="BLACK" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-            <Label fx:id="hotelNameLabel" textFill="BLACK" style="-fx-font-size: 16;" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-
-            <Label style="-fx-font-weight: bold;" text="Nightly Rate:" textFill="BLACK" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-            <Label fx:id="nightlyRateLabel" textFill="BLACK" style="-fx-font-size: 16;" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-
-            <Label style="-fx-font-weight: bold;" text="Total Cost:" textFill="BLACK" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-            <Label fx:id="totalCostLabel" textFill="BLACK" style="-fx-font-size: 16;" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-
-            <!-- Right Column (Labels) -->
-            <Label style="-fx-font-weight: bold;" text="Amenities:" textFill="BLACK" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
-            <Label fx:id="amenitiesLabel" textFill="BLACK" style="-fx-font-size: 16;" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
-
-            <Label style="-fx-font-weight: bold;" text="Email:" textFill="BLACK" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
-            <Label fx:id="emailLabel" textFill="BLACK" style="-fx-font-size: 16;" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
-
-            <Label style="-fx-font-weight: bold;" text="Phone Number:" textFill="BLACK" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
-            <Label fx:id="phoneLabel" textFill="BLACK" style="-fx-font-size: 16;" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
-        </GridPane>
-
-        <!-- Buttons -->
+        <!-- Back Button (Fixed Position) -->
         <VBox spacing="15" AnchorPane.rightAnchor="46.0" AnchorPane.bottomAnchor="50.0">
-            <Button fx:id="backButton" mnemonicParsing="false" onMouseClicked="#goBack"
-                    prefHeight="24.0" prefWidth="200.0"
+            <Button fx:id="backButton" onMouseClicked="#goBack" prefHeight="24.0" prefWidth="200.0"
                     style="-fx-background-color: #3ba545; -fx-font-family: 'Roboto'; -fx-text-fill: white; -fx-font-weight: bold;"
                     text="Back to Itinerary Generator">
                 <font>
-                    <Font size="14.0"/>
+                    <Font size="16.0"/>
                 </font>
             </Button>
         </VBox>
-
     </AnchorPane>
 </StackPane>
