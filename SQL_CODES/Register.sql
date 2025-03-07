@@ -1113,8 +1113,9 @@ INSERT INTO destinationsDivisions (division, name, opening_time, closing_time, d
  'River Tours, Photography', 'Warm and humid climate, occasional rains.', 'Panta Bhat, Bhuna Khichuri', 'Accessible by local transport.');
 
  SELECT * FROM destinationsDivisions;
-
-CREATE TABLE ReviewComment (
+ 
+ 
+ CREATE TABLE ReviewComment (
 id INT AUTO_INCREMENT PRIMARY KEY,
 username VARCHAR(100),
 comment TEXT,
@@ -1133,3 +1134,42 @@ On delete cascade
 );
 
 select * from ReviewReply;
+
+
+CREATE TABLE IF NOT EXISTS itineraryhotel (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    division VARCHAR(50) NOT NULL,
+    num_people INT NOT NULL,
+    num_days INT NOT NULL,
+    hotel_name VARCHAR(100),
+    total_cost DOUBLE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table to store itinerary destinations (updated foreign key reference)
+CREATE TABLE IF NOT EXISTS itinerary_destinations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    itinerary_id INT,
+    day INT,
+    time_slot VARCHAR(20),
+    destination_name VARCHAR(100),
+    FOREIGN KEY (itinerary_id) REFERENCES itineraryhotel(id) ON DELETE CASCADE
+);
+
+select * from itinerary_destinations;
+-- Table to store pre-calculated distances
+CREATE TABLE IF NOT EXISTS distances (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    location1 VARCHAR(100),
+    location2 VARCHAR(100),
+    distance_km DOUBLE,
+    UNIQUE (location1, location2) -- Ensure no duplicate pairs
+);
+
+CREATE TABLE IF NOT EXISTS itinerary_events (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    itinerary_id INT NOT NULL,
+    day INT NOT NULL,
+    event_name VARCHAR(255) NOT NULL,
+    FOREIGN KEY (itinerary_id) REFERENCES itineraryhotel(id) ON DELETE CASCADE
+);

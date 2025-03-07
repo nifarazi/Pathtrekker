@@ -42,32 +42,48 @@ public class ItineraryResultController {
         }
 
         List<Destination> destinations = ItineraryData.getDestinations();
+        List<Event> nightEvents = ItineraryData.getNightEvents();
+
         if (destinations != null && !destinations.isEmpty()) {
-            for (int i = 0; i < destinations.size(); i++) {
-                Destination dest = destinations.get(i);
+            for (int day = 1; day <= ItineraryData.getNumDays(); day++) {
                 VBox dayBox = new VBox(10);
-                Label dayLabel = new Label("Day " + dest.getDay() + " - " + dest.getTimeSlot());
+                Label dayLabel = new Label("Day " + day);
                 dayLabel.setFont(new Font(18));
                 dayBox.getChildren().add(dayLabel);
-                dayBox.getChildren().add(createLabel("Name: " + dest.getName()));
-                dayBox.getChildren().add(createLabel("Description: " + dest.getDescription()));
-                dayBox.getChildren().add(createLabel("Top Attractions: " + dest.getTopAttractions()));
-                dayBox.getChildren().add(createLabel("Local Cuisine: " + dest.getLocalCuisine()));
-                dayBox.getChildren().add(createLabel("Transport Info: " + dest.getTransportInfo()));
-                dayBox.getChildren().add(createLabel("Open: " + dest.getOpeningTime() + " - Close: " + dest.getClosingTime()));
 
-                Destination nextDest = (i + 1 < destinations.size()) ? destinations.get(i + 1) : null;
-                if (nextDest != null && dest.getDay() == nextDest.getDay()) {
-                    double distance = DistanceCalculator.getDistance(dest.getName(), nextDest.getName());
-                    dayBox.getChildren().add(createLabel("Distance to next: " + String.format("%.2f km", distance)));
+                // Add morning and afternoon destinations
+                for (int i = 0; i < destinations.size(); i++) {
+                    Destination dest = destinations.get(i);
+                    if (dest.getDay() == day) {
+                        dayBox.getChildren().add(createLabel(dest.getTimeSlot() + " - Name: " + dest.getName()));
+                        dayBox.getChildren().add(createLabel("Description: " + dest.getDescription()));
+                        dayBox.getChildren().add(createLabel("Top Attractions: " + dest.getTopAttractions()));
+                        dayBox.getChildren().add(createLabel("Local Cuisine: " + dest.getLocalCuisine()));
+                        dayBox.getChildren().add(createLabel("Transport Info: " + dest.getTransportInfo()));
+                        dayBox.getChildren().add(createLabel("Open: " + dest.getOpeningTime() + " - Close: " + dest.getClosingTime()));
+
+                        Destination nextDest = (i + 1 < destinations.size()) ? destinations.get(i + 1) : null;
+                        if (nextDest != null && dest.getDay() == nextDest.getDay()) {
+                            double distance = DistanceCalculator.getDistance(dest.getName(), nextDest.getName());
+                            dayBox.getChildren().add(createLabel("Distance to next: " + String.format("%.2f km", distance)));
+                        }
+
+                        Button showMapButton = new Button("Show Map");
+                        showMapButton.setFont(new Font(16));
+                        final int currentIndex = i;
+                        showMapButton.setOnAction(e -> showMap(dest, currentIndex, destinations));
+                        dayBox.getChildren().add(showMapButton);
+                    }
                 }
 
-                Button showMapButton = new Button("Show Map");
-                showMapButton.setFont(new Font(16));
-
-                final int currentIndex = i;
-                showMapButton.setOnAction(e -> showMap(dest, currentIndex, destinations));
-                dayBox.getChildren().add(showMapButton);
+                // Add night event for the day
+                if (nightEvents != null && day - 1 < nightEvents.size()) {
+                    Event nightEvent = nightEvents.get(day - 1);
+                    dayBox.getChildren().add(createLabel("Night - Event: " + nightEvent.getName()));
+                    dayBox.getChildren().add(createLabel("Open: " + nightEvent.getOpeningTime() + " - Close: " + nightEvent.getClosingTime()));
+                    dayBox.getChildren().add(createLabel("Location: " + nightEvent.getLocation()));
+                    dayBox.getChildren().add(createLabel("Description: " + nightEvent.getDescription()));
+                }
 
                 destinationsVBox.getChildren().add(dayBox);
             }
@@ -91,12 +107,10 @@ public class ItineraryResultController {
             boolean isFirstDestinationOfTheDay = (index == 0) || (destinations.get(index - 1).getDay() != dest.getDay());
 
             if (isFirstDestinationOfTheDay) {
-                // Morning: Show map from hotel to first destination of the day
                 loc1 = ItineraryData.getHotel().getName();
                 loc2 = dest.getName();
                 System.out.println("Showing map from Hotel → " + loc2);
             } else {
-                // Afternoon: Show map from morning destination to afternoon destination
                 Destination morningDest = destinations.stream()
                         .filter(d -> d.getDay() == dest.getDay() && d.getTimeSlot().equals("Morning"))
                         .findFirst()

@@ -17,9 +17,9 @@
         <!-- Scrollable Content with Background Color -->
         <ScrollPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0">
             <content>
-                <VBox spacing="20" prefWidth="1080" style="-fx-background-color: #FFFFFF;">
+                <VBox spacing="20" prefWidth="1080" style="-fx-background-color: #FFFFFF;" alignment="TOP_CENTER">
                     <!-- Hotel Info -->
-                    <GridPane hgap="100" vgap="50" alignment="CENTER" prefWidth="1080" layoutY="100.0">
+                    <GridPane hgap="100" vgap="20" alignment="CENTER" prefWidth="1080">
                         <Label style="-fx-font-weight: bold;" text="Hotel Name:" textFill="BLACK" GridPane.columnIndex="0" GridPane.rowIndex="0">
                             <font><Font size="18.0"/></font>
                         </Label>
@@ -58,8 +58,8 @@
                         </Label>
                     </GridPane>
 
-                    <!-- Destinations Display -->
-                    <VBox fx:id="destinationsVBox" spacing="20" alignment="CENTER" prefWidth="1080" layoutY="350.0"/>
+                    <!-- Destinations and Events Display -->
+                    <VBox fx:id="destinationsVBox" spacing="30" alignment="CENTER" prefWidth="1080"/>
                 </VBox>
             </content>
         </ScrollPane>

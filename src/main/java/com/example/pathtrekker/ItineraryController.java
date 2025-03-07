@@ -73,12 +73,14 @@ public class ItineraryController {
                 return;
             }
 
-            int itineraryId = storeItinerary(division, numPeople, numDays, selectedHotel, destinations);
+            List<Event> nightEvents = fetchAndScheduleNightEvents(division, numDays);
+            int itineraryId = storeItinerary(division, numPeople, numDays, selectedHotel, destinations, nightEvents);
 
             ItineraryData.setHotel(selectedHotel);
             ItineraryData.setNumPeople(numPeople);
             ItineraryData.setNumDays(numDays);
             ItineraryData.setDestinations(destinations);
+            ItineraryData.setNightEvents(nightEvents); // Assuming this setter exists
 
             Stage stage = (Stage) generateButton.getScene().getWindow();
             change.changeScene(stage, "ItineraryResult.fxml");
@@ -142,12 +144,11 @@ public class ItineraryController {
     private List<Destination> scheduleDestinationsByDistance(List<Destination> destinations, int numDays) {
         List<Destination> scheduled = new ArrayList<>();
         List<Destination> remaining = new ArrayList<>(destinations);
-        Set<String> usedDestinations = new HashSet<>(); // Track used destinations
+        Set<String> usedDestinations = new HashSet<>();
         int destinationsPerDay = 2;
         int totalDestinationsNeeded = Math.min(numDays * destinationsPerDay, destinations.size());
 
         for (int day = 1; day <= numDays && !remaining.isEmpty(); day++) {
-            // Select morning destination
             Destination morningDest = null;
             for (int i = 0; i < remaining.size(); i++) {
                 if (!usedDestinations.contains(remaining.get(i).getName())) {
@@ -155,21 +156,20 @@ public class ItineraryController {
                     break;
                 }
             }
-            if (morningDest == null) break; // No unused destinations left
+            if (morningDest == null) break;
 
             morningDest.setDay(day);
             morningDest.setTimeSlot("Morning");
             scheduled.add(morningDest);
             usedDestinations.add(morningDest.getName());
 
-            // Find a unique afternoon destination with least distance
             Destination afternoonDest = null;
             double minDistance = Double.MAX_VALUE;
             int closestIndex = -1;
 
             for (int i = 0; i < remaining.size(); i++) {
                 Destination candidate = remaining.get(i);
-                if (!usedDestinations.contains(candidate.getName())) { // Ensure not used before
+                if (!usedDestinations.contains(candidate.getName())) {
                     double distance = DistanceCalculator.getDistance(morningDest.getName(), candidate.getName());
                     if (distance >= 0 && distance < minDistance) {
                         minDistance = distance;
@@ -179,7 +179,7 @@ public class ItineraryController {
                 }
             }
 
-            if (afternoonDest != null && remaining.size() > 0) { // Ensure there's something to remove
+            if (afternoonDest != null && remaining.size() > 0) {
                 remaining.remove(closestIndex);
                 afternoonDest.setDay(day);
                 afternoonDest.setTimeSlot("Afternoon");
@@ -193,9 +193,51 @@ public class ItineraryController {
         return scheduled;
     }
 
-    private int storeItinerary(String division, int numPeople, int numDays, Hotel hotel, List<Destination> destinations) {
+    private List<Event> fetchAndScheduleNightEvents(String division, int numDays) {
+        List<Event> allEvents = new ArrayList<>();
+        String sql = "SELECT * FROM events WHERE division = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, division);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                allEvents.add(new Event(
+                        rs.getString("event_name"),
+                        rs.getString("opening_time"),
+                        rs.getString("closing_time"),
+                        rs.getString("location"),
+                        rs.getString("description")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        List<Event> scheduledEvents = new ArrayList<>();
+        for (int day = 1; day <= numDays; day++) {
+            if (day <= allEvents.size()) {
+                scheduledEvents.add(allEvents.get(day - 1));
+            } else {
+                // Fallback: Alternate between Shopping and Rest Day
+                String fallbackName = (day % 2 == 0) ? "Shopping" : "Rest Day";
+                scheduledEvents.add(new Event(
+                        fallbackName,
+                        "18:00:00", // Default opening time (6 PM)
+                        "23:00:00", // Default closing time (11 PM)
+                        "Local Area",
+                        fallbackName.equals("Shopping") ? "Explore local shops and markets." : "Relax at the hotel or nearby."
+                ));
+            }
+        }
+        return scheduledEvents;
+    }
+
+    private int storeItinerary(String division, int numPeople, int numDays, Hotel hotel, List<Destination> destinations, List<Event> nightEvents) {
         String itinerarySql = "INSERT INTO itineraryhotel (division, num_people, num_days, hotel_name, total_cost) VALUES (?, ?, ?, ?, ?)";
         String destSql = "INSERT INTO itinerary_destinations (itinerary_id, day, time_slot, destination_name) VALUES (?, ?, ?, ?)";
+        String eventSql = "INSERT INTO itinerary_events (itinerary_id, day, event_name) VALUES (?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement itineraryStmt = conn.prepareStatement(itinerarySql, Statement.RETURN_GENERATED_KEYS)) {
@@ -210,6 +252,7 @@ public class ItineraryController {
             int itineraryId = rs.next() ? rs.getInt(1) : -1;
 
             if (itineraryId != -1) {
+                // Store destinations
                 try (PreparedStatement destStmt = conn.prepareStatement(destSql)) {
                     for (Destination dest : destinations) {
                         destStmt.setInt(1, itineraryId);
@@ -219,6 +262,18 @@ public class ItineraryController {
                         destStmt.addBatch();
                     }
                     destStmt.executeBatch();
+                }
+
+                // Store night events
+                try (PreparedStatement eventStmt = conn.prepareStatement(eventSql)) {
+                    for (int i = 0; i < nightEvents.size(); i++) {
+                        Event event = nightEvents.get(i);
+                        eventStmt.setInt(1, itineraryId);
+                        eventStmt.setInt(2, i + 1); // Day starts from 1
+                        eventStmt.setString(3, event.getName());
+                        eventStmt.addBatch();
+                    }
+                    eventStmt.executeBatch();
                 }
             }
             return itineraryId;
