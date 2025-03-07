@@ -7,11 +7,15 @@ import javafx.scene.control.Label;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.scene.image.ImageView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class HomeController implements Initializable {
+
+    @FXML
+    private ImageView Review;
 
     @FXML
     private Button Destination;
@@ -132,6 +136,17 @@ public class HomeController implements Initializable {
             e.printStackTrace();
 
         }
+    }
+
+    @FXML
+    void ReviewAction(MouseEvent event) {
+        Stage stage = (Stage) Review.getScene().getWindow();
+        try {
+            cs.changeScene(stage, "ReviewComment.fxml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 
