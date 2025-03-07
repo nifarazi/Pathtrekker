@@ -32,7 +32,7 @@ public class DestinationRajshahiController implements Initializable {
     @FXML
     private Button backButton;
 
-    private final int perPage = 13;
+    private final int perPage = 14;
 
     ChangeScene cs = new ChangeScene();
 

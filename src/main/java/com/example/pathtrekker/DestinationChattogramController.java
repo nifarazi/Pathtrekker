@@ -32,7 +32,7 @@ public class DestinationChattogramController implements Initializable {
     @FXML
     private Button backButton;
 
-    private final int perPage = 13;
+    private final int perPage = 18;
 
     ChangeScene cs = new ChangeScene();
 

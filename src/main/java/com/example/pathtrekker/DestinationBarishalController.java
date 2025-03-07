@@ -32,7 +32,7 @@ public class DestinationBarishalController implements Initializable {
     @FXML
     private Button backButton;
 
-    private final int perPage = 13;
+    private final int perPage = 8;
 
     ChangeScene cs = new ChangeScene();
 
