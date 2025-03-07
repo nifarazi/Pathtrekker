@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -39,6 +40,9 @@ public class HomeController implements Initializable {
 
     @FXML
     private Button TravelMoments;
+
+    @FXML
+    private ImageView Review;
 
 
     ChangeScene cs = new ChangeScene();
@@ -131,10 +135,21 @@ public class HomeController implements Initializable {
             e.printStackTrace();
         }
     }
+    @FXML
+    public void ReviewAction(MouseEvent mouseEvent) {
+        Stage stage = (Stage) Review.getScene().getWindow();
+        try {
+            cs.changeScene(stage, "ReviewComment.fxml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         String username = ProfileUserJDBC.getCurrentUsername();
         UsernameSpace.setText(username);
     }
+
+
 }
