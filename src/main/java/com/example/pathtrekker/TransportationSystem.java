@@ -121,7 +121,7 @@ public class TransportationSystem {
     }
 
     private void fetchTransportData(GridPane grid, String from, String to) {
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/register", "root", "mirpurdohs832");
+        try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement("SELECT transport_type, fare, service_name, email, phone_number FROM transport_system WHERE from_division = ? AND to_division = ?")) {
 
             stmt.setString(1, from);

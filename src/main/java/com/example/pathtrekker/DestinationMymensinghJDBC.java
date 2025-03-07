@@ -7,13 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DestinationMymensinghJDBC {
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/register";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "nanjiba@282002";
 
     public static ResultSet getDhakaDestinations(int limit, int offset) throws SQLException {
         String query = "SELECT * FROM destinationsDivisions WHERE division='Mymensingh' LIMIT ? OFFSET ?";
-        Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        Connection connection = DatabaseConnection.getConnection();
 
         // Create a scrollable and updatable ResultSet
         PreparedStatement preparedStatement = connection.prepareStatement(
