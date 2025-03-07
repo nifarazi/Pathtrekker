@@ -19,6 +19,11 @@
             <Font name="Arial Bold" size="15.0" />
          </font>
       </Button>
+      <ImageView fx:id="Review" fitHeight="44.0" fitWidth="45.0" layoutX="424.0" layoutY="41.0" onMouseClicked="#ReviewAction" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Images/customer-satisfaction.png" />
+         </image>
+      </ImageView>
       <Button fx:id="Transport" layoutX="64.6" layoutY="420.8" mnemonicParsing="false" onMouseClicked="#TransportAction" prefHeight="32.0" prefWidth="263.0" style="-fx-background-color: #18392b; -fx-background-radius: 10;" text="TRANSPORTATION" textFill="#90cab3" AnchorPane.bottomAnchor="303.2" AnchorPane.leftAnchor="64.6" AnchorPane.rightAnchor="753.0">
          <font>
             <Font name="Arial Bold" size="16.0" />

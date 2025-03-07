@@ -22,9 +22,9 @@ import java.util.Set;
 
 public class TravelMapController extends Application {
 
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/register";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "mirpurdohs832";
+//    private static final String DB_URL = "jdbc:mysql://localhost:3306/register";
+//    private static final String DB_USER = "root";
+//    private static final String DB_PASSWORD = "RafidZawad@02";
 
     private static final Map<String, Point2D> divisionCoordinates = Map.of(
             "Khulna", new Point2D(500, 500),
@@ -91,7 +91,7 @@ public class TravelMapController extends Application {
     }
 
     private void loadBucketListFromDB() {
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement("SELECT place, visited FROM bucket_list WHERE username = ?")) {
             stmt.setString(1, currentUsername);
             ResultSet rs = stmt.executeQuery();
@@ -115,7 +115,7 @@ public class TravelMapController extends Application {
     private void updateDatabase(String division, boolean isVisited) {
         String sql = "INSERT INTO bucket_list (username, place, visited) VALUES (?, ?, ?) " +
                 "ON DUPLICATE KEY UPDATE visited = ?";
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, currentUsername);
             stmt.setString(2, division);

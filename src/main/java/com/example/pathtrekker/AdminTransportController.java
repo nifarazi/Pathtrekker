@@ -30,14 +30,14 @@ public class AdminTransportController {
         ));
     }
 
-    private Connection connectDB() {
-        try {
-            return DriverManager.getConnection("jdbc:mysql://localhost:3306/register", "root", "mirpurdohs832");
-        } catch (SQLException e) {
-            showAlert("Database Error", "Failed to connect to the database.");
-            return null;
-        }
-    }
+//    private Connection connectDB() {
+//        try {
+//            return DriverManager.getConnection("jdbc:mysql://localhost:3306/register", "root", "mirpurdohs832");
+//        } catch (SQLException e) {
+//            showAlert("Database Error", "Failed to connect to the database.");
+//            return null;
+//        }
+//    }
 
     @FXML
     private void insertTransportService() {
@@ -68,7 +68,7 @@ public class AdminTransportController {
             return;
         }
 
-        try (Connection conn = connectDB();
+        try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement checkStmt = conn.prepareStatement(
                      "SELECT id FROM transport_system WHERE from_division = ? AND to_division = ? AND service_name = ?");
              PreparedStatement insertStmt = conn.prepareStatement(
@@ -116,7 +116,7 @@ public class AdminTransportController {
             return;
         }
 
-        try (Connection conn = connectDB();
+        try (Connection conn =DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(
                      "DELETE FROM transport_system WHERE from_division = ? AND to_division = ? AND service_name = ?")) {
 

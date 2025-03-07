@@ -8,49 +8,57 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import java.io.IOException;
 
 public class MapController {
 
     @FXML
-    private Button GenerateButton;
-
+    private Button GenerateButton, backButton;
     @FXML
-    private TextField Location1;
-
-    @FXML
-    private TextField Location2;
-
+    private TextField Location1, Location2;
     @FXML
     private WebView webview;
-
     @FXML
     private Label Message;
 
+    private static String loc1, loc2;
+
+    public static void setLocations(String location1, String location2) {
+        loc1 = location1;
+        loc2 = location2;
+    }
+
+    @FXML
+    public void initialize() {
+        if (loc1 != null && loc2 != null) {
+            Location1.setText(loc1);
+            Location2.setText(loc2);
+            showMap(loc1, loc2);
+        }
+    }
+
     @FXML
     void GenerateButtonAction(MouseEvent event) {
-        String loc1 = Location1.getText();
-        String loc2 = Location2.getText();
+        String loc1Input = Location1.getText();
+        String loc2Input = Location2.getText();
 
-        if (loc1.isEmpty() || loc2.isEmpty()) {
+        if (loc1Input.isEmpty() || loc2Input.isEmpty()) {
             Message.setTextFill(Color.RED);
             Message.setText("Please Enter Both Locations.");
             return;
         }
 
-        double distance = DistanceCalculator.calculateDistance(loc1, loc2);
-
+        double distance = DistanceCalculator.getDistance(loc1Input, loc2Input);
         if (distance == -1) {
             Message.setTextFill(Color.RED);
             Message.setText("Error fetching coordinates.");
             return;
-        }
-        else
-        {
-            Message.setText("Generated Successfully!");
+        } else {
+            Message.setText("Generated Successfully! Distance: " + String.format("%.2f km", distance));
         }
 
-        showMap(loc1, loc2);
-
+        showMap(loc1Input, loc2Input);
     }
 
     private void showMap(String location1, String location2) {
@@ -61,4 +69,10 @@ public class MapController {
         webEngine.load(googleMapsUrl);
     }
 
+    @FXML
+    private void goBack(MouseEvent event) throws IOException {
+        Stage stage = (Stage) backButton.getScene().getWindow();
+        ChangeScene change = new ChangeScene();
+        change.changeScene(stage, "ItineraryResult.fxml");
+    }
 }

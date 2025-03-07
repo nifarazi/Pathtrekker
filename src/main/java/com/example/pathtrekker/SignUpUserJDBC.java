@@ -3,15 +3,12 @@ package com.example.pathtrekker;
 import java.sql.*;
 
 public class SignUpUserJDBC {
-    private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/register";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "mirpurdohs832";
 
     public static void main(String[] args) { }
 
     public static boolean usernameExists(String username) {
         String query = "SELECT COUNT(*) FROM user WHERE username = ?";
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, username);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -29,7 +26,7 @@ public class SignUpUserJDBC {
     public static void signIn(String firstName, String lastName, String username, String email, String password) {
         String insertQuery = "INSERT INTO user (first_name, last_name, username, email, password) VALUES (?, ?, ?, ?, ?)";
 
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(insertQuery)) {
 
             pstmt.setString(1, firstName);

@@ -1113,3 +1113,23 @@ INSERT INTO destinationsDivisions (division, name, opening_time, closing_time, d
  'River Tours, Photography', 'Warm and humid climate, occasional rains.', 'Panta Bhat, Bhuna Khichuri', 'Accessible by local transport.');
 
  SELECT * FROM destinationsDivisions;
+
+CREATE TABLE ReviewComment (
+id INT AUTO_INCREMENT PRIMARY KEY,
+username VARCHAR(100),
+comment TEXT,
+rating INT
+);
+
+select * from ReviewComment;
+
+CREATE TABLE ReviewReply (
+id INT AUTO_INCREMENT PRIMARY KEY,
+comment_id INT,
+username VARCHAR(100),
+reply TEXT,
+FOREIGN KEY (comment_id) REFERENCES comments(id)
+On delete cascade
+);
+
+select * from ReviewReply;

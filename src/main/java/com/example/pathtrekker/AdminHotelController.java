@@ -39,14 +39,14 @@ public class AdminHotelController {
         priceRangeComboBox.setItems(FXCollections.observableArrayList("low", "mid", "high"));
     }
 
-    private Connection connectDB() {
-        try {
-            return DriverManager.getConnection("jdbc:mysql://localhost:3306/register", "root", "mirpurdohs832");
-        } catch (SQLException e) {
-            showAlert("Database Error", "Failed to connect to the database.");
-            return null;
-        }
-    }
+//    private Connection connectDB() {
+//        try {
+//            return DriverManager.getConnection("jdbc:mysql://localhost:3306/register", "root", "mirpurdohs832");
+//        } catch (SQLException e) {
+//            showAlert("Database Error", "Failed to connect to the database.");
+//            return null;
+//        }
+//    }
 
     @FXML
     private void insertHotel() {
@@ -86,7 +86,7 @@ public class AdminHotelController {
                 return;
         }
 
-        try (Connection conn = connectDB();
+        try (Connection conn =DatabaseConnection.getConnection();
              PreparedStatement checkStmt = conn.prepareStatement("SELECT id FROM hotel WHERE name = ? AND division = ?");
              PreparedStatement insertStmt = conn.prepareStatement(
                      "INSERT INTO hotel (name, division, price_range, available_rooms, amenities, nightly_rate, email, phone_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
@@ -128,7 +128,7 @@ public class AdminHotelController {
             return;
         }
 
-        try (Connection conn = connectDB();
+        try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement("DELETE FROM hotel WHERE name = ? AND division = ?")) {
 
             stmt.setString(1, name);

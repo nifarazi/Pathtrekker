@@ -28,17 +28,8 @@ public class AdminEventsController {
         ));
     }
 
-    private Connection connectDB() {
-        try {
-            return DriverManager.getConnection("jdbc:mysql://localhost:3306/register", "root", "mirpurdohs832");
-        } catch (SQLException e) {
-            showAlert("Database Error", "Failed to connect to the database.\n" + e.getMessage());
-            return null;
-        }
-    }
-
     @FXML
-    private void insertEvent() {
+    private void insertEvent() throws SQLException {
         String division = divisionComboBox.getValue();
         String eventName = eventNameField.getText().trim();
         String location = locationField.getText().trim();
@@ -55,7 +46,7 @@ public class AdminEventsController {
             return;
         }
 
-        Connection conn = connectDB();
+        Connection conn = DatabaseConnection.getConnection();
         if (conn == null) return; // Prevent NullPointerException if connection fails
 
         try {
@@ -100,7 +91,7 @@ public class AdminEventsController {
     }
 
     @FXML
-    private void deleteEvent() {
+    private void deleteEvent() throws SQLException {
         String division = divisionComboBox.getValue();
         String eventName = eventNameField.getText().trim();
 
@@ -110,7 +101,7 @@ public class AdminEventsController {
             return;
         }
 
-        Connection conn = connectDB();
+        Connection conn = DatabaseConnection.getConnection();
         if (conn == null) return; // Prevent NullPointerException if connection fails
 
         try {
