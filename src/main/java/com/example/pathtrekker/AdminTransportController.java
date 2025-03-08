@@ -30,15 +30,6 @@ public class AdminTransportController {
         ));
     }
 
-//    private Connection connectDB() {
-//        try {
-//            return DriverManager.getConnection("jdbc:mysql://localhost:3306/register", "root", "mirpurdohs832");
-//        } catch (SQLException e) {
-//            showAlert("Database Error", "Failed to connect to the database.");
-//            return null;
-//        }
-//    }
-
     @FXML
     private void insertTransportService() {
         String fromDivision = fromDivisionComboBox.getValue();
@@ -116,7 +107,7 @@ public class AdminTransportController {
             return;
         }
 
-        try (Connection conn =DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(
                      "DELETE FROM transport_system WHERE from_division = ? AND to_division = ? AND service_name = ?")) {
 

@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 
 import java.sql.*;
 import java.io.IOException;
+
 public class AdminHotelController {
 
     @FXML
@@ -38,15 +39,6 @@ public class AdminHotelController {
 
         priceRangeComboBox.setItems(FXCollections.observableArrayList("low", "mid", "high"));
     }
-
-//    private Connection connectDB() {
-//        try {
-//            return DriverManager.getConnection("jdbc:mysql://localhost:3306/register", "root", "mirpurdohs832");
-//        } catch (SQLException e) {
-//            showAlert("Database Error", "Failed to connect to the database.");
-//            return null;
-//        }
-//    }
 
     @FXML
     private void insertHotel() {
@@ -86,7 +78,7 @@ public class AdminHotelController {
                 return;
         }
 
-        try (Connection conn =DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement checkStmt = conn.prepareStatement("SELECT id FROM hotel WHERE name = ? AND division = ?");
              PreparedStatement insertStmt = conn.prepareStatement(
                      "INSERT INTO hotel (name, division, price_range, available_rooms, amenities, nightly_rate, email, phone_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
@@ -146,6 +138,7 @@ public class AdminHotelController {
             showAlert("Database Error", "Failed to delete hotel.");
         }
     }
+
     @FXML
     private void handleBackButton() {
         try {
@@ -156,7 +149,6 @@ public class AdminHotelController {
             showAlert("Error", "Failed to return to the Admin Dashboard.\n" + e.getMessage());
         }
     }
-
 
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
