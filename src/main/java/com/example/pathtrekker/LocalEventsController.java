@@ -21,6 +21,17 @@ public class LocalEventsController {
     public void initialize() {
         divisionDropdown.getItems().addAll("Dhaka", "Chittagong", "Rajshahi", "Khulna",
                 "Barisal", "Sylhet", "Rangpur", "Mymensingh");
+
+        setButtonStyle(searchButton);
+        setButtonStyle(homeButton);
+    }
+
+    private void setButtonStyle(Button button) {
+        button.setStyle("-fx-background-color: #67B99A; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-font-weight: bold;");
+        button.setOnMouseEntered(event -> button.setStyle("-fx-background-color: #469D89; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-font-weight: bold;"));
+        button.setOnMouseExited(event -> button.setStyle("-fx-background-color: #67B99A; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-font-weight: bold;"));
+        button.setOnMousePressed(event -> button.setStyle("-fx-background-color: #248977; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-font-weight: bold;"));
+        button.setOnMouseReleased(event -> button.setStyle("-fx-background-color: #469D89; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-font-weight: bold;"));
     }
 
     @FXML
