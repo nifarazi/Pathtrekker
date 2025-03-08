@@ -72,6 +72,14 @@ public class SignUpController {
             return;
         }
 
+        // 🚨 Check if email already exists
+        if (SignUpUserJDBC.emailExists(email)) {
+            System.err.println("❌ Error: Email already in use.");
+            showErrorAlert("Email Taken", "This email is already in use. Please use a different email.");
+            return;
+        }
+
+
         // 🚨 Validate password match
         if (!password.equals(confirmPassword)) {
             System.err.println("❌ Error: Passwords do not match.");
@@ -85,6 +93,7 @@ public class SignUpController {
             showErrorAlert("Username Taken", "Username already taken. Try again.");
             return;
         }
+
 
         // ✅ Save user to database
         try {

@@ -21,6 +21,23 @@ public class SignUpUserJDBC {
         return false;
     }
 
+    public static boolean emailExists(String email) {
+        boolean exists = false;
+        String query = "SELECT COUNT(*) FROM user WHERE email = ?"; // Replace 'users' with your actual table name
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next() && rs.getInt(1) > 0) {
+                exists = true; // Email exists in the database
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return exists;
+    }
+
 
 
     public static void signIn(String firstName, String lastName, String username, String email, String password) {
