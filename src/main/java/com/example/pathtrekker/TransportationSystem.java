@@ -11,7 +11,7 @@ import java.sql.*;
 
 public class TransportationSystem {
 
-    private TextField fromField, toField;
+    private ComboBox<String> fromComboBox, toComboBox;
     private DatePicker datePicker;
     private ComboBox<Integer> seatsComboBox;
     private ChangeScene cs = new ChangeScene();
@@ -49,9 +49,17 @@ public class TransportationSystem {
         grid.setVgap(8);
         grid.setPadding(new Insets(35, 15, 15, 15));
 
-        addCompactFormItem(grid, "FROM:", 0, 0, fromField = new TextField());
+        fromComboBox = new ComboBox<>();
+        toComboBox = new ComboBox<>();
+        // Updated "Chittagong" to "Chattogram" to match database
+        String[] divisions = {"Dhaka", "Chattogram", "Rajshahi", "Khulna",
+                "Barisal", "Sylhet", "Rangpur", "Mymensingh"};
+        fromComboBox.getItems().addAll(divisions);
+        toComboBox.getItems().addAll(divisions);
+
+        addCompactFormItem(grid, "FROM:", 0, 0, fromComboBox);
         addCompactFormItem(grid, "DEPARTURE DATE:", 0, 2, datePicker = new DatePicker());
-        addCompactFormItem(grid, "TO:", 1, 0, toField = new TextField());
+        addCompactFormItem(grid, "TO:", 1, 0, toComboBox);
         addCompactFormItem(grid, "SEATS:", 1, 2, seatsComboBox = new ComboBox<>());
 
         seatsComboBox.getItems().addAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
@@ -69,7 +77,18 @@ public class TransportationSystem {
     private Button createShowTripsButton(Stage stage) {
         Button btn = new Button("SHOW TRIPS");
         btn.setStyle("-fx-font-weight: bold; -fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 8 20;");
-        btn.setOnAction(e -> showTransportResults(stage));
+        btn.setOnAction(e -> {
+            if (fromComboBox.getValue() == null || toComboBox.getValue() == null ||
+                    datePicker.getValue() == null || seatsComboBox.getValue() == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Input Error");
+                alert.setHeaderText("Missing Information");
+                alert.setContentText("Please fill in all fields (From, To, Departure Date, and Seats) before searching for trips.");
+                alert.showAndWait();
+            } else {
+                showTransportResults(stage);
+            }
+        });
         return btn;
     }
 
@@ -100,8 +119,9 @@ public class TransportationSystem {
         resultGrid.setVgap(15);
         resultGrid.setPadding(new Insets(50));
 
-        String from = fromField.getText().trim();
-        String to = toField.getText().trim();
+        String from = fromComboBox.getValue();
+        String to = toComboBox.getValue();
+        System.out.println("Selected From: " + from + ", To: " + to); // Debug output
         fetchTransportData(resultGrid, from, to);
 
         Button backBtn = new Button("Back");
@@ -122,14 +142,21 @@ public class TransportationSystem {
 
     private void fetchTransportData(GridPane grid, String from, String to) {
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("SELECT transport_type, fare, service_name, email, phone_number FROM transport_system WHERE from_division = ? AND to_division = ?")) {
+             PreparedStatement stmt = conn.prepareStatement(
+                     "SELECT transport_type, fare, service_name, email, phone_number " +
+                             "FROM transport_system WHERE from_division = ? AND to_division = ?")) {
 
             stmt.setString(1, from);
             stmt.setString(2, to);
+            System.out.println("Executing query with From: " + from + ", To: " + to); // Debug output
+
             ResultSet rs = stmt.executeQuery();
 
             int row = 0, col = 0;
+            boolean hasResults = false;
+
             while (rs.next()) {
+                hasResults = true;
                 VBox box = new VBox(5);
                 box.setStyle("-fx-background-color: white; -fx-padding: 10px; -fx-border-color: black; -fx-border-radius: 10px;");
                 box.setAlignment(Pos.CENTER);
@@ -149,13 +176,26 @@ public class TransportationSystem {
                 grid.add(box, col, row);
 
                 col++;
-                if (col >= 2) { // Maximum 2 columns per row
+                if (col >= 2) {
                     col = 0;
                     row++;
                 }
             }
+
+            if (!hasResults) {
+                Label noResults = new Label("No trips found between " + from + " and " + to + ".");
+                noResults.setStyle("-fx-font-size: 16px; -fx-text-fill: red;");
+                grid.add(noResults, 0, 0);
+                System.out.println("No results found for From: " + from + ", To: " + to); // Debug output
+            } else {
+                System.out.println("Found results for From: " + from + ", To: " + to); // Debug output
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
+            Label errorLabel = new Label("Error fetching data: " + e.getMessage());
+            errorLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: red;");
+            grid.add(errorLabel, 0, 0);
         }
     }
 
