@@ -36,76 +36,76 @@
             <!-- Number of People and Number of Days -->
             <HBox spacing="15">
                 <VBox>
-                    <Label text="Number of People:" textFill="WHITE"/>
-                    <TextField fx:id="numberOfPeopleField" prefWidth="200" promptText="Enter number"/>
-                    <Label fx:id="peopleLabel" textFill="YELLOW" style="-fx-font-size: 14;"/> <!-- ✅ Shows user input -->
+                    <Label text="Number of People:" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+                    <TextField fx:id="numberOfPeopleField" prefWidth="200" promptText="Enter number" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+                    <Label fx:id="peopleLabel" textFill="YELLOW" style="-fx-font-size: 16px; -fx-font-weight: bold;"/> <!-- ✅ Shows user input -->
                 </VBox>
                 <VBox>
-                    <Label text="Number of Days:" textFill="WHITE"/>
-                    <TextField fx:id="numberOfDaysField" prefWidth="200" promptText="Enter number"/>
-                    <Label fx:id="daysLabel" textFill="YELLOW" style="-fx-font-size: 14;"/> <!-- ✅ Shows user input -->
+                    <Label text="Number of Days:" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+                    <TextField fx:id="numberOfDaysField" prefWidth="200" promptText="Enter number" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+                    <Label fx:id="daysLabel" textFill="YELLOW" style="-fx-font-size: 16px; -fx-font-weight: bold;"/> <!-- ✅ Shows user input -->
                 </VBox>
             </HBox>
 
             <!-- District and Division -->
             <HBox spacing="15">
                 <VBox>
-                    <Label text="District:" textFill="WHITE"/>
-                    <TextField fx:id="districtField" prefWidth="200" promptText="Enter district"/>
-                    <Label fx:id="districtLabel" textFill="YELLOW" style="-fx-font-size: 14;"/> <!-- ✅ Shows user input -->
+                    <Label text="District:" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+                    <TextField fx:id="districtField" prefWidth="200" promptText="Enter district" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+                    <Label fx:id="districtLabel" textFill="YELLOW" style="-fx-font-size: 16px; -fx-font-weight: bold;"/> <!-- ✅ Shows user input -->
                 </VBox>
                 <VBox>
-                    <Label text="Division:" textFill="WHITE"/>
-                    <TextField fx:id="divisionField" prefWidth="200" promptText="Enter division"/>
-                    <Label fx:id="divisionLabel" textFill="YELLOW" style="-fx-font-size: 14;"/> <!-- ✅ Shows user input -->
+                    <Label text="Division:" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+                    <TextField fx:id="divisionField" prefWidth="200" promptText="Enter division" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+                    <Label fx:id="divisionLabel" textFill="YELLOW" style="-fx-font-size: 16px; -fx-font-weight: bold;"/> <!-- ✅ Shows user input -->
                 </VBox>
             </HBox>
 
             <!-- Keep All Other Elements Intact -->
-            <Label text="Budget:" textFill="WHITE"/>
+            <Label text="Budget:" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
             <HBox spacing="15">
-                <CheckBox fx:id="lowBudget" text="Low" textFill="WHITE"/>
-                <CheckBox fx:id="mediumBudget" text="Medium" textFill="WHITE"/>
-                <CheckBox fx:id="highBudget" text="High" textFill="WHITE"/>
+                <CheckBox fx:id="lowBudget" text="Low" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+                <CheckBox fx:id="mediumBudget" text="Medium" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+                <CheckBox fx:id="highBudget" text="High" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
             </HBox>
 
-            <Label text="Are you a Mountain or Beach person?" textFill="WHITE"/>
+            <Label text="Are you a Mountain or Beach person?" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
             <HBox spacing="15">
-                <CheckBox fx:id="mountainPerson" text="Mountain" textFill="WHITE"/>
-                <CheckBox fx:id="beachPerson" text="Beach" textFill="WHITE"/>
+                <CheckBox fx:id="mountainPerson" text="Mountain" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+                <CheckBox fx:id="beachPerson" text="Beach" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
             </HBox>
 
-            <Label text="Visit Time Preference:" textFill="WHITE"/>
+            <Label text="Visit Time Preference:" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
             <HBox spacing="15">
-                <CheckBox fx:id="springSeason" text="Spring" textFill="WHITE"/>
-                <CheckBox fx:id="summerSeason" text="Summer" textFill="WHITE"/>
-                <CheckBox fx:id="autumnSeason" text="Autumn" textFill="WHITE"/>
-                <CheckBox fx:id="winterSeason" text="Winter" textFill="WHITE"/>
+                <CheckBox fx:id="springSeason" text="Spring" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+                <CheckBox fx:id="summerSeason" text="Summer" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+                <CheckBox fx:id="autumnSeason" text="Autumn" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+                <CheckBox fx:id="winterSeason" text="Winter" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
             </HBox>
 
-            <Label text="Are you a City or Country person?" textFill="WHITE"/>
+            <Label text="Are you a City or Country person?" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
             <HBox spacing="15">
-                <CheckBox fx:id="cityPerson" text="City" textFill="WHITE"/>
-                <CheckBox fx:id="countryPerson" text="Country" textFill="WHITE"/>
+                <CheckBox fx:id="cityPerson" text="City" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+                <CheckBox fx:id="countryPerson" text="Country" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
             </HBox>
 
-            <Label text="Activity Preferences:" textFill="WHITE"/>
+            <Label text="Activity Preferences:" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
             <VBox spacing="15">
                 <HBox spacing="15">
-                    <CheckBox fx:id="historicalSites" text="Historical Sites" textFill="WHITE"/>
-                    <CheckBox fx:id="adventureSports" text="Adventure Sports" textFill="WHITE"/>
+                    <CheckBox fx:id="historicalSites" text="Historical Sites" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+                    <CheckBox fx:id="adventureSports" text="Adventure Sports" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
                 </HBox>
                 <HBox spacing="15">
-                    <CheckBox fx:id="foodCulture" text="Food and Culture" textFill="WHITE"/>
-                    <CheckBox fx:id="wildlifeNature" text="Wildlife and Nature" textFill="WHITE"/>
+                    <CheckBox fx:id="foodCulture" text="Food and Culture" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+                    <CheckBox fx:id="wildlifeNature" text="Wildlife and Nature" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
                 </HBox>
             </VBox>
         </VBox>
 
         <!-- Buttons -->
         <VBox spacing="15" AnchorPane.rightAnchor="46.0" AnchorPane.bottomAnchor="50.0">
-            <Button fx:id="generateButton" onAction="#handleGenerateButton" text="Generate Itinerary"/>
-            <Button fx:id="ItineraryBack" onMouseClicked="#ItineraryBackAction" text="Home"/>
+            <Button fx:id="generateButton" onAction="#handleGenerateButton" text="Generate Itinerary" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+            <Button fx:id="ItineraryBack" onMouseClicked="#ItineraryBackAction" text="Home" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
         </VBox>
     </AnchorPane>
 </StackPane>

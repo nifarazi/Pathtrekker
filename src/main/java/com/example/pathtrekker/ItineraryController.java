@@ -39,19 +39,34 @@ public class ItineraryController {
         numberOfDaysField.textProperty().addListener((observable, oldValue, newValue) -> daysLabel.setText("Entered: " + newValue));
         districtField.textProperty().addListener((observable, oldValue, newValue) -> districtLabel.setText("Entered: " + newValue));
         divisionField.textProperty().addListener((observable, oldValue, newValue) -> divisionLabel.setText("Entered: " + newValue));
+
+        setButtonStyle(ItineraryBack);
+        setButtonStyle(generateButton);
+    }
+
+    private void setButtonStyle(Button button) {
+        button.setStyle("-fx-background-color: #90EE90; -fx-text-fill: black; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-font-weight: bold;");
+        button.setOnMouseEntered(event -> button.setStyle("-fx-background-color: #32CD32; -fx-text-fill: black; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-font-weight: bold;"));
+        button.setOnMouseExited(event -> button.setStyle("-fx-background-color: #90EE90; -fx-text-fill: black; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-font-weight: bold;"));
+        button.setOnMousePressed(event -> button.setStyle("-fx-background-color: #006400; -fx-text-fill: black; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-font-weight: bold;"));
+        button.setOnMouseReleased(event -> button.setStyle("-fx-background-color: #32CD32; -fx-text-fill: black; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-font-weight: bold;"));
     }
 
     private boolean validateInput() {
         return !numberOfPeopleField.getText().isEmpty() &&
                 !numberOfDaysField.getText().isEmpty() &&
                 !districtField.getText().isEmpty() &&
-                !divisionField.getText().isEmpty();
+                !divisionField.getText().isEmpty() &&
+                (lowBudget.isSelected() || mediumBudget.isSelected() || highBudget.isSelected()) &&
+                (mountainPerson.isSelected() || beachPerson.isSelected()) &&
+                (summerSeason.isSelected() || autumnSeason.isSelected() || springSeason.isSelected() || winterSeason.isSelected()) &&
+                (cityPerson.isSelected() || countryPerson.isSelected() || historicalSites.isSelected() || adventureSports.isSelected() || foodCulture.isSelected() || wildlifeNature.isSelected());
     }
 
     @FXML
     private void handleGenerateButton() {
         if (!validateInput()) {
-            showAlert(Alert.AlertType.WARNING, "Unfulfilled Boxes", "Please fill all the boxes before generating the itinerary.");
+            showAlert(Alert.AlertType.WARNING, "Unfulfilled Boxes", "Please fill all the boxes and select all options before generating the itinerary.");
             return;
         }
 
