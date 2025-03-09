@@ -11,8 +11,14 @@ import java.sql.SQLException;
 
 public class SignUpController {
 
-    ChangeScene change = new ChangeScene();
 
+    ChangeScene change = new ChangeScene();
+    @FXML
+    public TextField PassTextField;
+    @FXML
+    public TextField ConPassTextField;
+    @FXML
+    public CheckBox ShowPassCheckBox;
     @FXML
     private TextField FirstName;
 
@@ -58,8 +64,15 @@ public class SignUpController {
         String lastName = LastName.getText().trim();
         String username = SignUpUsername.getText().trim();
         String email = SignUpEmail.getText().trim();
-        String password = SignUpPassword.getText();
-        String confirmPassword = SignUpConfirmPassword.getText();
+        String password;
+        String confirmPassword;
+        if (ShowPassCheckBox.isSelected()) {
+            password = PassTextField.getText();
+            confirmPassword = ConPassTextField.getText();
+        } else {
+            password = SignUpPassword.getText();
+            confirmPassword = SignUpConfirmPassword.getText();
+        }
 
         System.out.println("User Input -> First Name: " + firstName + ", Last Name: " + lastName +
                 ", Username: " + username + ", Email: " + email);
@@ -167,5 +180,24 @@ public class SignUpController {
         alert.setGraphic(new javafx.scene.shape.Circle(15, Color.GREEN));
         alert.getDialogPane().setStyle("-fx-font-size: 14px; -fx-font-family: Arial; -fx-background-color: #f0f8ff;");
         alert.showAndWait();
+    }
+    @FXML
+    public void ShowPassCheckAction(MouseEvent mouseEvent) {
+        if (ShowPassCheckBox.isSelected()) {
+            PassTextField.setVisible(true);
+            ConPassTextField.setVisible(true);
+            SignUpPassword.setVisible(false);
+            SignUpConfirmPassword.setVisible(false);
+            PassTextField.setText(SignUpPassword.getText());
+            ConPassTextField.setText(SignUpConfirmPassword.getText());
+        } else {
+            PassTextField.setVisible(false);
+            ConPassTextField.setVisible(false);
+            SignUpPassword.setVisible(true);
+            SignUpConfirmPassword.setVisible(true);
+            SignUpPassword.setText(PassTextField.getText());
+            SignUpConfirmPassword.setText(ConPassTextField.getText());
+        }
+
     }
 }

@@ -8,6 +8,7 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
@@ -16,8 +17,15 @@ import javafx.scene.Scene;
 import java.io.IOException;
 
 public class AdminLoginController {
+
     ChangeScene change = new ChangeScene();
 
+    @FXML
+    public ImageView CloseEye;
+    @FXML
+    public ImageView OpenEye;
+    @FXML
+    public TextField PassShowField;
     @FXML
     private Button AdminCancel;
 
@@ -39,7 +47,13 @@ public class AdminLoginController {
     @FXML
     void AdminLoginAction(MouseEvent event) throws IOException {
         String username = AdminUsername.getText();
-        String password = AdminPassword.getText();
+        String password;
+
+        if (PassShowField.isVisible()) {
+            password = PassShowField.getText();
+        } else {
+            password = AdminPassword.getText();
+        }
 
         String adminId = AdminLoginJDBC.validateAdminLogin(username, password);
         boolean isValid = adminId != null;
@@ -69,5 +83,21 @@ public class AdminLoginController {
             stage.setScene(new Scene(root));
             stage.show();
         }
+    }
+    @FXML
+    public void HideAdminPassAction(MouseEvent mouseEvent) {
+        OpenEye.setVisible(false);
+        CloseEye.setVisible(true);
+        AdminPassword.setVisible(true);
+        PassShowField.setVisible(false);
+        AdminPassword.setText(PassShowField.getText());
+    }
+    @FXML
+    public void ShowAdminPassAction(MouseEvent mouseEvent) {
+        OpenEye.setVisible(true);
+        CloseEye.setVisible(false);
+        AdminPassword.setVisible(false);
+        PassShowField.setVisible(true);
+        PassShowField.setText(AdminPassword.getText());
     }
 }

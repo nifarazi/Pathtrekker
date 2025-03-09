@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -18,7 +19,10 @@
       </ImageView>
       <AnchorPane layoutX="200.0" layoutY="70.0" prefHeight="616.0" prefWidth="680.0" style="-fx-background-color: rgba(255,255,255,0.5); -fx-background-radius: 20px;">
          <children>
-            <Button fx:id="AdminCancel" layoutX="158.0" layoutY="473.0" mnemonicParsing="false" onMouseClicked="#AdminCancelAction" prefHeight="35.0" prefWidth="364.0" style="-fx-background-color: black;" text="Cancel" textFill="WHITE" />
+            <Button fx:id="AdminCancel" layoutX="158.0" layoutY="473.0" mnemonicParsing="false" onMouseClicked="#AdminCancelAction" prefHeight="35.0" prefWidth="364.0" style="-fx-background-color: black;" text="Cancel" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
             <ImageView fitHeight="102.0" fitWidth="200.0" layoutX="289.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../Images/admin.png" />
@@ -26,6 +30,7 @@
             </ImageView>
             <TextField fx:id="AdminUsername" layoutX="145.0" layoutY="293.0" prefHeight="39.0" prefWidth="390.0" promptText="Enter Admin Username" />
             <PasswordField fx:id="AdminPassword" layoutX="145.0" layoutY="354.0" prefHeight="39.0" prefWidth="390.0" promptText="Enter Password" />
+            <TextField fx:id="PassShowField" layoutX="145.0" layoutY="354.0" prefHeight="39.0" prefWidth="390.0" promptText="Enter Password" visible="false" />
             <ImageView fitHeight="39.0" fitWidth="38.0" layoutX="98.0" layoutY="294.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../Images/user.png" />
@@ -36,12 +41,31 @@
                   <Image url="@../../../Images/padlock.png" />
                </image>
             </ImageView>
-            <Button fx:id="AdminLogin" layoutX="158.0" layoutY="420.0" mnemonicParsing="false" onMouseClicked="#AdminLoginAction" prefHeight="35.0" prefWidth="364.0" style="-fx-background-color: black;" text="Login" textFill="WHITE" />
+            <Button fx:id="AdminLogin" layoutX="158.0" layoutY="420.0" mnemonicParsing="false" onMouseClicked="#AdminLoginAction" prefHeight="35.0" prefWidth="364.0" style="-fx-background-color: black;" text="Login" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutY="98.0" prefHeight="42.0" prefWidth="680.0" text="PATHTREKKER ADMIN">
                <font>
                   <Font name="ArtifaktElement-Black" size="44.0" />
                </font>
             </Label>
+            <ImageView fx:id="OpenEye" fitHeight="21.0" fitWidth="30.0" layoutX="501.0" layoutY="363.0" onMouseClicked="#HideAdminPassAction" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@../../../Images/EyeOpen.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="CloseEye" fitHeight="21.0" fitWidth="30.0" layoutX="501.0" layoutY="363.0" onMouseClicked="#ShowAdminPassAction" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../Images/EyeClose.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>
