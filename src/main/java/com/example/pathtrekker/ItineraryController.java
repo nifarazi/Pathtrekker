@@ -8,19 +8,18 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import javafx.scene.layout.VBox;
+import java.util.*;
+
 public class ItineraryController {
 
     @FXML
     private Button ItineraryBack, generateButton;
     @FXML
-    private TextField numberOfPeopleField, numberOfDaysField, districtField, divisionField;
+    private TextField numberOfPeopleField, numberOfDaysField; // Removed districtField and divisionField
     @FXML
-    private Label peopleLabel, daysLabel, districtLabel, divisionLabel;
+    private Label peopleLabel, daysLabel;
+    @FXML
+    private ComboBox<String> divisionComboBox, districtComboBox; // Added ComboBox for divisions and districts
     @FXML
     private CheckBox lowBudget, mediumBudget, highBudget, mountainPerson, beachPerson;
     @FXML
@@ -30,18 +29,47 @@ public class ItineraryController {
     @FXML
     private Pane blackBlurredBox;
 
+    // Map to store divisions and their corresponding districts
+    private final Map<String, List<String>> divisionDistrictMap = new HashMap<>();
+
     ChangeScene change = new ChangeScene();
+
     @FXML
     public void initialize() {
         blackBlurredBox.setPadding(new Insets(20, 20, 20, 20));
         numberOfPeopleField.textProperty().addListener((observable, oldValue, newValue) -> peopleLabel.setText("Entered: " + newValue));
         numberOfDaysField.textProperty().addListener((observable, oldValue, newValue) -> daysLabel.setText("Entered: " + newValue));
-        districtField.textProperty().addListener((observable, oldValue, newValue) -> districtLabel.setText("Entered: " + newValue));
-        divisionField.textProperty().addListener((observable, oldValue, newValue) -> divisionLabel.setText("Entered: " + newValue));
+
+        // Initialize division and district ComboBox
+        initializeDivisionDistrictMap();
+        divisionComboBox.getItems().addAll(divisionDistrictMap.keySet());
+        divisionComboBox.setPromptText("Select Division");
+
+        // Add listener to division ComboBox to update district ComboBox
+        divisionComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                districtComboBox.getItems().clear();
+                districtComboBox.getItems().addAll(divisionDistrictMap.get(newValue));
+                districtComboBox.setPromptText("Select District");
+            }
+        });
 
         setButtonStyle(ItineraryBack);
         setButtonStyle(generateButton);
     }
+
+    // Initialize the division-district map
+    private void initializeDivisionDistrictMap() {
+        divisionDistrictMap.put("Dhaka", Arrays.asList("Dhaka", "Gazipur", "Narayanganj", "Tangail"));
+        divisionDistrictMap.put("Chattogram", Arrays.asList("Chattogram", "Cox's Bazar", "Rangamati", "Bandarban"));
+        divisionDistrictMap.put("Sylhet", Arrays.asList("Sylhet", "Moulvibazar", "Habiganj", "Sunamganj"));
+        divisionDistrictMap.put("Rajshahi", Arrays.asList("Rajshahi", "Bogura", "Pabna", "Sirajganj"));
+        divisionDistrictMap.put("Khulna", Arrays.asList("Khulna", "Jessore", "Satkhira", "Bagerhat"));
+        divisionDistrictMap.put("Barishal", Arrays.asList("Barishal", "Patuakhali", "Bhola", "Jhalokati"));
+        divisionDistrictMap.put("Rangpur", Arrays.asList("Rangpur", "Dinajpur", "Gaibandha", "Kurigram"));
+        divisionDistrictMap.put("Mymensingh", Arrays.asList("Mymensingh", "Netrokona", "Jamalpur", "Sherpur"));
+    }
+
     private void setButtonStyle(Button button) {
         button.setStyle("-fx-background-color: #90EE90; -fx-text-fill: black; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-font-weight: bold;");
         button.setOnMouseEntered(event -> button.setStyle("-fx-background-color: #32CD32; -fx-text-fill: black; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-font-weight: bold;"));
@@ -50,11 +78,12 @@ public class ItineraryController {
         button.setOnMouseReleased(event -> button.setStyle("-fx-background-color: #32CD32; -fx-text-fill: black; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-font-weight: bold;"));
     }
 
+
     private boolean validateInput() {
         return !numberOfPeopleField.getText().isEmpty() &&
                 !numberOfDaysField.getText().isEmpty() &&
-                !districtField.getText().isEmpty() &&
-                !divisionField.getText().isEmpty() &&
+                divisionComboBox.getValue() != null && // Check if division is selected
+                districtComboBox.getValue() != null && // Check if district is selected
                 (lowBudget.isSelected() || mediumBudget.isSelected() || highBudget.isSelected()) &&
                 (mountainPerson.isSelected() || beachPerson.isSelected()) &&
                 (summerSeason.isSelected() || autumnSeason.isSelected() || springSeason.isSelected() || winterSeason.isSelected()) &&
@@ -71,7 +100,8 @@ public class ItineraryController {
         try {
             int numPeople = Integer.parseInt(numberOfPeopleField.getText());
             int numDays = Integer.parseInt(numberOfDaysField.getText());
-            String division = divisionField.getText();
+            String division = divisionComboBox.getValue(); // Get selected division
+            String district = districtComboBox.getValue(); // Get selected district
             String budget = getBudgetPreference();
 
             Hotel selectedHotel = fetchHotel(division, budget, numPeople, numDays);
@@ -89,13 +119,13 @@ public class ItineraryController {
             List<Event> nightEvents = fetchAndScheduleNightEvents(division, numDays);
             int itineraryId = storeItinerary(division, numPeople, numDays, selectedHotel, destinations, nightEvents);
 
-            // Set all data in ItineraryData, including the itineraryId
+            // Set all data in ItineraryData
             ItineraryData.setHotel(selectedHotel);
             ItineraryData.setNumPeople(numPeople);
             ItineraryData.setNumDays(numDays);
             ItineraryData.setDestinations(destinations);
             ItineraryData.setNightEvents(nightEvents);
-            ItineraryData.setItineraryId(itineraryId); // Moved here from outside
+            ItineraryData.setItineraryId(itineraryId);
 
             Stage stage = (Stage) generateButton.getScene().getWindow();
             change.changeScene(stage, "ItineraryResult.fxml");
@@ -162,6 +192,7 @@ public class ItineraryController {
         }
         return allDestinations;
     }
+
     private List<Destination> scheduleDestinationsByDistance(List<Destination> destinations, int numDays) {
         List<Destination> scheduled = new ArrayList<>();
         List<Destination> remaining = new ArrayList<>(destinations);
