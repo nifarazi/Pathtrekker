@@ -60,6 +60,12 @@ public class ItineraryController {
 
     // Initialize the division-district map
     private void initializeDivisionDistrictMap() {
+        divisionDistrictMap.put("Dhaka", Arrays.asList(
+                "Dhaka", "Narayanganj", "Gazipur", "Manikganj", "Munshiganj", "Narsingdi",
+                "Tangail", "Kishoreganj", "Netrokona", "Faridpur", "Gopalganj", "Madaripur",
+                "Rajbari", "Shariatpur"
+        ));
+
         divisionDistrictMap.put("Chattogram", Arrays.asList(
                 "Chattogram", "Cox's Bazar", "Bandarban", "Khagrachari", "Rangamati",
                 "Noakhali", "Feni", "Laxmipur", "Chandpur", "Cumilla", "Brahmanbaria"
