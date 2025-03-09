@@ -1,7 +1,6 @@
 package com.example.pathtrekker;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -9,7 +8,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,26 +19,16 @@ import java.util.ArrayList;
 
 import static java.lang.Boolean.FALSE;
 
-
-public class ReviewCommentController {
-
-    @FXML
-    private TextArea CommentArea;
+public class AdminReview {
 
     @FXML
     private VBox CommentDisplay;
 
     @FXML
-    private ComboBox<Integer> ReviewBar;
-
-    @FXML
-    private Button HomeButton;
+    private Button DashboardButton;
 
     @FXML
     private ScrollPane ScrollBar;
-
-    @FXML
-    private Button SubmitButton;
 
     ChangeScene cs = new ChangeScene();
 
@@ -45,13 +36,9 @@ public class ReviewCommentController {
 
 
     public void initialize() {
-        CommentArea.setFocusTraversable(FALSE);
-        ReviewBar.getItems().clear();
-        ReviewBar.getItems().addAll(1, 2, 3, 4, 5);
-        ReviewBar.setStyle("-fx-prompt-text-fill: #D0DED8;");
         loadComments();
     }
-    
+
 
     public void loadComments() {
         CommentDisplay.getChildren().clear();
@@ -59,9 +46,9 @@ public class ReviewCommentController {
         CommentToClass();
         ShowComment();
     }
-    
-    
-    
+
+
+
     void CommentToClass(){
         String query = "SELECT * FROM ReviewComment";
         try {
@@ -76,20 +63,20 @@ public class ReviewCommentController {
                 int rating = resultSet.getInt("rating");
                 String username = resultSet.getString("username");
                 int id = resultSet.getInt("id");
-                
+
                 ReviewComClass reviewComClass = new ReviewComClass(username, comment, id, rating);
                 ArrayList<ReviewRepClass> replies = ReplyToClass(connection, id);
-                
+
                 reviewComClass.setReplies(replies);
                 commentData.add(reviewComClass);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }
-    
-    
+
+
 
     ArrayList<ReviewRepClass> ReplyToClass(Connection connection,int id) throws SQLException {
         String query2 = "SELECT reply, username FROM ReviewReply WHERE comment_id = ?";
@@ -106,10 +93,10 @@ public class ReviewCommentController {
             }
         }
         return replies;
-        
+
     }
-    
-    
+
+
     void ShowComment(){
         for (ReviewComClass reviewCom : commentData) {
             VBox display = new VBox(5);
@@ -147,64 +134,40 @@ public class ReviewCommentController {
             replySpace.setPromptText("Reply to this comment...");
             replySpace.setFocusTraversable(FALSE);
             replySpace.setStyle("-fx-background-color: white;");
-            Button replyButton = new Button("Reply");
-            replyButton.setStyle("-fx-background-color: #18392b; -fx-text-fill: #D0DED8;");
-
-            replyButton.setOnAction(e -> {
-                String reply = replySpace.getText();
-                if (reply == null || reply.trim().isEmpty()) {
-                    showAlert("Reply Error", "Please enter a reply before submitting.");
-                    return;
-                }
-                try {
-                    Connection connection = DatabaseConnection.getConnection();
-                    String query3 = "INSERT INTO ReviewReply (comment_id, username, reply) VALUES (?,?,?)";
-                    PreparedStatement preparedStatement3 = connection.prepareStatement(query3);
-                    preparedStatement3.setInt(1, reviewCom.getId());
-                    preparedStatement3.setString(2, UploadProfileUserJDBC.getCurrentUsername());
-                    preparedStatement3.setString(3, reply);
-                    preparedStatement3.executeUpdate();
-                    loadComments();
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-                replySpace.clear();
-            });
+            Button replyButton = getButton(reviewCom, replySpace);
             makeReplies.getChildren().addAll(replySpace, replyButton);
 
             display.getChildren().addAll(commentHbox, CommentLabel, replyBox, makeReplies);
             CommentDisplay.getChildren().add(display);
         }
-        
+
     }
 
+    private @NotNull Button getButton(ReviewComClass reviewCom, TextField replySpace) {
+        Button replyButton = new Button("Reply");
+        replyButton.setStyle("-fx-background-color: #18392b; -fx-text-fill: #D0DED8;");
 
-    @FXML
-    void SubmitButtonAction(MouseEvent event) {
-        String comment = CommentArea.getText();
-        Integer rating = ReviewBar.getValue();
-
-
-        if (rating == null) {
-            showAlert("Rating Error", "Please select a rating before submitting your comment.");
-            return;
-        }
-
-        try {
-            Connection connection = DatabaseConnection.getConnection();
-            String query = "INSERT INTO ReviewComment (username, comment, rating) VALUES (?,?,?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, UploadProfileUserJDBC.getCurrentUsername());
-            preparedStatement.setString(2, comment);
-            preparedStatement.setInt(3, rating);
-            preparedStatement.executeUpdate();
-            loadComments();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        CommentArea.clear();
-        ReviewBar.setValue(null);
-        ReviewBar.setPromptText("Review");
+        replyButton.setOnAction(e -> {
+            String reply = replySpace.getText();
+            if (reply == null || reply.trim().isEmpty()) {
+                showAlert("Reply Error", "Please enter a reply before submitting.");
+                return;
+            }
+            try {
+                Connection connection = DatabaseConnection.getConnection();
+                String query3 = "INSERT INTO ReviewReply (comment_id, username, reply) VALUES (?,?,?)";
+                PreparedStatement preparedStatement3 = connection.prepareStatement(query3);
+                preparedStatement3.setInt(1, reviewCom.getId());
+                preparedStatement3.setString(2, "Pathtrekker");
+                preparedStatement3.setString(3, reply);
+                preparedStatement3.executeUpdate();
+                loadComments();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+            replySpace.clear();
+        });
+        return replyButton;
     }
 
     private void showAlert(String title, String message) {
@@ -215,16 +178,11 @@ public class ReviewCommentController {
         alert.showAndWait();
     }
 
+
     @FXML
-    void HomeButtonAction(MouseEvent event) {
-        Stage stage = (Stage) HomeButton.getScene().getWindow();
-        try {
-            cs.changeScene(stage, "Home.fxml");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+    void DashboardReturnAction(MouseEvent event) throws IOException {
+        Stage stage = (Stage) DashboardButton.getScene().getWindow();
+        cs.changeScene(stage, "AdminDashboard.fxml");
     }
-
 
 }

@@ -67,7 +67,13 @@ public class AdminDashboardController {
 
     @FXML
     private void handleReviewRatingsButton() {
-        showAlert("Review and Ratings", "Opening Review and Ratings Page...");
+        try{
+            Stage stage = (Stage) reviewRatingsButton.getScene().getWindow();
+            sceneChanger.changeScene(stage, "/com/example/pathtrekker/AdminReview.fxml");
+        } catch (IOException e) {
+            showAlert("Error", "Failed to load the Review and Ratings page.\n" + e.getMessage());
+        }
+
     }
 
     @FXML

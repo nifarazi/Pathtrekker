@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pathtrekker.AdminReview">
+   <children>
+      <ImageView fitHeight="756.0" fitWidth="1080.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../../localresult.png" />
+         </image>
+      </ImageView>
+      <ScrollPane fx:id="ScrollBar" layoutX="33.0" layoutY="37.0" prefHeight="681.0" prefWidth="1014.0">
+         <content>
+            <VBox fx:id="CommentDisplay" prefHeight="679.0" prefWidth="1012.0" />
+         </content>
+      </ScrollPane>
+      <Button fx:id="DashboardButton" layoutX="907.0" layoutY="726.0" mnemonicParsing="false" onMouseClicked="#DashboardReturnAction" prefHeight="28.0" prefWidth="141.0" style="-fx-background-color: #18392b;" text="Dashboard" textFill="#d0ded8">
+         <font>
+            <Font name="Times New Roman Bold" size="15.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
