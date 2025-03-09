@@ -12,7 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
+import javafx.fxml.FXMLLoader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -23,7 +23,8 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 public class ProfilePageController {
 
     @FXML
@@ -304,16 +305,18 @@ public class ProfilePageController {
 
     @FXML
     private void handleTripMarker() {
-        if (tripMarkerButton != null) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pathtrekker/TravelMap.fxml")); // Make sure the path is correct
+            Parent root = loader.load();
             Stage stage = (Stage) tripMarkerButton.getScene().getWindow();
-            TravelMapController mapController = new TravelMapController();
-            Stage mapStage = new Stage();
-            mapController.start(mapStage);
-            mapStage.show();
-        } else {
-            System.err.println("tripMarkerButton is not initialized!");
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
+
 
     @FXML
     private void handleHome() throws IOException {
