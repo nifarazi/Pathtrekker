@@ -60,14 +60,39 @@ public class ItineraryController {
 
     // Initialize the division-district map
     private void initializeDivisionDistrictMap() {
-        divisionDistrictMap.put("Dhaka", Arrays.asList("Dhaka", "Gazipur", "Narayanganj", "Tangail"));
-        divisionDistrictMap.put("Chattogram", Arrays.asList("Chattogram", "Cox's Bazar", "Rangamati", "Bandarban"));
-        divisionDistrictMap.put("Sylhet", Arrays.asList("Sylhet", "Moulvibazar", "Habiganj", "Sunamganj"));
-        divisionDistrictMap.put("Rajshahi", Arrays.asList("Rajshahi", "Bogura", "Pabna", "Sirajganj"));
-        divisionDistrictMap.put("Khulna", Arrays.asList("Khulna", "Jessore", "Satkhira", "Bagerhat"));
-        divisionDistrictMap.put("Barishal", Arrays.asList("Barishal", "Patuakhali", "Bhola", "Jhalokati"));
-        divisionDistrictMap.put("Rangpur", Arrays.asList("Rangpur", "Dinajpur", "Gaibandha", "Kurigram"));
-        divisionDistrictMap.put("Mymensingh", Arrays.asList("Mymensingh", "Netrokona", "Jamalpur", "Sherpur"));
+        divisionDistrictMap.put("Chattogram", Arrays.asList(
+                "Chattogram", "Cox's Bazar", "Bandarban", "Khagrachari", "Rangamati",
+                "Noakhali", "Feni", "Laxmipur", "Chandpur", "Cumilla", "Brahmanbaria"
+        ));
+
+        divisionDistrictMap.put("Sylhet", Arrays.asList(
+                "Sylhet", "Moulvibazar", "Habiganj", "Sunamganj"
+        ));
+
+        divisionDistrictMap.put("Rajshahi", Arrays.asList(
+                "Rajshahi", "Natore", "Chapainawabganj", "Pabna", "Naogaon",
+                "Bogura", "Joypurhat", "Sirajganj"
+        ));
+
+        divisionDistrictMap.put("Khulna", Arrays.asList(
+                "Khulna", "Bagerhat", "Satkhira", "Jessore", "Jhenaidah",
+                "Magura", "Narail", "Kushtia", "Chuadanga", "Meherpur"
+        ));
+
+        divisionDistrictMap.put("Barishal", Arrays.asList(
+                "Barishal", "Patuakhali", "Bhola", "Jhalokathi", "Barguna", "Pirojpur"
+        ));
+
+        divisionDistrictMap.put("Rangpur", Arrays.asList(
+                "Rangpur", "Dinajpur", "Gaibandha", "Kurigram", "Lalmonirhat",
+                "Nilphamari", "Panchagarh", "Thakurgaon"
+        ));
+
+        divisionDistrictMap.put("Mymensingh", Arrays.asList(
+                "Mymensingh", "Netrokona", "Sherpur", "Jamalpur"
+        ));
+
+
     }
 
     private void setButtonStyle(Button button) {
