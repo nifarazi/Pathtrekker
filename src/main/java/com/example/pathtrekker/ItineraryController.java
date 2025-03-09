@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
+import javafx.scene.layout.VBox;
 public class ItineraryController {
 
     @FXML
@@ -31,7 +31,6 @@ public class ItineraryController {
     private Pane blackBlurredBox;
 
     ChangeScene change = new ChangeScene();
-
     @FXML
     public void initialize() {
         blackBlurredBox.setPadding(new Insets(20, 20, 20, 20));
@@ -43,7 +42,6 @@ public class ItineraryController {
         setButtonStyle(ItineraryBack);
         setButtonStyle(generateButton);
     }
-
     private void setButtonStyle(Button button) {
         button.setStyle("-fx-background-color: #90EE90; -fx-text-fill: black; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-font-weight: bold;");
         button.setOnMouseEntered(event -> button.setStyle("-fx-background-color: #32CD32; -fx-text-fill: black; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-font-weight: bold;"));
@@ -164,53 +162,76 @@ public class ItineraryController {
         }
         return allDestinations;
     }
-
     private List<Destination> scheduleDestinationsByDistance(List<Destination> destinations, int numDays) {
         List<Destination> scheduled = new ArrayList<>();
         List<Destination> remaining = new ArrayList<>(destinations);
         Set<String> usedDestinations = new HashSet<>();
-        int destinationsPerDay = 2;
-        int totalDestinationsNeeded = Math.min(numDays * destinationsPerDay, destinations.size());
+        int destinationsPerDay = 2; // Morning and Afternoon
 
-        for (int day = 1; day <= numDays && !remaining.isEmpty(); day++) {
+        for (int day = 1; day <= numDays; day++) {
             Destination morningDest = null;
-            for (int i = 0; i < remaining.size(); i++) {
-                if (!usedDestinations.contains(remaining.get(i).getName())) {
-                    morningDest = remaining.remove(i);
-                    break;
-                }
-            }
-            if (morningDest == null) break;
 
-            morningDest.setDay(day);
-            morningDest.setTimeSlot("Morning");
-            scheduled.add(morningDest);
-            usedDestinations.add(morningDest.getName());
-
-            Destination afternoonDest = null;
-            double minDistance = Double.MAX_VALUE;
-            int closestIndex = -1;
-
-            for (int i = 0; i < remaining.size(); i++) {
-                Destination candidate = remaining.get(i);
-                if (!usedDestinations.contains(candidate.getName())) {
-                    double distance = DistanceCalculator.getDistance(morningDest.getName(), candidate.getName());
-                    if (distance >= 0 && distance < minDistance) {
-                        minDistance = distance;
-                        afternoonDest = candidate;
-                        closestIndex = i;
+            // Ensure remaining list is not empty before accessing
+            if (!remaining.isEmpty()) {
+                for (int i = 0; i < remaining.size(); i++) {
+                    if (!usedDestinations.contains(remaining.get(i).getName())) {
+                        morningDest = remaining.remove(i);
+                        break;
                     }
                 }
             }
 
-            if (afternoonDest != null && remaining.size() > 0) {
+            // Fallback: If morningDest is still null, pick a random one
+            if (morningDest == null && !destinations.isEmpty()) {
+                Destination original = destinations.get((int) (Math.random() * destinations.size()));
+                morningDest = new Destination(original.getName(), original.getDescription(), original.getTopAttractions(),
+                        original.getWeatherInfo(), original.getLocalCuisine(), original.getTransportInfo(),
+                        original.getOpeningTime(), original.getClosingTime());
+            }
+
+            if (morningDest != null) {
+                morningDest.setDay(day);
+                morningDest.setTimeSlot("Morning");
+                scheduled.add(morningDest);
+                usedDestinations.add(morningDest.getName());
+            }
+
+            // Find the closest afternoon destination
+            Destination afternoonDest = null;
+            double minDistance = Double.MAX_VALUE;
+            int closestIndex = -1;
+
+            if (morningDest != null && !remaining.isEmpty()) {
+                for (int i = 0; i < remaining.size(); i++) {
+                    Destination candidate = remaining.get(i);
+                    if (!usedDestinations.contains(candidate.getName())) {
+                        double distance = DistanceCalculator.getDistance(morningDest.getName(), candidate.getName());
+                        if (distance >= 0 && distance < minDistance) {
+                            minDistance = distance;
+                            afternoonDest = candidate;
+                            closestIndex = i;
+                        }
+                    }
+                }
+            }
+
+            // Remove the afternoon destination from remaining list safely
+            if (afternoonDest != null && closestIndex != -1) {
                 remaining.remove(closestIndex);
                 afternoonDest.setDay(day);
                 afternoonDest.setTimeSlot("Afternoon");
                 scheduled.add(afternoonDest);
                 usedDestinations.add(afternoonDest.getName());
-            } else {
-                System.out.println("No unique afternoon destination found for Day " + day);
+            } else if (!destinations.isEmpty()) {
+                // Fallback for missing afternoon destination
+                Destination original = destinations.get((int) (Math.random() * destinations.size()));
+                afternoonDest = new Destination(original.getName(), original.getDescription(), original.getTopAttractions(),
+                        original.getWeatherInfo(), original.getLocalCuisine(), original.getTransportInfo(),
+                        original.getOpeningTime(), original.getClosingTime());
+                afternoonDest.setDay(day);
+                afternoonDest.setTimeSlot("Afternoon");
+                scheduled.add(afternoonDest);
+                usedDestinations.add(afternoonDest.getName());
             }
         }
 
