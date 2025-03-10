@@ -128,7 +128,7 @@ public class SignUpController {
 
             // ✅ Navigate to home page
             Stage stage = (Stage) SignUpJoinNow.getScene().getWindow();
-            change.changeScene(stage, "Home.fxml");
+            change.changeScene(stage, "OpeningPage.fxml");
 
         } catch (Exception e) {
             e.printStackTrace();

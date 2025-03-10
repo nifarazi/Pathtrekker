@@ -136,7 +136,7 @@ public class ItineraryResultController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pathtrekker/Map.fxml"));
             Parent root = loader.load();
-            MapController mapController = loader.getController();
+//            MapController mapController = loader.getController();
             String loc1, loc2;
 
             boolean isFirstDestinationOfTheDay = (index == 0) || (destinations.get(index - 1).getDay() != dest.getDay());
@@ -152,11 +152,15 @@ public class ItineraryResultController {
                 loc2 = dest.getName();
             }
 
-            mapController.setLocations(loc1, loc2);
-            Stage mapStage = new Stage();
-            mapStage.setTitle("Map View");
-            mapStage.setScene(new Scene(root, 1080, 756));
-            mapStage.show();
+            MapController.setLocations(loc1, loc2);
+
+//            Stage mapStage = new Stage();
+//            mapStage.setTitle("Map View");
+//            mapStage.setScene(new Scene(root, 1080, 756));
+//            mapStage.show();
+
+            Stage stage = (Stage) destinationsVBox.getScene().getWindow();
+            stage.setScene(new Scene(root,1080,756));
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Error loading Map.fxml: " + e.getMessage());
