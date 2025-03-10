@@ -158,9 +158,9 @@ public class ItineraryResultController {
 //            mapStage.setTitle("Map View");
 //            mapStage.setScene(new Scene(root, 1080, 756));
 //            mapStage.show();
-
             Stage stage = (Stage) destinationsVBox.getScene().getWindow();
             stage.setScene(new Scene(root,1080,756));
+
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Error loading Map.fxml: " + e.getMessage());

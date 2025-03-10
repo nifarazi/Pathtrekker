@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -14,7 +15,11 @@ import java.io.IOException;
 public class MapController {
 
     @FXML
-    private Button GenerateButton, backButton;
+    public Button HomeButton;
+    @FXML
+    private Button GenerateButton;
+    @FXML
+    private Button backButton;
     @FXML
     private TextField Location1, Location2;
     @FXML
@@ -25,6 +30,7 @@ public class MapController {
     private static String loc1, loc2;
 
     public static void setLocations(String location1, String location2) {
+
         loc1 = location1;
         loc2 = location2;
     }
@@ -74,5 +80,15 @@ public class MapController {
         Stage stage = (Stage) backButton.getScene().getWindow();
         ChangeScene change = new ChangeScene();
         change.changeScene(stage, "ItineraryResult.fxml");
+    }
+
+    public void BackToHomeAction(MouseEvent mouseEvent) {
+        try {
+            Stage stage = (Stage) HomeButton.getScene().getWindow();
+            ChangeScene change = new ChangeScene();
+            change.changeScene(stage, "Home.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
