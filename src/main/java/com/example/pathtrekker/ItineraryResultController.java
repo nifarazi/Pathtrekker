@@ -207,7 +207,7 @@ public class ItineraryResultController {
     private List<String> fetchAvailableDestinations(String division) {
         List<String> destinations = new ArrayList<>();
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement("SELECT name FROM final_destinations WHERE division = ?")) {
+             PreparedStatement pstmt = conn.prepareStatement("SELECT name FROM destinationsDivisions WHERE division = ?")) {
             pstmt.setString(1, division);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
@@ -226,7 +226,7 @@ public class ItineraryResultController {
         Destination oldDest = destinations.get(index);
 
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM final_destinations WHERE name = ?")) {
+             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM destinationsDivisions WHERE name = ?")) {
             pstmt.setString(1, newDestName);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {

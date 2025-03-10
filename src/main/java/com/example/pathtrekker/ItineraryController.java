@@ -197,7 +197,7 @@ public class ItineraryController {
 
     private List<Destination> fetchAndScheduleDestinations(String division, int numDays) {
         List<Destination> allDestinations = new ArrayList<>();
-        String sql = "SELECT * FROM final_destinations WHERE division = ?";
+        String sql = "SELECT * FROM destinationsDivisions WHERE division = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
