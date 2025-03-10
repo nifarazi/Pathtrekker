@@ -33,6 +33,7 @@ public class ReviewCommentController extends BaseReviewController {
     public void initialize() {
         super.initialize();
         CommentArea.setFocusTraversable(FALSE);
+        CommentArea.setWrapText(true);
         ReviewBar.getItems().clear();
         ReviewBar.getItems().addAll(1, 2, 3, 4, 5);
         ReviewBar.setStyle("-fx-prompt-text-fill: #D0DED8;");

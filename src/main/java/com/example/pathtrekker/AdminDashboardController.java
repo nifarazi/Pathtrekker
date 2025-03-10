@@ -1,6 +1,7 @@
 package com.example.pathtrekker;
 
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
@@ -28,6 +29,11 @@ public class AdminDashboardController {
 
     @FXML
     public void initialize() {
+        reviewRatingsButton.setCursor(Cursor.HAND);
+        hotelsButton.setCursor(Cursor.HAND);
+        transportationButton.setCursor(Cursor.HAND);
+        localAttractionsButton.setCursor(Cursor.HAND);
+        adminMenuButton.setCursor(Cursor.HAND);
         setButtonStyle(reviewRatingsButton);
         setButtonStyle(hotelsButton);
         setButtonStyle(transportationButton);

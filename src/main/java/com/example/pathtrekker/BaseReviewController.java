@@ -89,8 +89,12 @@ public abstract class BaseReviewController {
             ratingLabel.setText(" (Rating: " + reviewCom.getRating() + " )");
             commentHbox.getChildren().addAll(usernameLabel, ratingLabel);
 
-            Label CommentLabel = new Label(reviewCom.getCommentText());
-            CommentLabel.setStyle("-fx-font-size: 15px; -fx-text-fill: #18392b;");
+            VBox cd= new VBox();
+            Text commentText = new Text();
+            commentText.setText(reviewCom.getCommentText());
+            commentText.setStyle("-fx-font-size: 15px; -fx-text-fill: #18392b;");
+            commentText.setWrappingWidth(950);
+            cd.getChildren().add(commentText);
 
             VBox replyBox = new VBox(5);
             replyBox.setSpacing(5);
@@ -116,7 +120,7 @@ public abstract class BaseReviewController {
             Button replyButton = getButton(reviewCom, replySpace);
             makeReplies.getChildren().addAll(replySpace, replyButton);
 
-            display.getChildren().addAll(commentHbox, CommentLabel, replyBox, makeReplies);
+            display.getChildren().addAll(commentHbox, cd, replyBox, makeReplies);
             CommentDisplay.getChildren().add(display);
         }
     }

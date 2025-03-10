@@ -2,6 +2,7 @@ package com.example.pathtrekker;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import java.sql.*;
@@ -23,6 +24,12 @@ public class AdminEventsController {
     @FXML
     public void initialize() {
         // Populate Division ComboBox
+        insertButton.setCursor(Cursor.HAND);
+        deleteButton.setCursor(Cursor.HAND);
+        backButton.setCursor(Cursor.HAND);
+        startDatePicker.setCursor(Cursor.HAND);
+        endDatePicker.setCursor(Cursor.HAND);
+        divisionComboBox.setCursor(Cursor.HAND);
         divisionComboBox.setItems(FXCollections.observableArrayList(
                 "Dhaka", "Chattogram", "Khulna", "Barishal", "Sylhet", "Rangpur", "Rajshahi", "Mymensingh"
         ));

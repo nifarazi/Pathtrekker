@@ -2,6 +2,7 @@ package com.example.pathtrekker;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
@@ -32,6 +33,9 @@ public class AdminHotelController {
 
     @FXML
     public void initialize() {
+        insertButton.setCursor(Cursor.HAND);
+        deleteButton.setCursor(Cursor.HAND);
+        backButton.setCursor(Cursor.HAND);
         // Populate ComboBox with values
         divisionComboBox.setItems(FXCollections.observableArrayList(
                 "Dhaka", "Chattogram", "Khulna", "Barishal", "Sylhet", "Rangpur", "Rajshahi", "Mymensingh"

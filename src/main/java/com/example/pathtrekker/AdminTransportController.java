@@ -2,6 +2,7 @@ package com.example.pathtrekker;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import java.sql.*;
@@ -21,6 +22,9 @@ public class AdminTransportController {
 
     @FXML
     public void initialize() {
+        insertButton.setCursor(Cursor.HAND);
+        deleteButton.setCursor(Cursor.HAND);
+        backButton.setCursor(Cursor.HAND);
         fromDivisionComboBox.setItems(FXCollections.observableArrayList(
                 "Dhaka", "Chattogram", "Khulna", "Barishal", "Sylhet", "Rangpur", "Rajshahi", "Mymensingh"
         ));
