@@ -124,7 +124,7 @@ public class SignUpController {
             }
 
             // ✅ Show success message
-            showSuccessAlert("Welcome", "Sign-up successful! Welcome to the Pathtrekker family.");
+            showSuccessAlert("Welcome", "Sign-up successful! Confirmation email has been sent.");
 
             // ✅ Navigate to home page
             Stage stage = (Stage) SignUpJoinNow.getScene().getWindow();

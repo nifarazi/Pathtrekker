@@ -23,6 +23,11 @@ public class MomentsController {
     @FXML
     public void initialize() {
         loadPhotos();
+
+        // Add hover and click effects to navigation buttons
+        configureButtonStyles(homeButton);
+        configureButtonStyles(uploadButton);
+        configureButtonStyles(profileButton);
     }
 
     private void loadPhotos() {
@@ -47,19 +52,21 @@ public class MomentsController {
             Label likesLabel = new Label(photo.getLikeCount() + " Likes");
             likesLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: black;");
 
+            // Like button with visual effects
             Button likeButton = new Button("Like");
-            likeButton.setStyle("-fx-background-color: #85aa9b; -fx-text-fill: white;");
+            configureButtonStyles(likeButton);
             likeButton.setOnAction(e -> {
                 MomentsJDBC.likePhoto(UploadProfileUserJDBC.getCurrentUsername(), photo.getId());
                 loadPhotos();
             });
 
+            // Comment field and button
             TextField commentField = new TextField();
             commentField.setPromptText("Add a comment...");
             commentField.setStyle("-fx-background-color: white;");
 
             Button commentButton = new Button("Comment");
-            commentButton.setStyle("-fx-background-color: #85aa9b; -fx-text-fill: white;");
+            configureButtonStyles(commentButton);
             commentButton.setOnAction(e -> {
                 MomentsJDBC.addComment(UploadProfileUserJDBC.getCurrentUsername(), photo.getId(), commentField.getText());
                 loadPhotos();
@@ -73,9 +80,27 @@ public class MomentsController {
                 commentsBox.getChildren().add(commentLabel);
             }
 
+            // Add all elements to the postBox
             postBox.getChildren().addAll(userLabel, imageView, captionLabel, likesLabel, likeButton, commentField, commentButton, commentsBox);
             feedContainer.getChildren().add(postBox);
         }
+    }
+
+    private void configureButtonStyles(Button button) {
+        // Default style
+        button.setStyle("-fx-background-color: #85aa9b; -fx-text-fill: white;");
+
+        // Hover effect
+        button.setOnMouseEntered(event -> button.setStyle("-fx-background-color: #469D89; -fx-text-fill: white;"));
+
+        // Mouse exit effect
+        button.setOnMouseExited(event -> button.setStyle("-fx-background-color: #85aa9b; -fx-text-fill: white;"));
+
+        // Button pressed effect
+        button.setOnMousePressed(event -> button.setStyle("-fx-background-color: #248977; -fx-text-fill: white;"));
+
+        // Button released effect
+        button.setOnMouseReleased(event -> button.setStyle("-fx-background-color: #469D89; -fx-text-fill: white;"));
     }
 
     @FXML

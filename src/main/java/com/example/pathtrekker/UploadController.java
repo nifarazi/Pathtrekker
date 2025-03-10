@@ -26,6 +26,14 @@ public class UploadController {
     ChangeScene cs = new ChangeScene();
 
     @FXML
+    public void initialize() {
+        // Apply styles and hover effects on buttons
+        configureButtonStyles(homeButton);
+        configureButtonStyles(selectImageButton);
+        configureButtonStyles(uploadButton);
+    }
+
+    @FXML
     private void selectImage() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg"));
@@ -100,5 +108,22 @@ public class UploadController {
         selectedFile = null;
         imagePreview.setImage(null);
         captionField.clear();
+    }
+
+    private void configureButtonStyles(Button button) {
+        // Default style
+        button.setStyle("-fx-background-color: #85aa9b; -fx-text-fill: white;");
+
+        // Hover effect
+        button.setOnMouseEntered(event -> button.setStyle("-fx-background-color: #469D89; -fx-text-fill: white;"));
+
+        // Mouse exit effect
+        button.setOnMouseExited(event -> button.setStyle("-fx-background-color: #85aa9b; -fx-text-fill: white;"));
+
+        // Button pressed effect
+        button.setOnMousePressed(event -> button.setStyle("-fx-background-color: #248977; -fx-text-fill: white;"));
+
+        // Button released effect
+        button.setOnMouseReleased(event -> button.setStyle("-fx-background-color: #469D89; -fx-text-fill: white;"));
     }
 }
