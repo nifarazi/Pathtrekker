@@ -19,12 +19,12 @@ import java.util.Map;
 
 public class HotelApp extends Application {
     private Stage primaryStage;
-    private ComboBox<String> divisionComboBox; // Changed from TextField to ComboBox
-    private ComboBox<String> districtComboBox; // Changed from TextField to ComboBox
+    private ComboBox<String> divisionComboBox;
+    private ComboBox<String> districtComboBox;
     private DatePicker checkInDate, checkOutDate;
     private Spinner<Integer> adultsSpinner, childrenSpinner, roomsSpinner;
     private ComboBox<String> budgetComboBox;
-    private Map<String, String[]> divisionToDistricts; // Map to store divisions and their districts
+    private Map<String, String[]> divisionToDistricts;
 
     @Override
     public void start(Stage primaryStage) {
@@ -33,7 +33,7 @@ public class HotelApp extends Application {
     }
 
     public void showHotelInputPage(Stage primaryStage) {
-        // Background setup
+
         Image backgroundImage = new Image(getClass().getResourceAsStream("/HOTEL.png"));
         BackgroundImage background = new BackgroundImage(backgroundImage,
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
@@ -43,37 +43,35 @@ public class HotelApp extends Application {
         stackPane.setBackground(new Background(background));
         stackPane.setPadding(new Insets(40));
 
-        // Fonts
+
         Font labelFont = Font.font("Arial", FontWeight.EXTRA_BOLD, 22);
         Font inputFont = Font.font("Arial", FontWeight.NORMAL, 16);
         Font buttonFont = Font.font("Arial", FontWeight.NORMAL, 16);
 
-        // Grid for input fields
+
         GridPane grid = new GridPane();
         grid.setVgap(15);
         grid.setHgap(30);
         grid.setAlignment(Pos.CENTER);
 
-        // Initialize division to district mapping
         initializeDivisionDistricts();
 
-        // Division ComboBox
+
         divisionComboBox = new ComboBox<>();
         divisionComboBox.getItems().addAll("Dhaka", "Chattogram", "Rajshahi", "Khulna", "Barishal", "Sylhet", "Rangpur", "Mymensingh");
         divisionComboBox.setPromptText("Select Division");
         divisionComboBox.setPrefSize(200, 30);
         divisionComboBox.setStyle("-fx-font: 16px 'Arial';");
 
-        // District ComboBox
+
         districtComboBox = new ComboBox<>();
         districtComboBox.setPromptText("Select District");
         districtComboBox.setPrefSize(200, 30);
         districtComboBox.setStyle("-fx-font: 16px 'Arial';");
 
-        // Update district options when division is selected
         divisionComboBox.setOnAction(e -> updateDistricts());
 
-        // Other input fields
+
         checkInDate = new DatePicker();
         checkInDate.setPrefSize(200, 30);
 
@@ -94,7 +92,7 @@ public class HotelApp extends Application {
         budgetComboBox.setValue("Mid");
         budgetComboBox.setPrefSize(200, 30);
 
-        // Buttons setup
+
         Button submitButton = new Button("Search");
         submitButton.setFont(buttonFont);
         submitButton.setPrefSize(100, 20);
@@ -105,12 +103,11 @@ public class HotelApp extends Application {
         homeButton.setPrefSize(100, 20);
         homeButton.setOnAction(e -> loadHomeScene());
 
-        // VBox for buttons
         VBox buttonBox = new VBox(10);
         buttonBox.setAlignment(Pos.CENTER);
         buttonBox.getChildren().addAll(submitButton, homeButton);
 
-        // Grid layout
+
         Label divisionLabel = new Label("Division:");
         divisionLabel.setFont(labelFont);
         grid.add(divisionLabel, 0, 0);
@@ -151,11 +148,11 @@ public class HotelApp extends Application {
         grid.add(budgetLabel, 2, 3);
         grid.add(budgetComboBox, 3, 3);
 
-        // Position the grid and buttons
+
         StackPane.setAlignment(grid, Pos.CENTER);
         VBox buttonContainer = new VBox(buttonBox);
         StackPane.setAlignment(buttonContainer, Pos.CENTER);
-        StackPane.setMargin(buttonContainer, new Insets(576, 0, 0, 0)); // Previous position maintained
+        StackPane.setMargin(buttonContainer, new Insets(576, 0, 0, 0));
 
         stackPane.getChildren().addAll(grid, buttonContainer);
 
@@ -164,7 +161,6 @@ public class HotelApp extends Application {
         primaryStage.show();
     }
 
-    // Initialize division to district mapping
     private void initializeDivisionDistricts() {
         divisionToDistricts = new HashMap<>();
         divisionToDistricts.put("Dhaka", new String[]{"Dhaka", "Faridpur", "Gazipur", "Gopalganj", "Kishoreganj", "Madaripur", "Manikganj", "Munshiganj", "Narayanganj", "Narsingdi", "Rajbari", "Shariatpur", "Tangail"});
@@ -177,7 +173,7 @@ public class HotelApp extends Application {
         divisionToDistricts.put("Mymensingh", new String[]{"Jamalpur", "Mymensingh", "Netrokona", "Sherpur"});
     }
 
-    // Update district ComboBox based on selected division
+
     private void updateDistricts() {
         districtComboBox.getItems().clear();
         String selectedDivision = divisionComboBox.getValue();
@@ -189,7 +185,7 @@ public class HotelApp extends Application {
         }
     }
 
-    // Handle search button click with error checking
+
     private void handleSearch() {
         StringBuilder errorMessage = new StringBuilder("Please fill in the following fields:\n");
         boolean hasError = false;

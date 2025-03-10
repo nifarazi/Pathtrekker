@@ -23,33 +23,30 @@ public class HotelResultsPage {
         HotelService hotelService = new HotelService();
         List<String> hotelList = hotelService.getHotels(division, budget, roomsRequired);
 
-        // Create BorderPane for layout
+
         BorderPane root = new BorderPane();
 
-        // Load background image with better fit
         try {
             Image backgroundImage = new Image(getClass().getResourceAsStream("/hotelssuggestion.png"));
             BackgroundImage background = new BackgroundImage(
                     backgroundImage,
                     BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
                     BackgroundPosition.CENTER,
-                    new BackgroundSize(1080, 768, false, false, true, false) // More precise fit
+                    new BackgroundSize(1080, 768, false, false, true, false)
             );
             root.setBackground(new Background(background));
         } catch (Exception e) {
             System.err.println("Error loading background: " + e.getMessage());
         }
 
-        // GridPane to arrange hotel results evenly
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setHgap(30);
         gridPane.setVgap(20);
         gridPane.setPadding(new Insets(50, 50, 50, 50));
 
-        // Display hotel results in a grid format
         int row = 0, col = 0;
-        int maxCols = 2; // Number of columns
+        int maxCols = 2;
 
         if (hotelList.isEmpty()) {
             Label noResults = new Label("No hotels available for your search criteria.");
@@ -65,14 +62,13 @@ public class HotelResultsPage {
                 gridPane.add(hotelLabel, col, row);
                 col++;
 
-                if (col >= maxCols) { // Move to next row after maxCols
+                if (col >= maxCols) {
                     col = 0;
                     row++;
                 }
             }
         }
 
-        // Buttons
         HBox buttonBox = new HBox(20);
         buttonBox.setAlignment(Pos.CENTER);
         buttonBox.setPadding(new Insets(20, 0, 20, 0));
@@ -87,11 +83,11 @@ public class HotelResultsPage {
 
         buttonBox.getChildren().addAll(homeButton, homeControllerButton);
 
-        // Set layout positions
+
         root.setCenter(gridPane);
         root.setBottom(buttonBox);
 
-        // Scene setup with a better fit
+
         Scene resultScene = new Scene(root, 1080, 768);
         primaryStage.setScene(resultScene);
         primaryStage.show();
