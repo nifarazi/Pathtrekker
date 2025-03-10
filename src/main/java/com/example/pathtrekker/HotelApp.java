@@ -33,7 +33,6 @@ public class HotelApp extends Application {
     }
 
     public void showHotelInputPage(Stage primaryStage) {
-
         Image backgroundImage = new Image(getClass().getResourceAsStream("/HOTEL.png"));
         BackgroundImage background = new BackgroundImage(backgroundImage,
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
@@ -43,11 +42,9 @@ public class HotelApp extends Application {
         stackPane.setBackground(new Background(background));
         stackPane.setPadding(new Insets(40));
 
-
         Font labelFont = Font.font("Arial", FontWeight.EXTRA_BOLD, 22);
         Font inputFont = Font.font("Arial", FontWeight.NORMAL, 16);
         Font buttonFont = Font.font("Arial", FontWeight.NORMAL, 16);
-
 
         GridPane grid = new GridPane();
         grid.setVgap(15);
@@ -56,13 +53,11 @@ public class HotelApp extends Application {
 
         initializeDivisionDistricts();
 
-
         divisionComboBox = new ComboBox<>();
         divisionComboBox.getItems().addAll("Dhaka", "Chattogram", "Rajshahi", "Khulna", "Barishal", "Sylhet", "Rangpur", "Mymensingh");
         divisionComboBox.setPromptText("Select Division");
         divisionComboBox.setPrefSize(200, 30);
         divisionComboBox.setStyle("-fx-font: 16px 'Arial';");
-
 
         districtComboBox = new ComboBox<>();
         districtComboBox.setPromptText("Select District");
@@ -70,7 +65,6 @@ public class HotelApp extends Application {
         districtComboBox.setStyle("-fx-font: 16px 'Arial';");
 
         divisionComboBox.setOnAction(e -> updateDistricts());
-
 
         checkInDate = new DatePicker();
         checkInDate.setPrefSize(200, 30);
@@ -92,22 +86,25 @@ public class HotelApp extends Application {
         budgetComboBox.setValue("Mid");
         budgetComboBox.setPrefSize(200, 30);
 
-
+        // Search Button with interactive styles
         Button submitButton = new Button("Search");
         submitButton.setFont(buttonFont);
         submitButton.setPrefSize(100, 20);
+        configureButtonStyles(submitButton); // Apply interactive styles
         submitButton.setOnAction(e -> handleSearch());
 
+        // Home Button (optional: you can apply styles here too if desired)
         Button homeButton = new Button("Home");
         homeButton.setFont(buttonFont);
         homeButton.setPrefSize(100, 20);
+        configureButtonStyles(homeButton); // Optionally apply to Home button as well
         homeButton.setOnAction(e -> loadHomeScene());
 
         VBox buttonBox = new VBox(10);
         buttonBox.setAlignment(Pos.CENTER);
         buttonBox.getChildren().addAll(submitButton, homeButton);
 
-
+        // GridPane setup remains the same...
         Label divisionLabel = new Label("Division:");
         divisionLabel.setFont(labelFont);
         grid.add(divisionLabel, 0, 0);
@@ -148,7 +145,6 @@ public class HotelApp extends Application {
         grid.add(budgetLabel, 2, 3);
         grid.add(budgetComboBox, 3, 3);
 
-
         StackPane.setAlignment(grid, Pos.CENTER);
         VBox buttonContainer = new VBox(buttonBox);
         StackPane.setAlignment(buttonContainer, Pos.CENTER);
@@ -161,6 +157,25 @@ public class HotelApp extends Application {
         primaryStage.show();
     }
 
+    // Method to configure interactive button styles
+    private void configureButtonStyles(Button button) {
+        // Default style
+        button.setStyle("-fx-background-color: #85aa9b; -fx-text-fill: white;");
+
+        // Hover effect
+        button.setOnMouseEntered(event -> button.setStyle("-fx-background-color: #469D89; -fx-text-fill: white;"));
+
+        // Mouse exit effect
+        button.setOnMouseExited(event -> button.setStyle("-fx-background-color: #85aa9b; -fx-text-fill: white;"));
+
+        // Button pressed effect
+        button.setOnMousePressed(event -> button.setStyle("-fx-background-color: #248977; -fx-text-fill: white;"));
+
+        // Button released effect
+        button.setOnMouseReleased(event -> button.setStyle("-fx-background-color: #469D89; -fx-text-fill: white;"));
+    }
+
+    // Rest of the methods remain unchanged...
     private void initializeDivisionDistricts() {
         divisionToDistricts = new HashMap<>();
         divisionToDistricts.put("Dhaka", new String[]{"Dhaka", "Faridpur", "Gazipur", "Gopalganj", "Kishoreganj", "Madaripur", "Manikganj", "Munshiganj", "Narayanganj", "Narsingdi", "Rajbari", "Shariatpur", "Tangail"});
@@ -173,7 +188,6 @@ public class HotelApp extends Application {
         divisionToDistricts.put("Mymensingh", new String[]{"Jamalpur", "Mymensingh", "Netrokona", "Sherpur"});
     }
 
-
     private void updateDistricts() {
         districtComboBox.getItems().clear();
         String selectedDivision = divisionComboBox.getValue();
@@ -184,7 +198,6 @@ public class HotelApp extends Application {
             districtComboBox.setPromptText("Select a Division First");
         }
     }
-
 
     private void handleSearch() {
         StringBuilder errorMessage = new StringBuilder("Please fill in the following fields:\n");

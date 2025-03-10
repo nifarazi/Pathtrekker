@@ -23,7 +23,6 @@ public class HotelResultsPage {
         HotelService hotelService = new HotelService();
         List<String> hotelList = hotelService.getHotels(division, budget, roomsRequired);
 
-
         BorderPane root = new BorderPane();
 
         try {
@@ -73,23 +72,43 @@ public class HotelResultsPage {
         buttonBox.setAlignment(Pos.CENTER);
         buttonBox.setPadding(new Insets(20, 0, 20, 0));
 
+        // Back to Search Button with interactive styles
         Button homeButton = new Button("Back to Search");
-        homeButton.setStyle("-fx-font-weight: bold; -fx-background-color: #ffffff; -fx-text-fill: black; -fx-padding: 8 20;");
+        homeButton.setStyle("-fx-font-weight: bold; -fx-background-color: #85aa9b; -fx-text-fill: white; -fx-padding: 8 20;");
+        configureButtonStyles(homeButton); // Apply interactive styles
         homeButton.setOnAction(e -> hotelApp.showHotelInputPage(primaryStage));
 
+        // Home Page Button with interactive styles
         Button homeControllerButton = new Button("Home Page");
-        homeControllerButton.setStyle("-fx-font-weight: bold; -fx-background-color: #ffffff; -fx-text-fill: black; -fx-padding: 8 20;");
+        homeControllerButton.setStyle("-fx-font-weight: bold; -fx-background-color: #85aa9b; -fx-text-fill: white; -fx-padding: 8 20;");
+        configureButtonStyles(homeControllerButton); // Apply interactive styles
         homeControllerButton.setOnAction(e -> hotelApp.loadHomeScene());
 
         buttonBox.getChildren().addAll(homeButton, homeControllerButton);
 
-
         root.setCenter(gridPane);
         root.setBottom(buttonBox);
-
 
         Scene resultScene = new Scene(root, 1080, 768);
         primaryStage.setScene(resultScene);
         primaryStage.show();
+    }
+
+    // Method to configure interactive button styles
+    private void configureButtonStyles(Button button) {
+        // Default style (already set in button creation, but reinforced here)
+        button.setStyle("-fx-background-color: #85aa9b; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20;");
+
+        // Hover effect
+        button.setOnMouseEntered(event -> button.setStyle("-fx-background-color: #469D89; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20;"));
+
+        // Mouse exit effect
+        button.setOnMouseExited(event -> button.setStyle("-fx-background-color: #85aa9b; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20;"));
+
+        // Button pressed effect
+        button.setOnMousePressed(event -> button.setStyle("-fx-background-color: #248977; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20;"));
+
+        // Button released effect
+        button.setOnMouseReleased(event -> button.setStyle("-fx-background-color: #469D89; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20;"));
     }
 }

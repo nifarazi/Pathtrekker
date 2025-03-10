@@ -51,7 +51,6 @@ public class TransportationSystem {
 
         fromComboBox = new ComboBox<>();
         toComboBox = new ComboBox<>();
-        // Updated "Chittagong" to "Chattogram" to match database
         String[] divisions = {"Dhaka", "Chattogram", "Rajshahi", "Khulna",
                 "Barisal", "Sylhet", "Rangpur", "Mymensingh"};
         fromComboBox.getItems().addAll(divisions);
@@ -76,7 +75,8 @@ public class TransportationSystem {
 
     private Button createShowTripsButton(Stage stage) {
         Button btn = new Button("SHOW TRIPS");
-        btn.setStyle("-fx-font-weight: bold; -fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 8 20;");
+        btn.setStyle("-fx-font-weight: bold; -fx-background-color: #85aa9b; -fx-text-fill: white; -fx-padding: 8 20;");
+        configureButtonStyles(btn); // Apply interactive styles
         btn.setOnAction(e -> {
             if (fromComboBox.getValue() == null || toComboBox.getValue() == null ||
                     datePicker.getValue() == null || seatsComboBox.getValue() == null) {
@@ -94,7 +94,8 @@ public class TransportationSystem {
 
     private Button createHomeButton(Stage stage) {
         Button homeBtn = new Button("Home");
-        homeBtn.setStyle("-fx-font-weight: bold; -fx-background-color: #27ae60; -fx-text-fill: white; -fx-padding: 8 20;");
+        homeBtn.setStyle("-fx-font-weight: bold; -fx-background-color: #85aa9b; -fx-text-fill: white; -fx-padding: 8 20;");
+        configureButtonStyles(homeBtn); // Apply interactive styles
         homeBtn.setOnAction(e -> handleBack(stage));
         return homeBtn;
     }
@@ -125,7 +126,8 @@ public class TransportationSystem {
         fetchTransportData(resultGrid, from, to);
 
         Button backBtn = new Button("Back");
-        backBtn.setStyle("-fx-background-color: #18392B; -fx-text-fill: #90CAB3; -fx-font-family: 'Montserrat'; -fx-font-size: 20;");
+        backBtn.setStyle("-fx-font-weight: bold; -fx-background-color: #85aa9b; -fx-text-fill: white; -fx-padding: 8 20;");
+        configureButtonStyles(backBtn); // Apply interactive styles
         backBtn.setOnAction(e -> stage.setScene(createTransportScene(stage)));
 
         Button homeBtn = createHomeButton(stage);
@@ -205,5 +207,23 @@ public class TransportationSystem {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    // Method to configure interactive button styles
+    private void configureButtonStyles(Button button) {
+        // Default style (reinforced here)
+        button.setStyle("-fx-background-color: #85aa9b; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20;");
+
+        // Hover effect
+        button.setOnMouseEntered(event -> button.setStyle("-fx-background-color: #469D89; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20;"));
+
+        // Mouse exit effect
+        button.setOnMouseExited(event -> button.setStyle("-fx-background-color: #85aa9b; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20;"));
+
+        // Button pressed effect
+        button.setOnMousePressed(event -> button.setStyle("-fx-background-color: #248977; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20;"));
+
+        // Button released effect
+        button.setOnMouseReleased(event -> button.setStyle("-fx-background-color: #469D89; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20;"));
     }
 }
