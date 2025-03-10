@@ -28,6 +28,9 @@ public class UserProfileController {
 
     @FXML
     public void initialize() {
+        // Configure button styles
+        configureButtonStyles(backToMomentsButton);
+
         String username = UploadProfileUserJDBC.getCurrentUsername();
         usernameLabel.setText(username);
         loadUserPhotos(username);
@@ -73,5 +76,22 @@ public class UserProfileController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void configureButtonStyles(Button button) {
+        // Default style
+        button.setStyle("-fx-background-color: #85aa9b; -fx-text-fill: white;");
+
+        // Hover effect
+        button.setOnMouseEntered(event -> button.setStyle("-fx-background-color: #469D89; -fx-text-fill: white;"));
+
+        // Mouse exit effect (revert to default style)
+        button.setOnMouseExited(event -> button.setStyle("-fx-background-color: #85aa9b; -fx-text-fill: white;"));
+
+        // Button pressed effect (darker)
+        button.setOnMousePressed(event -> button.setStyle("-fx-background-color: #248977; -fx-text-fill: white;"));
+
+        // Button released effect (revert to hover style)
+        button.setOnMouseReleased(event -> button.setStyle("-fx-background-color: #469D89; -fx-text-fill: white;"));
     }
 }

@@ -33,9 +33,16 @@ public class AdminHotelController {
 
     @FXML
     public void initialize() {
+        // Apply styles and hover effects to buttons
+        configureButtonStyles(insertButton);
+        configureButtonStyles(deleteButton);
+        configureButtonStyles(backButton);
+
+        // Set cursor to hand pointer for buttons
         insertButton.setCursor(Cursor.HAND);
         deleteButton.setCursor(Cursor.HAND);
         backButton.setCursor(Cursor.HAND);
+
         // Populate ComboBox with values
         divisionComboBox.setItems(FXCollections.observableArrayList(
                 "Dhaka", "Chattogram", "Khulna", "Barishal", "Sylhet", "Rangpur", "Rajshahi", "Mymensingh"
@@ -152,6 +159,23 @@ public class AdminHotelController {
         } catch (IOException e) {
             showAlert("Error", "Failed to return to the Admin Dashboard.\n" + e.getMessage());
         }
+    }
+
+    private void configureButtonStyles(Button button) {
+        // Default style
+        button.setStyle("-fx-background-color: #18392b; -fx-text-fill: white;");
+
+        // Hover effect
+        button.setOnMouseEntered(event -> button.setStyle("-fx-background-color: #12291f; -fx-text-fill: white;"));
+
+        // Mouse exit effect (revert to default style)
+        button.setOnMouseExited(event -> button.setStyle("-fx-background-color: #18392b; -fx-text-fill: white;"));
+
+        // Button pressed effect (darker)
+        button.setOnMousePressed(event -> button.setStyle("-fx-background-color: #0d1e16; -fx-text-fill: white;"));
+
+        // Button released effect (revert to hover style)
+        button.setOnMouseReleased(event -> button.setStyle("-fx-background-color: #12291f; -fx-text-fill: white;"));
     }
 
     private void showAlert(String title, String message) {
