@@ -14,10 +14,13 @@ import java.io.IOException;
 public class SignInController {
 
     ChangeScene change = new ChangeScene();
+
     @FXML
     public ImageView EyeClose;
+
     @FXML
     public ImageView EyeOpen;
+
     @FXML
     public TextField ShowPass;
 
@@ -33,12 +36,54 @@ public class SignInController {
     @FXML
     private TextField SignInUsername;
 
+    /**
+     * Initializes the controller and applies dynamic styles to buttons.
+     */
+    @FXML
+    public void initialize() {
+        // Apply dynamic styles to the buttons
+        setButtonStyle(SignIn);
+        setButtonStyle(SignInCancel);
+    }
+
+    /**
+     * Dynamically sets button styles for hover and click effects.
+     */
+    private void setButtonStyle(Button button) {
+        // Default appearance
+        button.setStyle("-fx-background-color: #0B5638; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-font-weight: bold;");
+
+        // On hover - slightly darker
+        button.setOnMouseEntered(event -> button.setStyle("-fx-background-color: #083f29; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-font-weight: bold;"));
+
+        // On hover exit - reset to default
+        button.setOnMouseExited(event -> button.setStyle("-fx-background-color: #0B5638; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-font-weight: bold;"));
+
+        // On click - even darker
+        button.setOnMousePressed(event -> button.setStyle("-fx-background-color: #05291b; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-font-weight: bold;"));
+
+        // On release - back to hover if still hovering, otherwise default
+        button.setOnMouseReleased(event -> {
+            if (button.isHover()) {
+                button.setStyle("-fx-background-color: #083f29; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-font-weight: bold;");
+            } else {
+                button.setStyle("-fx-background-color: #0B5638; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-font-weight: bold;");
+            }
+        });
+    }
+
+    /**
+     * Handles the cancel action to navigate back to the opening page.
+     */
     @FXML
     void BackAction(MouseEvent event) throws IOException {
         Stage stage = (Stage) SignInCancel.getScene().getWindow();
         change.changeScene(stage, "OpeningPage.fxml");
     }
 
+    /**
+     * Handles the sign-in functionality by validating the login credentials.
+     */
     @FXML
     void SignInAction(MouseEvent event) throws IOException {
         String username = SignInUsername.getText().trim(); // Trim to remove leading/trailing spaces
@@ -73,6 +118,9 @@ public class SignInController {
 
     }
 
+    /**
+     * Toggles password hiding.
+     */
     @FXML
     public void PassHideAction(MouseEvent mouseEvent) {
         EyeClose.setVisible(true);
@@ -81,6 +129,10 @@ public class SignInController {
         ShowPass.setVisible(false);
         SignInPassword.setVisible(true);
     }
+
+    /**
+     * Toggles password visibility.
+     */
     @FXML
     public void PassShowAction(MouseEvent mouseEvent) {
         EyeClose.setVisible(false);

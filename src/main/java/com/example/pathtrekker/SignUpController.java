@@ -43,6 +43,37 @@ public class SignUpController {
     @FXML
     private TextField SignUpUsername;
 
+    @FXML
+    public void initialize() {
+        // Apply styles to buttons
+        setButtonStyle(SignUpCancel);
+        setButtonStyle(SignUpJoinNow);
+    }
+
+    private void setButtonStyle(Button button) {
+        // Default appearance
+        button.setStyle("-fx-background-color: #205A7A; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-font-weight: bold;");
+
+        // On hover - slightly darker
+        button.setOnMouseEntered(event -> button.setStyle("-fx-background-color: #1b4b66; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-font-weight: bold;"));
+
+        // On hover exit - reset to default
+        button.setOnMouseExited(event -> button.setStyle("-fx-background-color: #205A7A; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-font-weight: bold;"));
+
+        // On click - even darker
+        button.setOnMousePressed(event -> button.setStyle("-fx-background-color: #153c52; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-font-weight: bold;"));
+
+        // On release - back to hover if still hovering, otherwise default
+        button.setOnMouseReleased(event -> {
+            if (button.isHover()) {
+                button.setStyle("-fx-background-color: #1b4b66; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-font-weight: bold;");
+            } else {
+                button.setStyle("-fx-background-color: #205A7A; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-font-weight: bold;");
+            }
+        });
+    }
+
+
     /**
      * Handles the Cancel action. Returns to the opening page.
      */
