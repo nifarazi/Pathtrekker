@@ -10,10 +10,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Hyperlink;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -110,11 +113,23 @@ public class DestinationBarishalController implements Initializable {
                 Label openingTime = new Label("Opening Time: " + rs.getString("opening_time"));
                 Label closingTime = new Label("Closing Time: " + rs.getString("closing_time"));
 
+                // Add Wikipedia link
+                String wikipediaLink = rs.getString("wikipedia_link");
+                Hyperlink wikiLink = new Hyperlink("Wikipedia: " + wikipediaLink);
+                wikiLink.setStyle("-fx-font-size: 16px; -fx-text-fill: #0077cc;");
+                wikiLink.setOnAction(event -> {
+                    try {
+                        java.awt.Desktop.getDesktop().browse(new URI(wikipediaLink));
+                    } catch (IOException | URISyntaxException e) {
+                        System.err.println("Error opening Wikipedia link: " + e.getMessage());
+                    }
+                });
+
                 for (Label label : new Label[]{weather, cuisine, transport, openingTime, closingTime}) {
                     label.setStyle("-fx-font-size: 16px; -fx-text-fill: #444;");
                 }
 
-                infoBox.getChildren().addAll(name, descTitle, descriptionBox, weather, cuisine, transport, openingTime, closingTime);
+                infoBox.getChildren().addAll(name, descTitle, descriptionBox, weather, cuisine, transport, openingTime, closingTime, wikiLink);
 
                 // Horizontal Box (Image + Info)
                 HBox hbox = new HBox(15, imageView, infoBox);
