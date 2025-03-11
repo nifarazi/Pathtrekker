@@ -115,19 +115,19 @@ public class HomeController implements Initializable {
             button.setPrefHeight(height);
 
             // Default style
-            button.setStyle("-fx-background-color: #85aa9b; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 5 15; -fx-background-radius: 10px;");
+            button.setStyle("-fx-background-color: #18392B; -fx-text-fill: #90CAB3; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 5 15; -fx-background-radius: 10px;");
 
             // Hover effect
-            button.setOnMouseEntered(event -> button.setStyle("-fx-background-color: #469D89; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 5 15; -fx-background-radius: 10px;"));
+            button.setOnMouseEntered(event -> button.setStyle("-fx-background-color: #2A5C43; -fx-text-fill: #90CAB3; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 5 15; -fx-background-radius: 10px;"));
 
-            // Mouse exit effect
-            button.setOnMouseExited(event -> button.setStyle("-fx-background-color: #85aa9b; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 5 15; -fx-background-radius: 10px;"));
+            // Mouse exit effect (revert to default)
+            button.setOnMouseExited(event -> button.setStyle("-fx-background-color: #18392B; -fx-text-fill: #90CAB3; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 5 15; -fx-background-radius: 10px;"));
 
             // Button pressed effect
-            button.setOnMousePressed(event -> button.setStyle("-fx-background-color: #248977; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 5 15; -fx-background-radius: 10px;"));
+            button.setOnMousePressed(event -> button.setStyle("-fx-background-color: #10261D; -fx-text-fill: #90CAB3; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 5 15; -fx-background-radius: 10px;"));
 
-            // Button released effect
-            button.setOnMouseReleased(event -> button.setStyle("-fx-background-color: #469D89; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 5 15; -fx-background-radius: 10px;"));
+            // Button released effect (revert to default)
+            button.setOnMouseReleased(event -> button.setStyle("-fx-background-color: #18392B; -fx-text-fill: #90CAB3; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 5 15; -fx-background-radius: 10px;"));
         }
     }
 }
