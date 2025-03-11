@@ -61,8 +61,9 @@ public class MapController {
             Message.setText("Error fetching coordinates.");
             return;
         } else {
-            Message.setText("Generated Successfully! Distance: " + String.format("%.2f km", distance));
+            Message.setText("Generated Successfully!");
         }
+//        Distance: " + String.format("%.2f km", distance)
 
         showMap(loc1Input, loc2Input);
     }

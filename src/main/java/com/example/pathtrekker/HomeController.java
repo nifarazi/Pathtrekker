@@ -2,6 +2,7 @@ package com.example.pathtrekker;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.Scene;
@@ -97,7 +98,6 @@ public class HomeController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         String username = ProfileUserJDBC.getCurrentUsername();
         UsernameSpace.setText(username);
-
         // Apply styles to all buttons with specified width and height
         configureButtonStyles(Transport, 442, 39);
         configureButtonStyles(Destination, 372, 20);
