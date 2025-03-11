@@ -1185,3 +1185,159 @@ CREATE TABLE IF NOT EXISTS saved_itineraries (
 );
 
  SELECT * FROM saved_itineraries;
+
+
+
+
+
+ALTER TABLE destinationsDivisions
+ADD COLUMN wikipedia_link VARCHAR(255);
+
+SET SQL_SAFE_UPDATES = 0;
+
+-- Dhaka Division
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Ahsan_Manzil' WHERE name = 'Ahsan Manzil';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Lalbagh_Fort' WHERE name = 'Lalbagh Fort';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/National_Museum_of_Bangladesh' WHERE name = 'National Museum';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Sonargaon' WHERE name = 'Sonargaon';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Panam_City' WHERE name = 'Panam City';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Shahid_Minar' WHERE name = 'Shahid Minar';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Baitul_Mukarram' WHERE name = 'Baitul Mukarram Mosque';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Old_Dhaka' WHERE name = 'Puran Dhaka';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Jatiyo_Sangsad_Bhaban' WHERE name = 'Jatiyo Sangsad Bhaban';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Ramna_Park' WHERE name = 'Ramna Park';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Zinda_Park' WHERE name = 'Zinda Park';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Mana_Bay_Water_Park' WHERE name = 'Mana Bay Water Park';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Bangladesh_Liberation_War_Museum' WHERE name = 'Bangladesh Liberation War Museum';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Zia_Memorial_Museum' WHERE name = 'Zia Memorial Museum';
+
+-- Chattogram Division
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Patenga_Beach' WHERE name = 'Patenga Beach';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Kaptai_Lake' WHERE name = 'Kaptai Lake';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Foy%27s_Lake' WHERE name = 'Foy’s Lake';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Inani_Beach' WHERE name = 'Inani Beach';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Marine_Drive,_Chattogram' WHERE name = 'Marine Drive';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Nilgiri,_Bangladesh' WHERE name = 'Nilgiri';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Nilachal' WHERE name = 'Nilachal';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Himchari' WHERE name = 'Himchari';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/100_Feet_Buddha' WHERE name = '100 Feet Buddha';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Sajek_Valley' WHERE name = 'Sajek';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Cox%27s_Bazar' WHERE name = 'Cox’s Bazar';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Saint_Martin%27s_Island' WHERE name = 'Saint Martin’s Island';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Karnaphuli_River' WHERE name = 'Karnaphuli River';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Bandarban_District' WHERE name = 'Bandarban';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Patiya_Upazila' WHERE name = 'Patiya';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Lohagara_Upazila,_Chattogram' WHERE name = 'Lohagara';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Kaptai_National_Park' WHERE name = 'Kaptai National Park';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Pahartali' WHERE name = 'Pahartali';
+
+-- Rajshahi Division
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Puthia_Temple_Complex' WHERE name = 'Puthia Temple Complex';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Varendra_Research_Museum' WHERE name = 'Varendra Research Museum';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/University_of_Rajshahi' WHERE name = 'Rajshahi University';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Bogra_District' WHERE name = 'Bogra';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Mahasthangarh' WHERE name = 'Mahasthangarh';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Shah_Makhdum_Mazar' WHERE name = 'Shah Makhdum Mazar';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Godagari_Upazila' WHERE name = 'Godagari';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Naogaon_District' WHERE name = 'Naogaon';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Bagha_Mosque' WHERE name = 'Bagha Mosque';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Choto_Sona_Mosque' WHERE name = 'Choto Sona Mosque';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Ramsagar_National_Park' WHERE name = 'Ramsagar National Park';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Bogra_Fort' WHERE name = 'Bogra Fort';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Chalan_Beel' WHERE name = 'Chalan Beel';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Bonpara' WHERE name = 'Bonpara';
+
+-- Khulna Division
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Sundarbans' WHERE name = 'Sundarbans';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Shat_Gombuj_Mosque' WHERE name = 'Shat Gombuj Mosque';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Bagerhat_Museum' WHERE name = 'Bagerhat Museum';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Karamjal_Eco-Tourism_Center' WHERE name = 'Karamjal Eco-Tourism Center';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Rupsha_Bridge' WHERE name = 'Rupsha Bridge';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Mongla_Port' WHERE name = 'Mongla Port';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Riverside_Park' WHERE name = 'Riverside Park';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Jess_Garden_Park' WHERE name = 'Jess Garden Park';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Shilaidaha_Kuthibari' WHERE name = 'Shilaidaha Kuthibari';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Bagerhat_Shahi_Mosque' WHERE name = 'Bagerhat Shahi Mosque';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Khulna_City_Park' WHERE name = 'Khulna City Park';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Sundarbans_Reserve_Forest' WHERE name = 'Sundarbans Reserve Forest';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Shibganj_River' WHERE name = 'Shibganj River';
+
+-- Barishal Division
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Fatrar_Char' WHERE name = 'Fatrar Char';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Allepalli_Mosque' WHERE name = 'Allepalli Mosque';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Guava_Market' WHERE name = 'Guava Market';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Lebur_Char' WHERE name = 'Lebur Char';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Jhau_Forest' WHERE name = 'Jhau Forest';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Kuakata' WHERE name = 'Kuakata';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Durgasagar' WHERE name = 'Durgasagar';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Shonar_Char' WHERE name = 'Shonar Char';
+
+-- Sylhet Division
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Ratargul_Swamp_Forest' WHERE name = 'Ratargul Swamp Forest';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Jaflong' WHERE name = 'Jaflong';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Madhabkunda_Waterfall' WHERE name = 'Madhabkunda Waterfall';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Lawachara_National_Park' WHERE name = 'Lawachara National Park';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Shahjalal_University_of_Science_and_Technology' WHERE name = 'Shahjalal University of Science and Technology (SUST)';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Shahjalal_University_Mosque' WHERE name = 'Shahjalal University Mosque';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Jadukata_River' WHERE name = 'Jadukata River';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Srimangal' WHERE name = 'Srimangal Tea Gardens';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Tanguar_Haor' WHERE name = 'Tanguar Haor';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Moulvibazar_District' WHERE name = 'Moulvibazar';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Shah_Paran_Mazar_Sharif' WHERE name = 'Shah Paran Mazar Sharif';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Bichanakandi' WHERE name = 'Bichanakandi';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Dawki' WHERE name = 'Dawki';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Rustompur_Lake' WHERE name = 'Rustompur Lake';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Khasia_Village' WHERE name = 'Khasia Village';
+
+-- Rangpur Division
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Tajhat_Palace' WHERE name = 'Tajhat Palace';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Ramsagar_National_Park' WHERE name = 'Ramsagar National Park';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Kantajew_Temple' WHERE name = 'Kantajew Temple';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Pirgachha_Shahi_Mosque' WHERE name = 'Pirgachha Shahi Mosque';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Kurigram_District' WHERE name = 'Kurigram';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Gojira_Dighi' WHERE name = 'Gojira Dighi';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Baliadangi' WHERE name = 'Baliadangi';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Teesta_Barrage' WHERE name = 'Teesta Barrage';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Natore_Rajbari' WHERE name = 'Natore Rajbari';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Brahmaputra_River' WHERE name = 'Brahmaputra River';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Narsingdi_District' WHERE name = 'Narsingdi';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Mithapukur_Upazila' WHERE name = 'Mithapukur';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Kochu_Khet' WHERE name = 'Kochu Khet';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Mithapukur_Lake' WHERE name = 'Mithapukur Lake';
+
+-- Mymensingh Division
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Shashi_Lodge' WHERE name = 'Shashi Lodge';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Birishiri' WHERE name = 'Birishiri';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Muktagacha_Zamindar_Bari' WHERE name = 'Muktagacha Zamindar Bari';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Mymensingh_Museum' WHERE name = 'Mymensingh Museum';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Jamalpur_District' WHERE name = 'Jamalpur';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Kishoreganj_District' WHERE name = 'Kishoreganj';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Tekerhat' WHERE name = 'Tekerhat';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Jainul_Abedin_Park' WHERE name = 'Jainul Abedin Park';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Jainul_Abedin_Udyan' WHERE name = 'Jainul Abedin Udyan';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Circuit_House_Park' WHERE name = 'Circuit House Park';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Bepin_Park' WHERE name = 'Bepin Park';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Madhutila_Eco_Park' WHERE name = 'Madhutila Eco Park';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/China_Matir_Pahar' WHERE name = 'China Matir Pahar';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Trishal_Upazila' WHERE name = 'Trishal';
+UPDATE destinationsDivisions SET wikipedia_link = 'https://en.wikipedia.org/wiki/Dhanu_River' WHERE name = 'Dhanu River';
+
+SET SQL_SAFE_UPDATES = 1;
+
+SET SQL_SAFE_UPDATES = 0;
+
+UPDATE destinationsDivisions
+SET wikipedia_link = 'https://en.wikipedia.org/wiki/Patenga'
+WHERE name = 'Patenga Beach';
+UPDATE destinationsDivisions
+SET wikipedia_link = 'https://en.wikipedia.org/wiki/Cox%27s_Bazar%E2%80%93Teknaf_Marine_Drive'
+WHERE name = 'Marine Drive';
+UPDATE destinationsDivisions
+SET wikipedia_link = 'https://en.wikipedia.org/wiki/Himchari_National_Park'
+WHERE name = 'Himchari';
+UPDATE destinationsDivisions
+SET wikipedia_link = 'https://en.wikipedia.org/wiki/Madhabkunda_waterfall'
+WHERE name = 'Madhabkunda Waterfall';
+UPDATE destinationsDivisions
+SET wikipedia_link = 'https://bn.wikipedia.org/wiki/%E0%A6%AF%E0%A6%BE%E0%A6%A6%E0%A7%81%E0%A6%95%E0%A6%BE%E0%A6%9F%E0%A6%BE_%E0%A6%A8%E0%A6%A6%E0%A7%80'
+WHERE name = 'Jadukata River';
