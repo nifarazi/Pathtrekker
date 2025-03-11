@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -22,7 +23,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.stream.Collectors;
+import javafx.geometry.Pos;
 public class ItineraryResultController {
 
     @FXML
@@ -37,11 +39,9 @@ public class ItineraryResultController {
     private TextField itineraryNameField;
 
     private int itineraryId;
-    private static final float PAGE_TOP = 750; // Starting Y position
-    private static final float PAGE_BOTTOM = 50; // Bottom margin
-    private static final float LINE_SPACING = 15; // Space between lines
-
-
+    private static final float PAGE_TOP = 750;
+    private static final float PAGE_BOTTOM = 50;
+    private static final float LINE_SPACING = 15;
 
     @FXML
     public void initialize() {
@@ -75,92 +75,138 @@ public class ItineraryResultController {
 
         if (destinations != null && !destinations.isEmpty()) {
             for (int day = 1; day <= ItineraryData.getNumDays(); day++) {
+                final int currentDay = day; // For lambda compatibility
                 VBox dayBox = new VBox(10);
                 Label dayLabel = new Label("Day " + day);
-                dayLabel.setFont(new Font(18));
+                dayLabel.setFont(new Font("Roboto", 18));
+                dayLabel.setStyle("-fx-font-weight: bold; -fx-font-family: 'Roboto';");
                 dayBox.getChildren().add(dayLabel);
+
+                List<Destination> dayDestinations = destinations.stream()
+                        .filter(d -> d.getDay() == currentDay)
+                        .collect(Collectors.toList());
 
                 for (int i = 0; i < destinations.size(); i++) {
                     Destination dest = destinations.get(i);
                     if (dest.getDay() == day) {
-                        dayBox.getChildren().add(createLabel(dest.getTimeSlot() + " - Name: " + dest.getName()));
-                        dayBox.getChildren().add(createLabel("Description: " + dest.getDescription()));
-                        dayBox.getChildren().add(createLabel("Top Attractions: " + dest.getTopAttractions()));
-                        dayBox.getChildren().add(createLabel("Local Cuisine: " + dest.getLocalCuisine()));
-                        dayBox.getChildren().add(createLabel("Transport Info: " + dest.getTransportInfo()));
-                        dayBox.getChildren().add(createLabel("Open: " + dest.getOpeningTime() + " - Close: " + dest.getClosingTime()));
+                        VBox detailsBox = new VBox(5);
+                        detailsBox.getChildren().addAll(
+                                createLabel(dest.getTimeSlot() + " - Name: " + dest.getName()),
+                                createLabel("Description: " + dest.getDescription()),
+                                createLabel("Top Attractions: " + dest.getTopAttractions()),
+                                createLabel("Local Cuisine: " + dest.getLocalCuisine()),
+                                createLabel("Transport Info: " + dest.getTransportInfo()),
+                                createLabel("Open: " + dest.getOpeningTime() + " - Close: " + dest.getClosingTime())
+                        );
 
-                        Destination nextDest = (i + 1 < destinations.size()) ? destinations.get(i + 1) : null;
-                        if (nextDest != null && dest.getDay() == nextDest.getDay()) {
-                            double distance = DistanceCalculator.getDistance(dest.getName(), nextDest.getName());
-                            dayBox.getChildren().add(createLabel("Distance to next: " + String.format("%.2f km", distance)));
+                        if ("Morning".equals(dest.getTimeSlot())) {
+                            Destination nextDest = dayDestinations.stream()
+                                    .filter(d -> "Afternoon".equals(d.getTimeSlot()))
+                                    .findFirst().orElse(null);
+                            if (nextDest != null) {
+                                double distance = DistanceCalculator.getDistance(dest.getName(), nextDest.getName());
+                                detailsBox.getChildren().add(createLabel("Distance to Afternoon: " + String.format("%.2f km", distance)));
+                            }
+                        } else if ("Afternoon".equals(dest.getTimeSlot()) && dayDestinations.stream().noneMatch(d -> "Morning".equals(d.getTimeSlot()))) {
+                            double distance = DistanceCalculator.getDistance(ItineraryData.getHotel().getName(), dest.getName());
+                            detailsBox.getChildren().add(createLabel("Distance from Hotel: " + String.format("%.2f km", distance)));
                         }
 
+                        // Buttons layout
                         Button showMapButton = new Button("Show Map");
-                        showMapButton.setFont(new Font(16));
+                        showMapButton.setFont(new Font("Roboto", 16));
                         final int currentIndex = i;
                         showMapButton.setOnAction(e -> showMap(dest, currentIndex, destinations));
-                        dayBox.getChildren().add(showMapButton);
 
                         ComboBox<String> swapComboBox = new ComboBox<>();
-                        swapComboBox.getItems().addAll(fetchAvailableDestinations(ItineraryData.getHotel().getDivision()));
+                        swapComboBox.getItems().addAll(fetchAvailableDestinations(ItineraryData.getHotel().getDivision(), destinations));
                         swapComboBox.setPromptText("Swap with...");
-                        Button swapButton = new Button("Swap Destination");
-                        swapButton.setFont(new Font(16));
+
+                        Button swapButton = new Button("Swap");
+                        swapButton.setFont(new Font("Roboto", 16));
                         swapButton.setStyle("-fx-background-color: #ff9800; -fx-text-fill: white; -fx-font-weight: bold;");
                         swapButton.setOnAction(e -> swapDestination(currentIndex, swapComboBox.getValue()));
-                        dayBox.getChildren().addAll(swapComboBox, swapButton);
+
+                        Button deleteButton = new Button("Delete");
+                        deleteButton.setFont(new Font("Roboto", 16));
+                        deleteButton.setStyle("-fx-background-color: #ff4444; -fx-text-fill: white; -fx-font-weight: bold;");
+                        deleteButton.setOnAction(e -> deleteDestination(currentIndex));
+
+                        // Horizontal layout for top buttons, vertical for delete
+                        HBox topButtonBox = new HBox(10, showMapButton, swapComboBox, swapButton);
+                        dayBox.getChildren().addAll(detailsBox, topButtonBox, deleteButton);
                     }
                 }
 
                 if (nightEvents != null && day - 1 < nightEvents.size()) {
                     Event nightEvent = nightEvents.get(day - 1);
-                    dayBox.getChildren().add(createLabel("Night - Event: " + nightEvent.getName()));
-                    dayBox.getChildren().add(createLabel("Open: " + nightEvent.getOpeningTime() + " - Close: " + nightEvent.getClosingTime()));
-                    dayBox.getChildren().add(createLabel("Location: " + nightEvent.getLocation()));
-                    dayBox.getChildren().add(createLabel("Description: " + nightEvent.getDescription()));
+                    dayBox.getChildren().addAll(
+                            createLabel("Night - Event: " + nightEvent.getName()),
+                            createLabel("Open: " + nightEvent.getOpeningTime() + " - Close: " + nightEvent.getClosingTime()),
+                            createLabel("Location: " + nightEvent.getLocation()),
+                            createLabel("Description: " + nightEvent.getDescription())
+                    );
                 }
 
                 destinationsVBox.getChildren().add(dayBox);
             }
         }
     }
-
     private Label createLabel(String text) {
         Label label = new Label(text);
-        label.setFont(new Font(16));
+        label.setFont(new Font("Roboto", 16));
+        label.setWrapText(true);
+        label.setMaxWidth(500);
         return label;
+    }
+
+    private void deleteDestination(int index) {
+        List<Destination> destinations = ItineraryData.getDestinations();
+        Destination toDelete = destinations.get(index);
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(
+                     "DELETE FROM itinerary_destinations WHERE itinerary_id = ? AND day = ? AND time_slot = ?")) {
+            pstmt.setInt(1, itineraryId);
+            pstmt.setInt(2, toDelete.getDay());
+            pstmt.setString(3, toDelete.getTimeSlot());
+            pstmt.executeUpdate();
+
+            destinations.remove(index);
+            ItineraryData.setDestinations(destinations);
+            refreshDestinations();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Error deleting destination.");
+            alert.showAndWait();
+        }
     }
 
     private void showMap(Destination dest, int index, List<Destination> destinations) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pathtrekker/Map.fxml"));
             Parent root = loader.load();
-//            MapController mapController = loader.getController();
             String loc1, loc2;
 
-            boolean isFirstDestinationOfTheDay = (index == 0) || (destinations.get(index - 1).getDay() != dest.getDay());
+            boolean isFirstDestinationOfTheDay = "Morning".equals(dest.getTimeSlot()) &&
+                    destinations.stream().noneMatch(d -> d.getDay() == dest.getDay() && "Morning".equals(d.getTimeSlot()) && d != dest);
             if (isFirstDestinationOfTheDay) {
                 loc1 = ItineraryData.getHotel().getName();
                 loc2 = dest.getName();
-            } else {
+            } else if ("Afternoon".equals(dest.getTimeSlot())) {
                 Destination morningDest = destinations.stream()
-                        .filter(d -> d.getDay() == dest.getDay() && d.getTimeSlot().equals("Morning"))
+                        .filter(d -> d.getDay() == dest.getDay() && "Morning".equals(d.getTimeSlot()))
                         .findFirst()
                         .orElse(null);
                 loc1 = (morningDest != null) ? morningDest.getName() : ItineraryData.getHotel().getName();
                 loc2 = dest.getName();
+            } else {
+                return; // Shouldn't happen with current logic
             }
 
             MapController.setLocations(loc1, loc2);
-
-//            Stage mapStage = new Stage();
-//            mapStage.setTitle("Map View");
-//            mapStage.setScene(new Scene(root, 1080, 756));
-//            mapStage.show();
             Stage stage = (Stage) destinationsVBox.getScene().getWindow();
-            stage.setScene(new Scene(root,1080,756));
-
+            stage.setScene(new Scene(root, 1080, 756));
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Error loading Map.fxml: " + e.getMessage());
@@ -204,19 +250,26 @@ public class ItineraryResultController {
         }
     }
 
-    private List<String> fetchAvailableDestinations(String division) {
-        List<String> destinations = new ArrayList<>();
+    private List<String> fetchAvailableDestinations(String division, List<Destination> currentDestinations) {
+        List<String> allDestinations = new ArrayList<>();
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement("SELECT name FROM destinationsDivisions WHERE division = ?")) {
             pstmt.setString(1, division);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                destinations.add(rs.getString("name"));
+                allDestinations.add(rs.getString("name"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return destinations;
+
+        // Exclude destinations already in the itinerary
+        List<String> currentNames = currentDestinations.stream()
+                .map(Destination::getName)
+                .collect(Collectors.toList());
+        return allDestinations.stream()
+                .filter(name -> !currentNames.contains(name))
+                .collect(Collectors.toList());
     }
 
     private void swapDestination(int index, String newDestName) {
@@ -274,7 +327,6 @@ public class ItineraryResultController {
             return;
         }
 
-        // Sanitize file name to avoid illegal characters
         itineraryName = itineraryName.replaceAll("[<>:\"/\\\\|?*]", "_");
 
         try (PDDocument document = new PDDocument()) {
@@ -291,9 +343,8 @@ public class ItineraryResultController {
             yPosition -= LINE_SPACING;
             contentStream.newLineAtOffset(0, -LINE_SPACING);
 
-            // Hotel Info
             AddTextResult result = addText(document, contentStream, "Hotel Information:", yPosition, page);
-            contentStream = result.contentStream; // Update contentStream
+            contentStream = result.contentStream;
             yPosition = result.yPosition;
             Hotel hotel = ItineraryData.getHotel();
             if (hotel != null) {
@@ -319,10 +370,9 @@ public class ItineraryResultController {
 
                 result = addText(document, contentStream, "Phone: " + hotel.getPhoneNumber(), yPosition, page);
                 contentStream = result.contentStream;
-                yPosition = result.yPosition - LINE_SPACING; // Extra spacing
+                yPosition = result.yPosition - LINE_SPACING;
             }
 
-            // Destinations
             result = addText(document, contentStream, "Destinations:", yPosition, page);
             contentStream = result.contentStream;
             yPosition = result.yPosition;
@@ -354,10 +404,9 @@ public class ItineraryResultController {
 
                 result = addText(document, contentStream, "Open: " + dest.getOpeningTime() + " - Close: " + dest.getClosingTime(), yPosition, page);
                 contentStream = result.contentStream;
-                yPosition = result.yPosition - LINE_SPACING; // Extra spacing
+                yPosition = result.yPosition - LINE_SPACING;
             }
 
-            // Night Events
             result = addText(document, contentStream, "Night Events:", yPosition, page);
             contentStream = result.contentStream;
             yPosition = result.yPosition;
@@ -382,34 +431,29 @@ public class ItineraryResultController {
 
                 result = addText(document, contentStream, "Description: " + event.getDescription(), yPosition, page);
                 contentStream = result.contentStream;
-                yPosition = result.yPosition - LINE_SPACING; // Extra spacing
+                yPosition = result.yPosition - LINE_SPACING;
             }
 
-            // Comment
             String comment = commentDisplayLabel.getText();
             if (!comment.isEmpty()) {
                 result = addText(document, contentStream, "Comment: " + comment, yPosition, page);
                 contentStream = result.contentStream;
-                yPosition = result.yPosition;
             }
 
             contentStream.endText();
             contentStream.close();
 
-            // Save PDF locally
             String filePath = System.getProperty("user.home") + "/Downloads/" + itineraryName + ".pdf";
             File pdfFile = new File(filePath);
             if (!pdfFile.getParentFile().exists()) {
-                pdfFile.getParentFile().mkdirs(); // Create Downloads folder if it doesn’t exist
+                pdfFile.getParentFile().mkdirs();
             }
             document.save(pdfFile);
 
-            // Convert to byte array for database storage
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             document.save(baos);
             byte[] pdfBytes = baos.toByteArray();
 
-            // Save to database
             savePdfToDatabase(itineraryName, pdfBytes);
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -429,7 +473,6 @@ public class ItineraryResultController {
         }
     }
 
-    // Helper class to return both contentStream and yPosition
     private static class AddTextResult {
         PDPageContentStream contentStream;
         float yPosition;
@@ -464,7 +507,7 @@ public class ItineraryResultController {
             pstmt.setString(1, itineraryName);
             String username = ProfileUserJDBC.getCurrentUsername();
             if (username == null || username.isEmpty()) {
-                username = "guest"; // Fallback if no user is logged in
+                username = "guest";
             }
             pstmt.setString(2, username);
             pstmt.setInt(3, itineraryId);
@@ -472,7 +515,7 @@ public class ItineraryResultController {
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("Failed to save PDF to database: " + e.getMessage(), e);
+            throw new RuntimeException("Failed to save PDF to database: " + e.getMessage());
         }
     }
 

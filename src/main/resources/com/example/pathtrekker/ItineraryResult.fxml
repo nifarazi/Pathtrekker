@@ -5,7 +5,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.Tooltip?> <!-- Added this import -->
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.StackPane?>
@@ -60,7 +60,7 @@
                     </GridPane>
 
                     <!-- Destinations and Events Display -->
-                    <VBox fx:id="destinationsVBox" spacing="30" alignment="CENTER" prefWidth="1080"/>
+                    <VBox fx:id="destinationsVBox" spacing="10" alignment="CENTER" prefWidth="1080" style="-fx-padding: 10;"/>
 
                     <!-- Comment and Save PDF Section -->
                     <VBox spacing="10" prefWidth="1080" alignment="CENTER">
